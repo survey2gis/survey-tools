@@ -1,0 +1,4121 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-26 08:18-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: parser.c:2084
+#, c-format
+msgid "\t\t\t\t\"%s\"=\"%s\"\n"
+msgstr ""
+
+#: parser.c:1874
+#, c-format
+msgid "\t\t\t\"%s\"=\"%s\"\n"
+msgstr ""
+
+#: main.c:476
+#, c-format
+msgid "\t\tAssigned to %i lines/parts: %i"
+msgstr ""
+
+#: main.c:475
+#, c-format
+msgid "\t\tAssigned to %i points: %i"
+msgstr ""
+
+#: main.c:477
+#, c-format
+msgid "\t\tAssigned to %i polygons/parts: %i"
+msgstr ""
+
+#: parser.c:2045
+msgid "\t\tCASE CHANGE:\t"
+msgstr ""
+
+#: parser.c:2031
+msgid "\t\tEMPTY ALLOWED:\tNo.\n"
+msgstr ""
+
+#: parser.c:2029
+msgid "\t\tEMPTY ALLOWED:\tYes.\n"
+msgstr ""
+
+#: parser.c:2015
+#, c-format
+msgid "\t\tINFO:\t\t%s\n"
+msgstr ""
+
+#: parser.c:2017
+msgid "\t\tINFO:\t\tNone.\n"
+msgstr ""
+
+#: parser.c:2072
+msgid "\t\tMERGE SEPS:\tNo.\n"
+msgstr ""
+
+#: parser.c:2070
+msgid "\t\tMERGE SEPS:\tYes.\n"
+msgstr ""
+
+#: main.c:478
+#, c-format
+msgid "\t\tNot assigned to any geometry: %i"
+msgstr ""
+
+#: parser.c:2039
+msgid "\t\tPERSISTENT:\tNo.\n"
+msgstr ""
+
+#: parser.c:2037
+msgid "\t\tPERSISTENT:\tYes.\n"
+msgstr ""
+
+#: parser.c:2074
+#, c-format
+msgid "\t\tQUOTATION:\t\"%c\"\n"
+msgstr ""
+
+#: parser.c:2076
+msgid "\t\tQUOTATION:\tNone.\n"
+msgstr ""
+
+#: parser.c:2079
+msgid "\t\tREPLACEMENTS:"
+msgstr ""
+
+#: parser.c:2056
+msgid "\t\tSEPARATORS:\t"
+msgstr ""
+
+#: parser.c:2043
+msgid "\t\tSKIP:\t\tNo.\n"
+msgstr ""
+
+#: parser.c:2041
+msgid "\t\tSKIP:\t\tYes.\n"
+msgstr ""
+
+#: parser.c:2021
+#, c-format
+msgid "\t\tTYPE:\t\t%i (\"%s\")\n"
+msgstr ""
+
+#: parser.c:2019
+msgid "\t\tTYPE:\t\tUnknown.\n"
+msgstr ""
+
+#: parser.c:2035
+msgid "\t\tUNIQUE:\t\tNo.\n"
+msgstr ""
+
+#: parser.c:2033
+msgid "\t\tUNIQUE:\t\tYes.\n"
+msgstr ""
+
+#: parser.c:2025
+#, c-format
+msgid "\t\tVALUE:\t\t\"%s\"\n"
+msgstr ""
+
+#: main.c:167 main.c:974 main.c:983 main.c:992 main.c:1001 main.c:1009
+#: main.c:1016 main.c:1022
+#, c-format
+msgid "\t%s"
+msgstr ""
+
+#: parser.c:1835
+#, c-format
+msgid "\tCASE CHANGE:\t"
+msgstr ""
+
+#: main.c:135
+#, c-format
+msgid "\tDatum transformation grid: '%s'"
+msgstr ""
+
+#: main.c:145
+msgid "\tDatum transformation parameters:"
+msgstr ""
+
+#: parser.c:1821
+#, c-format
+msgid "\tEMPTY ALLOWED:\tNo.\n"
+msgstr ""
+
+#: parser.c:1819
+#, c-format
+msgid "\tEMPTY ALLOWED:\tYes.\n"
+msgstr ""
+
+#: parser.c:2013
+#, c-format
+msgid "\tFIELD NO. %i:\t%s\n"
+msgstr ""
+
+#: parser.c:1805
+#, c-format
+msgid "\tINFO:\t\t%s\n"
+msgstr ""
+
+#: parser.c:1807
+#, c-format
+msgid "\tINFO:\t\tNone.\n"
+msgstr ""
+
+#: main.c:133
+#, c-format
+msgid "\tInput SRS: '%s'"
+msgstr ""
+
+#: main.c:917
+#, c-format
+msgid "\tLines: %i."
+msgstr ""
+
+#: parser.c:1862
+#, c-format
+msgid "\tMERGE SEPS:\tNo.\n"
+msgstr ""
+
+#: parser.c:1860
+#, c-format
+msgid "\tMERGE SEPS:\tYes.\n"
+msgstr ""
+
+#: selections.c:1137
+#, c-format
+msgid "\tMatched %i line(s)."
+msgstr ""
+
+#: selections.c:1113
+#, c-format
+msgid "\tMatched %i point(s)."
+msgstr ""
+
+#: selections.c:1148
+#, c-format
+msgid "\tMatched %i polygon(s)."
+msgstr ""
+
+#: selections.c:1125
+#, c-format
+msgid "\tMatched %i raw point(s)."
+msgstr ""
+
+#: parser.c:1888 parser.c:2098
+#, c-format
+msgid "\tNone found.\n"
+msgstr ""
+
+#: parser.c:1880
+#, c-format
+msgid "\tNone."
+msgstr ""
+
+#: parser.c:2090
+msgid "\tNone.\n"
+msgstr ""
+
+#: main.c:473
+#, c-format
+msgid "\tNumber of invalid records: %i"
+msgstr ""
+
+#: main.c:474
+#, c-format
+msgid "\tNumber of valid records: %i"
+msgstr ""
+
+#: main.c:160
+#, c-format
+msgid "\tOutput SRS: '%s'"
+msgstr ""
+
+#: parser.c:1829
+#, c-format
+msgid "\tPERSISTENT:\tNo.\n"
+msgstr ""
+
+#: parser.c:1827
+#, c-format
+msgid "\tPERSISTENT:\tYes.\n"
+msgstr ""
+
+#: main.c:123
+#, c-format
+msgid "\tPlacement (lines): %s"
+msgstr ""
+
+#: main.c:122
+#, c-format
+msgid "\tPlacement (points): %s"
+msgstr ""
+
+#: main.c:124
+#, c-format
+msgid "\tPlacement (polygons): %s"
+msgstr ""
+
+#: main.c:913
+#, c-format
+msgid "\tPoints: %i."
+msgstr ""
+
+#: main.c:918
+#, c-format
+msgid "\tPolygons: %i."
+msgstr ""
+
+#: parser.c:1864
+#, c-format
+msgid "\tQUOTATION:\t\"%c\"\n"
+msgstr ""
+
+#: parser.c:1866
+#, c-format
+msgid "\tQUOTATION:\tNone.\n"
+msgstr ""
+
+#: parser.c:1869
+#, c-format
+msgid "\tREPLACEMENTS:"
+msgstr ""
+
+#: main.c:915
+#, c-format
+msgid "\tRaw points: %i."
+msgstr ""
+
+#: parser.c:1846
+#, c-format
+msgid "\tSEPARATORS:\t"
+msgstr ""
+
+#: parser.c:1833
+#, c-format
+msgid "\tSKIP:\t\tNo.\n"
+msgstr ""
+
+#: parser.c:1831
+#, c-format
+msgid "\tSKIP:\t\tYes.\n"
+msgstr ""
+
+#: main.c:152
+#, c-format
+msgid "\tScaling from WGS 84: %f"
+msgstr ""
+
+#: parser.c:1811
+#, c-format
+msgid "\tTYPE:\t\t%i (\"%s\")\n"
+msgstr ""
+
+#: parser.c:1809
+#, c-format
+msgid "\tTYPE:\t\tUnknown.\n"
+msgstr ""
+
+#: main.c:121
+#, c-format
+msgid "\tText field: %s"
+msgstr ""
+
+#: main.c:472
+#, c-format
+msgid "\tTotal records/lines read: %i"
+msgstr ""
+
+#: main.c:479
+#, c-format
+msgid "\tTotal topological error count: %i"
+msgstr ""
+
+#: parser.c:1825
+#, c-format
+msgid "\tUNIQUE:\t\tNo.\n"
+msgstr ""
+
+#: parser.c:1823
+#, c-format
+msgid "\tUNIQUE:\t\tYes.\n"
+msgstr ""
+
+#: parser.c:1815
+#, c-format
+msgid "\tVALUE:\t\t\"%s\"\n"
+msgstr ""
+
+#: main.c:925
+#, c-format
+msgid "\tX range: from %f to %f."
+msgstr ""
+
+#: main.c:149
+#, c-format
+msgid "\tX rotation from WGS 84: %f"
+msgstr ""
+
+#: main.c:146
+#, c-format
+msgid "\tX shift from WGS 84: %f"
+msgstr ""
+
+#: main.c:926
+#, c-format
+msgid "\tY range: from %f to %f."
+msgstr ""
+
+#: main.c:150
+#, c-format
+msgid "\tY rotation from WGS 84: %f"
+msgstr ""
+
+#: main.c:147
+#, c-format
+msgid "\tY shift from WGS 84: %f"
+msgstr ""
+
+#: main.c:928
+#, c-format
+msgid "\tZ range: from %f to %f."
+msgstr ""
+
+#: main.c:151
+#, c-format
+msgid "\tZ rotation from WGS 84: %f"
+msgstr ""
+
+#: main.c:148
+#, c-format
+msgid "\tZ shift from WGS 84: %f"
+msgstr ""
+
+#: parser.c:1768 parser.c:1871 parser.c:1978 parser.c:2081
+#, c-format
+msgid "\n"
+msgstr ""
+
+#: parser.c:1803
+#, c-format
+msgid ""
+"\n"
+"\tFIELD NO. %i:\t%s\n"
+msgstr ""
+
+#: parser.c:739
+#, c-format
+msgid ""
+"\n"
+"\n"
+"Merging geometry #'%s' (read from '%s', line %i+) with\n"
+"geometry #'%s' (read from '%s', line %i+),\n"
+"as part %i"
+msgstr ""
+
+#: main.c:104
+#, c-format
+msgid ""
+"\n"
+"* Initialized %s; %s"
+msgstr ""
+
+#: parser.c:1737 parser.c:1947
+#, c-format
+msgid ""
+"\n"
+"* PARSER AND FIELD DEFINITIONS *\n"
+"\n"
+msgstr ""
+
+#: main.c:218
+msgid ""
+"\n"
+"* Processing messages follow below.\n"
+msgstr ""
+
+#: main.c:115
+msgid ""
+"\n"
+"* Settings:"
+msgstr ""
+
+#: geom.c:58
+#, c-format
+msgid ""
+"\n"
+"Aborted after record read from line %i of console input stream:\n"
+"Input too large (integer overflow)."
+msgstr ""
+
+#: geom.c:579
+#, c-format
+msgid ""
+"\n"
+"Aborted after record read from line %i of console input stream:\n"
+"Invalid line. Skipping."
+msgstr ""
+
+#: geom.c:53
+#, c-format
+msgid ""
+"\n"
+"Aborted after record read from line %i of input file '%s':\n"
+"Input too large (integer overflow)."
+msgstr ""
+
+#: geom.c:574
+#, c-format
+msgid ""
+"\n"
+"Aborted after record read from line %i of input file '%s':\n"
+"Invalid line. Skipping."
+msgstr ""
+
+#: main.c:949
+#, c-format
+msgid ""
+"\n"
+"Added vertices at line/line intersections: %i"
+msgstr ""
+
+#: main.c:953
+#, c-format
+msgid ""
+"\n"
+"Added vertices at line/polygon intersections: %i"
+msgstr ""
+
+#: main.c:957
+#, c-format
+msgid ""
+"\n"
+"Added vertices at polygon/polygon intersections: %i"
+msgstr ""
+
+#: main.c:963
+#, c-format
+msgid ""
+"\n"
+"Additional topological errors in built geometries: %i"
+msgstr ""
+
+#: selections.c:1075
+#, c-format
+msgid ""
+"\n"
+"Applying selection: '%s'"
+msgstr ""
+
+#: main.c:941
+#, c-format
+msgid ""
+"\n"
+"Attribute write errors: %i"
+msgstr ""
+
+#: export.c:1239
+msgid ""
+"\n"
+"Both fields 'id' and '_id' exist in input data. Cannot create GeoJSON "
+"primary key."
+msgstr ""
+
+#: geom.c:4567
+#, c-format
+msgid ""
+"\n"
+"Boundary intersection detected in polygons (IDs %i & %i), part nos %i & %i."
+msgstr ""
+
+#: main.c:828
+#, c-format
+msgid ""
+"\n"
+"Cannot combine mode '%s' with reprojection. Aborting."
+msgstr ""
+
+#: main.c:682
+msgid ""
+"\n"
+"Cannot create local X-Z output for 2D input without Z field."
+msgstr ""
+
+#: main.c:688
+msgid ""
+"\n"
+"Cannot create local X-Z output for more than one data source."
+msgstr ""
+
+#: main.c:695
+msgid ""
+"\n"
+"Cannot create local X-Z output: Z extent of data is '0.0'."
+msgstr ""
+
+#: reproj.c:422
+#, c-format
+msgid ""
+"\n"
+"Converted EPSG ID %i in SRS definition to PROJ.4 SRS string.\n"
+"Conversion may incur loss of information. Please verify result."
+msgstr ""
+
+#: main.c:961
+#, c-format
+msgid ""
+"\n"
+"Corrected vertex order of polygon boundaries and holes: %i"
+msgstr ""
+
+#: geom.c:3596
+#, c-format
+msgid ""
+"\n"
+"Could not store line geometry from '%s', line %i.\n"
+"Reason: %s"
+msgstr ""
+
+#: geom.c:3505
+#, c-format
+msgid ""
+"\n"
+"Could not store line vertex from '%s', line %i.\n"
+"Reason: %s"
+msgstr ""
+
+#: geom.c:3485
+#, c-format
+msgid ""
+"\n"
+"Could not store point from '%s', line %i.\n"
+"Reason: %s"
+msgstr ""
+
+#: geom.c:3549
+#, c-format
+msgid ""
+"\n"
+"Could not store point geometry from '%s', line %i.\n"
+"Reason: %s"
+msgstr ""
+
+#: geom.c:3648
+#, c-format
+msgid ""
+"\n"
+"Could not store polygon geometry from '%s', line %i.\n"
+"Reason: %s"
+msgstr ""
+
+#: geom.c:3528
+#, c-format
+msgid ""
+"\n"
+"Could not store polygon vertex from '%s', line %i.\n"
+"Reason: %s"
+msgstr ""
+
+#: reproj.c:555
+msgid ""
+"\n"
+"Datum transformation not possible for SRS of type Web Mercator."
+msgstr ""
+
+#: main.c:947
+#, c-format
+msgid ""
+"\n"
+"Detected line/line intersections: %i"
+msgstr ""
+
+#: main.c:951
+#, c-format
+msgid ""
+"\n"
+"Detected line/polygon intersections: %i"
+msgstr ""
+
+#: main.c:943
+#, c-format
+msgid ""
+"\n"
+"Detected polygon overlays: %i"
+msgstr ""
+
+#: main.c:955
+#, c-format
+msgid ""
+"\n"
+"Detected polygon/polygon intersections: %i"
+msgstr ""
+
+#: reproj.c:1112
+msgid ""
+"\n"
+"Empty or missing geometry store. Reprojection skipped."
+msgstr ""
+
+#: export.c:2766
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF output file for label data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2723
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF output file for line data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2681
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF output file for point data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2744
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF output file for polygon data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2702
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF output file for raw vertex data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2772
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF schema for label data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2729
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF schema for line data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2687
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF schema for point data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2750
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF schema for polygon data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:2708
+#, c-format
+msgid ""
+"\n"
+"Error creating DBF schema for raw vertex data\n"
+"(%s)."
+msgstr ""
+
+#: export.c:3821
+#, c-format
+msgid ""
+"\n"
+"Error creating DXF output file\n"
+"(%s)."
+msgstr ""
+
+#: export.c:3812
+#, c-format
+msgid ""
+"\n"
+"Error creating TXT output file for attribute data\n"
+"(%s)."
+msgstr ""
+
+#: parser.c:1799 parser.c:2009
+#, c-format
+msgid ""
+"\n"
+"FIELD DEFINITIONS:\n"
+msgstr ""
+
+#: reproj.c:772
+msgid ""
+"\n"
+"Failed parsing of input SRS definition."
+msgstr ""
+
+#: reproj.c:782
+msgid ""
+"\n"
+"Failed parsing of output SRS definition."
+msgstr ""
+
+#: export.c:3057
+#, c-format
+msgid ""
+"\n"
+"Failed to create annotation settings file ('%s')."
+msgstr ""
+
+#: main.c:651
+#, c-format
+msgid ""
+"\n"
+"Failed to create data storage object for data source #%i."
+msgstr ""
+
+#: reproj.c:64
+msgid ""
+"\n"
+"Failed to initialize PROJ.4 reprojection engine."
+msgstr ""
+
+#: export.c:2981 export.c:4171
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at center of line #%i (part #%i)."
+msgstr ""
+
+#: export.c:3022 export.c:4200
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at center of polygon #%i (part #%i)."
+msgstr ""
+
+#: export.c:2985 export.c:4175
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at first vertex of line #%i (part #%i)."
+msgstr ""
+
+#: export.c:3026 export.c:4204
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at first vertex of polygon #%i (part #%i)."
+msgstr ""
+
+#: export.c:2989 export.c:4179
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at last vertex of line #%i (part #%i)."
+msgstr ""
+
+#: export.c:3030 export.c:4208
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at last vertex of polygon #%i (part #%i)."
+msgstr ""
+
+#: export.c:2951 export.c:4154
+#, c-format
+msgid ""
+"\n"
+"Failed to place label at point #%i."
+msgstr ""
+
+#: main.c:838
+msgid ""
+"\n"
+"Failed to reproject data. Aborting."
+msgstr ""
+
+#: reproj.c:95
+msgid ""
+"\n"
+"Failed to set PROJ.4 data path. EPSG conversions might not be available."
+msgstr ""
+
+#: main.c:1276
+msgid ""
+"\n"
+"Fill in options on the left, then click \"Run\".\n"
+msgstr ""
+
+#: reproj.c:789
+#, c-format
+msgid ""
+"\n"
+"Final PROJ.4 input SRS: '%s'"
+msgstr ""
+
+#: reproj.c:792
+#, c-format
+msgid ""
+"\n"
+"Final PROJ.4 output SRS: '%s'"
+msgstr ""
+
+#: geom.c:5106 geom.c:5263
+#, c-format
+msgid ""
+"\n"
+"Forced vertices of inner ring (hole) into clockwise order\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: geom.c:5157
+#, c-format
+msgid ""
+"\n"
+"Forced vertices of inner ring (hole) into counter clockwise order\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: geom.c:5210
+#, c-format
+msgid ""
+"\n"
+"Forced vertices of inner ring (hole) into counter-clockwise order\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: geom.c:5109 geom.c:5213
+#, c-format
+msgid ""
+"\n"
+"Forced vertices of outer ring (boundary) into clockwise order\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: geom.c:5160
+#, c-format
+msgid ""
+"\n"
+"Forced vertices of outer ring (boundary) into counter clockwise order\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: geom.c:5266
+#, c-format
+msgid ""
+"\n"
+"Forced vertices of outer ring (boundary) into counter-clockwise order\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: options.c:121
+#, c-format
+msgid ""
+"\n"
+"Geometries and attributes will be read from one or more input files.\n"
+msgstr ""
+
+#: main.c:935
+#, c-format
+msgid ""
+"\n"
+"Geometry build errors: %i"
+msgstr ""
+
+#: export.c:148 export.c:465 export.c:922 export.c:1711 export.c:3175
+msgid ""
+"\n"
+"Geometry type unknown.\n"
+"No attribute data written."
+msgstr ""
+
+#: reproj.c:559
+msgid ""
+"\n"
+"Grid file application not possible for SRS of type Web Mercator."
+msgstr ""
+
+#: main.c:768
+msgid ""
+"\n"
+"High-level topological cleaning of lat/lon data not implemented."
+msgstr ""
+
+#: reproj.c:476
+#, c-format
+msgid ""
+"\n"
+"Input SRS (expanded): '%s'"
+msgstr ""
+
+#: reproj.c:850
+#, c-format
+msgid ""
+"\n"
+"Input SRS is '%s'. Unable to reproject."
+msgstr ""
+
+#: reproj.c:839 reproj.c:866
+msgid ""
+"\n"
+"Input and output SRS identical. No reprojection will be performed."
+msgstr ""
+
+#: main.c:938
+msgid ""
+"\n"
+"Input contained duplicate attribute values that should be unique."
+msgstr ""
+
+#: reproj.c:856
+#, c-format
+msgid ""
+"\n"
+"Input or output SRS is '%s'. No reprojection will be performed."
+msgstr ""
+
+#: reproj.c:58
+msgid ""
+"\n"
+"Internal reprojection database is inconsistent. Failed to initialize."
+msgstr ""
+
+#: reproj.c:415 reproj.c:452
+msgid ""
+"\n"
+"Invalid EPSG code in input SRS definition."
+msgstr ""
+
+#: reproj.c:411 reproj.c:448
+msgid ""
+"\n"
+"Invalid EPSG code in output SRS definition."
+msgstr ""
+
+#: reproj.c:468
+#, c-format
+msgid ""
+"\n"
+"Invalid input SRS definition.\n"
+"PROJ.4 message: %s"
+msgstr ""
+
+#: reproj.c:483
+#, c-format
+msgid ""
+"\n"
+"Invalid output SRS definition.\n"
+"PROJ.4 message: %s"
+msgstr ""
+
+#: parser.c:481
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Field '%s' must not be empty.\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:432
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Found %i instead of either %i or %i fields.\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:423
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Found only %i out of %i expected fields.\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:497
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Invalid X coordinate ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:520
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Invalid Y coordinate ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:545
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Invalid Z coordinate ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:600 parser.c:619
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Overflow in numeric value for field '%s'.\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:456 parser.c:465
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"This is neither a valid reduced nor full record.\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:592
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Value of field '%s' is not a number ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:611
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Value of field '%s' is not an integer ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:580
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Value of field is 'null'.\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:504
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"X coordinate overflow ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:527
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Y coordinate overflow ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: parser.c:552
+#, c-format
+msgid ""
+"\n"
+"Invalid record on line %i, read from \"%s\":\n"
+"Z coordinate overflow ('%s').\n"
+"Record skipped."
+msgstr ""
+
+#: main.c:634
+#, c-format
+msgid ""
+"\n"
+"Label field \"%s\" not found in parser definition."
+msgstr ""
+
+#: export.c:3048
+#, c-format
+msgid ""
+"\n"
+"Label mode for all geometries set to '%s'.\n"
+"Label layer will be empty."
+msgstr ""
+
+#: geom.c:4019
+#, c-format
+msgid ""
+"\n"
+"Line or polygon read from '%s' (up to line %i) failed topology check:\n"
+"Not enough vertices. Geometry deleted."
+msgstr ""
+
+#: geom.c:3915
+#, c-format
+msgid ""
+"\n"
+"Line vertex read from '%s' (line %i) failed topology check:\n"
+"Coordinates are identical with line %i (tolerance=%f).\n"
+"Vertex deleted."
+msgstr ""
+
+#: geom.c:3921
+#, c-format
+msgid ""
+"\n"
+"Line vertex read from '%s' (line %i) failed topology check:\n"
+"Coordinates too close to line %i (tolerance=%f).\n"
+"Vertex deleted."
+msgstr ""
+
+#: geom.c:5436
+msgid ""
+"\n"
+"Local profile orientation determined to be 'eastward'."
+msgstr ""
+
+#: geom.c:5442
+msgid ""
+"\n"
+"Local profile orientation determined to be 'westward'."
+msgstr ""
+
+#: main.c:1028
+msgid ""
+"\n"
+"No output files produced."
+msgstr ""
+
+#: geom.c:3463
+#, c-format
+msgid ""
+"\n"
+"No valid geometries found in '%s'. No associated output produced."
+msgstr ""
+
+#: export.c:1218 export.c:1919 export.c:2665 export.c:3800
+msgid ""
+"\n"
+"No valid geometries found. No output produced."
+msgstr ""
+
+#: main.c:745
+msgid ""
+"\n"
+"No valid input data found. Aborting."
+msgstr ""
+
+#: main.c:757
+msgid ""
+"\n"
+"No valid input data left after selecting. Aborting."
+msgstr ""
+
+#: reproj.c:834
+msgid ""
+"\n"
+"Only output SRS defined. No reprojection possible."
+msgstr ""
+
+#: main.c:674
+#, c-format
+msgid ""
+"\n"
+"Orientation mode '%s' not supported for lat/lon input data."
+msgstr ""
+
+#: main.c:967
+msgid ""
+"\n"
+"Output files produced:"
+msgstr ""
+
+#: main.c:852 main.c:855 main.c:858 main.c:879
+#, c-format
+msgid ""
+"\n"
+"Output format: %s"
+msgstr ""
+
+#: geom.c:4849
+#, c-format
+msgid ""
+"\n"
+"Overshoot correction would delete entire line (ID %i, part no. %i). Please "
+"fix manually."
+msgstr ""
+
+#: reproj.c:85
+#, c-format
+msgid ""
+"\n"
+"PROJ.4 EPSG database file not found/readable. EPSG conversions might not be "
+"available.\n"
+"PROJ.4 EPSG path was: '%s'."
+msgstr ""
+
+#: main.c:464
+#, c-format
+msgid ""
+"\n"
+"Parsing of %i input data source(s) completed. Validation statistics below."
+msgstr ""
+
+#: main.c:932
+#, c-format
+msgid ""
+"\n"
+"Parts added to multi-part geometries: %i"
+msgstr ""
+
+#: geom.c:3879
+#, c-format
+msgid ""
+"\n"
+"Point read from '%s' (line %i) failed topology check:\n"
+"Coordinates are identical with line %i (tolerance=%f).\n"
+"Point deleted."
+msgstr ""
+
+#: geom.c:3884
+#, c-format
+msgid ""
+"\n"
+"Point read from '%s' (line %i) failed topology check:\n"
+"Coordinates too close to line %i (tolerance=%f).\n"
+"Point deleted."
+msgstr ""
+
+#: geom.c:3953
+#, c-format
+msgid ""
+"\n"
+"Polygon vertex read from '%s' (line %i) failed topology check:\n"
+"Coordinates are identical with line %i (tolerance=%f).\n"
+"Vertex deleted."
+msgstr ""
+
+#: geom.c:3959
+#, c-format
+msgid ""
+"\n"
+"Polygon vertex read from '%s' (line %i) failed topology check:\n"
+"Coordinates too close to line %i (tolerance=%f).\n"
+"Vertex deleted."
+msgstr ""
+
+#: options.c:61
+#, c-format
+msgid ""
+"\n"
+"Possible OPTIONs are:\n"
+msgstr ""
+
+#: options.c:110
+#, c-format
+msgid ""
+"\n"
+"REPROJECTION options (PROJ.4):\n"
+msgstr ""
+
+#: reproj.c:1029
+msgid ""
+"\n"
+"Recomputing data extents after reprojection."
+msgstr ""
+
+#: export.c:255 export.c:1097 export.c:1803 export.c:3269
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i\n"
+"Value for attribute '%s' is not a valid integer number\n"
+"NULL data written instead."
+msgstr ""
+
+#: export.c:296 export.c:401
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Unable to write attribute '%s'."
+msgstr ""
+
+#: export.c:559 export.c:571 export.c:578 export.c:585 export.c:592
+#: export.c:599 export.c:613
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Unable to write label attribute '%s'."
+msgstr ""
+
+#: export.c:204 export.c:521
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Unable to write primary key '%i' into '%s'."
+msgstr ""
+
+#: export.c:372
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Value for attribute '%s' does not fit into a numeric field.\n"
+"NULL data written instead."
+msgstr ""
+
+#: export.c:222 export.c:535
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Value for attribute '%s' does not fit into a text field.\n"
+"NULL data written instead."
+msgstr ""
+
+#: export.c:269
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Value for attribute '%s' does not fit into an integer field.\n"
+"NULL data written instead."
+msgstr ""
+
+#: export.c:358 export.c:1136 export.c:1842 export.c:3308
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Value for attribute '%s' is not a valid number\n"
+"NULL data written instead."
+msgstr ""
+
+#: export.c:262 export.c:365 export.c:1104 export.c:1143 export.c:1810
+#: export.c:1849 export.c:3276 export.c:3315
+#, c-format
+msgid ""
+"\n"
+"Record read from '%s', line %i:\n"
+"Value for attribute '%s' is too large (overflow).\n"
+"NULL data written instead."
+msgstr ""
+
+#: geom.c:173 geom.c:408
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"Line with less than two vertices found. Skipping."
+msgstr ""
+
+#: geom.c:338
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"No geometry tag found for geometry with %i vertices. Skipping."
+msgstr ""
+
+#: geom.c:282 geom.c:360
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"No geometry tag found. Skipping."
+msgstr ""
+
+#: geom.c:240 geom.c:445
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"Polygon with less than three vertices found. Skipping."
+msgstr ""
+
+#: geom.c:603
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"Skipping incomplete record."
+msgstr ""
+
+#: geom.c:845
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"Skipping record with missing key field value."
+msgstr ""
+
+#: geom.c:803
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of console input stream:\n"
+"Skipping untagged record."
+msgstr ""
+
+#: geom.c:167 geom.c:402
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"Line with less than two vertices found. Skipping."
+msgstr ""
+
+#: geom.c:331
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"No geometry tag found for geometry with %i vertices. Skipping."
+msgstr ""
+
+#: geom.c:276 geom.c:354
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"No geometry tag found. Skipping."
+msgstr ""
+
+#: geom.c:234 geom.c:439
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"Polygon with less than three vertices found. Skipping."
+msgstr ""
+
+#: geom.c:598
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"Skipping incomplete record."
+msgstr ""
+
+#: geom.c:840
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"Skipping record with missing key field value."
+msgstr ""
+
+#: geom.c:798
+#, c-format
+msgid ""
+"\n"
+"Record read from line %i of input file '%s':\n"
+"Skipping untagged record."
+msgstr ""
+
+#: reproj.c:1232
+#, c-format
+msgid ""
+"\n"
+"Reprojecting %i lines in current geometry store."
+msgstr ""
+
+#: reproj.c:1118
+#, c-format
+msgid ""
+"\n"
+"Reprojecting %i points in current geometry store."
+msgstr ""
+
+#: reproj.c:1281
+#, c-format
+msgid ""
+"\n"
+"Reprojecting %i polygons in current geometry store."
+msgstr ""
+
+#: reproj.c:1175
+#, c-format
+msgid ""
+"\n"
+"Reprojecting %i raw vertices in current geometry store."
+msgstr ""
+
+#: reproj.c:1245
+#, c-format
+msgid ""
+"\n"
+"Reprojection failed at line #%i, part #%i."
+msgstr ""
+
+#: reproj.c:1135
+#, c-format
+msgid ""
+"\n"
+"Reprojection failed at point #%i."
+msgstr ""
+
+#: reproj.c:1294
+#, c-format
+msgid ""
+"\n"
+"Reprojection failed at polygon #%i, part #%i."
+msgstr ""
+
+#: reproj.c:1192
+#, c-format
+msgid ""
+"\n"
+"Reprojection failed at raw vertex #%i."
+msgstr ""
+
+#: reproj.c:1265
+#, c-format
+msgid ""
+"\n"
+"Reprojection of label point failed at line #%i, part #%i."
+msgstr ""
+
+#: reproj.c:1160
+#, c-format
+msgid ""
+"\n"
+"Reprojection of label point failed at point #%i."
+msgstr ""
+
+#: reproj.c:1314
+#, c-format
+msgid ""
+"\n"
+"Reprojection of label point failed at polygon #%i, part #%i."
+msgstr ""
+
+#: reproj.c:1217
+#, c-format
+msgid ""
+"\n"
+"Reprojection of label point failed at raw vertex #%i."
+msgstr ""
+
+#: reproj.c:585
+msgid ""
+"\n"
+"Reprojection with user-supplied datum transformation parameters."
+msgstr ""
+
+#: reproj.c:627
+msgid ""
+"\n"
+"Reprojection with user-supplied grid file."
+msgstr ""
+
+#: main.c:912
+msgid ""
+"\n"
+"Selected for export:"
+msgstr ""
+
+#: geom.c:4583
+#, c-format
+msgid ""
+"\n"
+"Self-intersection in polygon (ID %i), part no. %i."
+msgstr ""
+
+#: main.c:959
+#, c-format
+msgid ""
+"\n"
+"Snapped dangling line nodes: %i"
+msgstr ""
+
+#: main.c:945
+#, c-format
+msgid ""
+"\n"
+"Snapped polygon boundary vertices: %i"
+msgstr ""
+
+#: options.c:129
+#, c-format
+msgid ""
+"\n"
+"This program is free software under the GNU General Public License (>=v2).\n"
+"Read http://www.gnu.org/licenses/gpl.html for details."
+msgstr ""
+
+#: main.c:713 main.c:717
+msgid ""
+"\n"
+"Topological cleaning of lat/lon data has limited accuracy."
+msgstr ""
+
+#: main.c:921
+msgid ""
+"\n"
+"Total data extent (after reprojection):"
+msgstr ""
+
+#: main.c:923
+msgid ""
+"\n"
+"Total data extent:"
+msgstr ""
+
+#: main.c:805
+#, c-format
+msgid ""
+"\n"
+"Unable to create output file. Error was: '%s'."
+msgstr ""
+
+#: geom.c:5448
+msgid ""
+"\n"
+"Unable to determine profile orientation. Set to default 'westward'."
+msgstr ""
+
+#: geom.c:5116 geom.c:5167 geom.c:5220 geom.c:5273
+#, c-format
+msgid ""
+"\n"
+"Unable to determine vertex order of inner ring (hole)\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: geom.c:5119 geom.c:5170 geom.c:5223 geom.c:5276
+#, c-format
+msgid ""
+"\n"
+"Unable to determine vertex order of outer ring (boundary)\n"
+"(part #%i, read from '%s', line %u)."
+msgstr ""
+
+#: selections.c:696
+#, c-format
+msgid ""
+"\n"
+"Validating selection: '%s'"
+msgstr ""
+
+#: parser.c:792
+#, c-format
+msgid ""
+"\n"
+"Value of field '%s', read from '%s', line %i:\n"
+"This is a duplicate of value read from '%s', line %i."
+msgstr ""
+
+#: options.c:131
+#, c-format
+msgid ""
+"\n"
+"Version %s\n"
+msgstr ""
+
+#: options.c:122
+#, c-format
+msgid ""
+"\n"
+"With no input file(s), data will be read from the \"stdin\" stream.\n"
+msgstr ""
+
+#: options.c:69 options.c:81 options.c:87
+#, c-format
+msgid "  \t\t\t\"%s\" (%s)\n"
+msgstr ""
+
+#: options.c:75
+#, c-format
+msgid "      --label-mode-line=label mode for lines (default: \"%s\")\n"
+msgstr ""
+
+#: options.c:73
+#, c-format
+msgid "      --label-mode-point=label mode for points (default: \"%s\")\n"
+msgstr ""
+
+#: options.c:77
+#, c-format
+msgid "      --label-mode-poly=label mode for polygons (default: \"%s\")\n"
+msgstr ""
+
+#: options.c:119
+#, c-format
+msgid "  --proj-ds=\t\tdatum transform to WGS 84 (scaling; default: %.1f)\n"
+msgstr ""
+
+#: options.c:113
+#, c-format
+msgid "  --proj-dx=\t\tdatum transform to WGS 84 (X shift; default: %.1f)\n"
+msgstr ""
+
+#: options.c:114
+#, c-format
+msgid "  --proj-dy=\t\tdatum transform to WGS 84 (Y shift; default: %.1f)\n"
+msgstr ""
+
+#: options.c:115
+#, c-format
+msgid "  --proj-dz=\t\tdatum transform to WGS 84 (Z shift; default: %.1f)\n"
+msgstr ""
+
+#: options.c:120
+#, c-format
+msgid "  --proj-grid=\t\tlocal datum transformation grid (file name)\n"
+msgstr ""
+
+#: options.c:111
+#, c-format
+msgid "  --proj-in=\t\tcoordinate reference system of input data\n"
+msgstr ""
+
+#: options.c:112
+#, c-format
+msgid "  --proj-out=\t\tcoordinate reference system of output data\n"
+msgstr ""
+
+#: options.c:116
+#, c-format
+msgid "  --proj-rx=\t\tdatum transform to WGS 84 (X rotation; default: %.1f)\n"
+msgstr ""
+
+#: options.c:117
+#, c-format
+msgid "  --proj-ry=\t\tdatum transform to WGS 84 (Y rotation; default: %.1f)\n"
+msgstr ""
+
+#: options.c:118
+#, c-format
+msgid "  --proj-rz=\t\tdatum transform to WGS 84 (Z rotation; default: %.1f)\n"
+msgstr ""
+
+#: options.c:102
+#, c-format
+msgid "  -2, --force-2d\tforce 2D output, even if input data is 3D\n"
+msgstr ""
+
+#: options.c:94
+#, c-format
+msgid ""
+"  -D, --dangling=\tsnapping dist. for line dangles (default: %.1f = off)\n"
+msgstr ""
+
+#: options.c:72
+#, c-format
+msgid "  -L, --label=\t\tchoose field for labels (see manual for details)\n"
+msgstr ""
+
+#: options.c:84
+#, c-format
+msgid "  -O, --orientation=\tchoose output orientation (default: \"%s\")\n"
+msgstr ""
+
+#: options.c:90
+#, c-format
+msgid ""
+"  -S, --selection=\tselect data by field content (see manual for details)\n"
+msgstr ""
+
+#: options.c:103
+#, c-format
+msgid "  -c, --strict\t\tuse stricter input validation\n"
+msgstr ""
+
+#: options.c:98
+#, c-format
+msgid ""
+"  -d, --decimal-places=\tdecimal places for numeric DBF attributes (default: "
+"%i)\n"
+msgstr ""
+
+#: options.c:65
+#, c-format
+msgid "  -f, --format=\t\toutput format (see list below; default: \"%s\")\n"
+msgstr ""
+
+#: options.c:100
+#, c-format
+msgid ""
+"  -g, --decimal-group=\tnumeric group character in input data (default: "
+"auto)\n"
+msgstr ""
+
+#: options.c:109
+#, c-format
+msgid "  -h, --help\t\tdisplay this information and exit\n"
+msgstr ""
+
+#: options.c:99
+#, c-format
+msgid ""
+"  -i, --decimal-point=\tdecimal point character in input data (default: "
+"auto)\n"
+msgstr ""
+
+#: options.c:91
+#, c-format
+msgid "  -l, --log=\t\toutput name for error log file (default: none)\n"
+msgstr ""
+
+#: options.c:64
+#, c-format
+msgid "  -n, --name=\t\tbase name for output file(s) (required)\n"
+msgstr ""
+
+#: options.c:63
+#, c-format
+msgid "  -o, --output=\t\tdirectory name for output file(s) (required)\n"
+msgstr ""
+
+#: options.c:62
+#, c-format
+msgid "  -p, --parser=\t\tname of file with parsing schema (required)\n"
+msgstr ""
+
+#: options.c:101
+#, c-format
+msgid "  -r, --raw-data\tsave raw vertex data as additional points output\n"
+msgstr ""
+
+#: options.c:93
+#, c-format
+msgid ""
+"  -s, --snapping=\tsnapping dist. for boundary nodes (default: %.1f = off)\n"
+msgstr ""
+
+#: options.c:92
+#, c-format
+msgid ""
+"  -t, --tolerance=\tdistance threshold for coordinates (default: %.1f)\n"
+msgstr ""
+
+#: options.c:107
+#, c-format
+msgid "  -u, --show-gui\talways show GUI form\n"
+msgstr ""
+
+#: options.c:104
+#, c-format
+msgid "  -v, --validate-parser\tvalidate parser schema and exit\n"
+msgstr ""
+
+#: options.c:95
+#, c-format
+msgid ""
+"  -x, --x-offset=\tconstant offset to add to x coordinates (default: %.1f)\n"
+msgstr ""
+
+#: options.c:96
+#, c-format
+msgid ""
+"  -y, --y-offset=\tconstant offset to add to y coordinates (default: %.1f)\n"
+msgstr ""
+
+#: options.c:97
+#, c-format
+msgid ""
+"  -z, --z-offset=\tconstant offset to add to z coordinates (default: %.1f)\n"
+msgstr ""
+
+#: options.c:1043
+#, c-format
+msgid "\"%s\" is not a valid directory (folder) name."
+msgstr ""
+
+#: options.c:1505
+#, c-format
+msgid "\"%s\" is not a valid file path."
+msgstr ""
+
+#: main.c:1417 options.c:1070
+#, c-format
+msgid "\"%s\" is not a valid log file name."
+msgstr ""
+
+#: main.c:1384 options.c:1062
+#, c-format
+msgid "\"%s\" is not a valid output file (base) name."
+msgstr ""
+
+#: main.c:468
+#, c-format
+msgid "%i\tData read from console input stream."
+msgstr ""
+
+#: main.c:470
+#, c-format
+msgid "%i\tData read from file \"%s\"."
+msgstr ""
+
+#: main.c:108
+#, c-format
+msgid "%s"
+msgstr ""
+
+#: options.c:489
+#, c-format
+msgid "'%s' is not a valid option."
+msgstr ""
+
+#: main.c:1884
+msgid "(End of output)\n"
+msgstr ""
+
+#: main.c:106
+msgid "* Input file(s):"
+msgstr ""
+
+#: main.c:213
+msgid "2D mode: Any Z data will be discarded from output."
+msgstr ""
+
+#: main.c:1179 main.c:1181 main.c:1183 main.c:1185 main.c:1187 main.c:1189
+#: main.c:1191 main.c:1199 main.c:1207
+msgid "Advanced"
+msgstr ""
+
+#: gui_field.c:513
+msgid "Apply to:"
+msgstr ""
+
+#: parser.c:1579
+msgid "Attempting to modify an existing parser."
+msgstr ""
+
+#: main.c:1148
+msgid "Axis orientation for output geometries."
+msgstr ""
+
+#: main.c:1087
+msgid "Base name for output file(s)."
+msgstr ""
+
+#: main.c:118
+#, c-format
+msgid "Base name for output: %s"
+msgstr ""
+
+#: gui_field.c:1041 gui_field.c:1209 gui_field.c:1293 gui_field.c:1379
+#: gui_field.c:1459 gui_field.c:1553 gui_field.c:1647 gui_form.c:1049
+#: main.c:1100 main.c:1107 main.c:1111
+msgid "Basic"
+msgstr ""
+
+#: main.c:1181
+msgid "Boundary snap dist.:"
+msgstr ""
+
+#: parser.c:1757 parser.c:1967
+#, c-format
+msgid "COMMENT MARKS:\t"
+msgstr ""
+
+#: gui_form.c:499
+msgid "Cancel"
+msgstr ""
+
+#: options.c:728
+#, c-format
+msgid "Cannot add another selection (limit: %i)."
+msgstr ""
+
+#: parser.c:2818
+#, c-format
+msgid ""
+"Cannot open input file for reading ('%s').\n"
+"Reason: %s"
+msgstr ""
+
+#: errors.c:234
+#, c-format
+msgid ""
+"Cannot open log file for writing ('%s').\n"
+"Reason: %s"
+msgstr ""
+
+#: parser.c:1594
+#, c-format
+msgid ""
+"Cannot open parser schema for reading ('%s').\n"
+"Reason: %s"
+msgstr ""
+
+#: geom.c:1446 geom.c:1511 geom.c:1570 geom.c:1629
+#, c-format
+msgid ""
+"Cannot write output into '%s'.\n"
+"Check that the directory exists and is writable."
+msgstr ""
+
+#: gui_field.c:809 gui_field.c:1625 gui_form.c:336
+#, c-format
+msgid "Commands: %i"
+msgstr ""
+
+#: main.c:1185
+msgid "Constant offset for X coordinates."
+msgstr ""
+
+#: main.c:1187
+msgid "Constant offset for Y coordinates."
+msgstr ""
+
+#: main.c:1189
+msgid "Constant offset for Z coordinates."
+msgstr ""
+
+#: main.c:1185
+msgid "Coord. X offset:"
+msgstr ""
+
+#: main.c:1187
+msgid "Coord. Y offset:"
+msgstr ""
+
+#: main.c:1189
+msgid "Coord. Z offset:"
+msgstr ""
+
+#: main.c:1179
+msgid "Coord. tolerance:"
+msgstr ""
+
+#: main.c:1157
+msgid "Coordinate reference system (CRS) of input data, in PROJ.4 format."
+msgstr ""
+
+#: main.c:1159
+msgid "Coordinate reference system (CRS) of output data, in PROJ.4 format."
+msgstr ""
+
+#: main.c:173
+#, c-format
+msgid "Coordinate tolerance: %f"
+msgstr ""
+
+#: main.c:171
+msgid "Coordinate tolerance: 0"
+msgstr ""
+
+#: main.c:1191
+msgid "DBF decimal places:"
+msgstr ""
+
+#: gui_form.c:1011
+msgid "DE - Deutsch"
+msgstr ""
+
+#: errors.c:159 errors.c:169 errors.c:180 errors.c:186
+#, c-format
+msgid "DEBUG: "
+msgstr ""
+
+#: main.c:1183
+msgid "Dangle snap dist.:"
+msgstr ""
+
+#: options.c:1224
+msgid "Dangling setting must be 0 or a positive number."
+msgstr ""
+
+#: gui_field.c:713
+msgid "Data selection"
+msgstr ""
+
+#: main.c:1175
+msgid "Datum transformation grid:"
+msgstr ""
+
+#: main.c:1207
+msgid "Decimal group:"
+msgstr ""
+
+#: options.c:1320
+msgid "Decimal grouping character must be a single character."
+msgstr ""
+
+#: main.c:206
+#, c-format
+msgid "Decimal grouping symbol set to: '%c'"
+msgstr ""
+
+#: main.c:208
+#, c-format
+msgid "Decimal grouping symbol set to: '%s'"
+msgstr ""
+
+#: main.c:1660 main.c:1669 options.c:1302
+msgid "Decimal point and grouping characters must both be specified."
+msgstr ""
+
+#: main.c:1680 options.c:1294
+msgid "Decimal point and grouping characters must not be identical."
+msgstr ""
+
+#: main.c:1199
+msgid "Decimal point character in input data."
+msgstr ""
+
+#: options.c:1309
+msgid "Decimal point separator must be a single character."
+msgstr ""
+
+#: main.c:201
+#, c-format
+msgid "Decimal point symbol set to: '%c'"
+msgstr ""
+
+#: main.c:203
+#, c-format
+msgid "Decimal point symbol set to: '%s'"
+msgstr ""
+
+#: main.c:1199
+msgid "Decimal point:"
+msgstr ""
+
+#: options.c:124
+#, c-format
+msgid ""
+"Depending on the output file format and the geometries in the input "
+"file(s),\n"
+"more than one output file with a common base name may be produced.\n"
+msgstr ""
+
+#: main.c:1085
+msgid "Directory name for output file(s)."
+msgstr ""
+
+#: main.c:1213
+msgid "Discard any Z data from output."
+msgstr ""
+
+#: main.c:1179
+msgid "Distance threshold for coordinates."
+msgstr ""
+
+#: options.h:86
+msgid "Do not label"
+msgstr ""
+
+#: options.c:126
+#, c-format
+msgid "Duplicate measurements will not be stored in the output file(s).\n"
+msgstr ""
+
+#: parser.c:1772 parser.c:1982
+#, c-format
+msgid "EMPTY FLD VAL:\t%i\n"
+msgstr ""
+
+#: parser.c:1774 parser.c:1984
+#, c-format
+msgid "EMPTY FLD VAL:\tNULL (default)\n"
+msgstr ""
+
+#: gui_form.c:1016
+msgid "EN - English"
+msgstr ""
+
+#: errors.c:86 errors.c:96 errors.c:107 errors.c:115
+#, c-format
+msgid "ERROR: "
+msgstr ""
+
+#: gui_field.c:716
+msgid "Edit"
+msgstr ""
+
+#: gui_field.c:433
+msgid "Edit selection command"
+msgstr ""
+
+#: selections.c:535
+msgid "Empty field name in selection."
+msgstr ""
+
+#: selections.c:548
+msgid "Empty selection expression."
+msgstr ""
+
+#: parser.c:2574
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Comment mark matches line geom tag."
+msgstr ""
+
+#: parser.c:2564
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Comment mark matches point geom tag."
+msgstr ""
+
+#: parser.c:2584
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Comment mark matches poly geom tag."
+msgstr ""
+
+#: parser.c:2352
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Coordinate fields are not unique."
+msgstr ""
+
+#: parser.c:2299
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" has no separator(s) (after line %i)."
+msgstr ""
+
+#: parser.c:2375
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is X coordinate field, and cannot be used as key field (after "
+"line %i)."
+msgstr ""
+
+#: parser.c:2382
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is X coordinate field, and cannot be used as tag field (after "
+"line %i)."
+msgstr ""
+
+#: parser.c:2369
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is X coordinate field, but \"empty_allowed\" was set to \"Yes"
+"\" (after line %i)."
+msgstr ""
+
+#: parser.c:2364
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is X coordinate field, but not of type 'double' (after line %i)."
+msgstr ""
+
+#: parser.c:2402
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Y coordinate field, and cannot be used as key field (after "
+"line %i)."
+msgstr ""
+
+#: parser.c:2409
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Y coordinate field, and cannot be used as tag field (after "
+"line %i)."
+msgstr ""
+
+#: parser.c:2396
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Y coordinate field, but \"missing_allowed\" was set to \"Yes"
+"\" (after line %i)."
+msgstr ""
+
+#: parser.c:2391
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Y coordinate field, but not of type 'double' (after line %i)."
+msgstr ""
+
+#: parser.c:2430
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Z coordinate field, and cannot be used as key field (after "
+"line %i)."
+msgstr ""
+
+#: parser.c:2437
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Z coordinate field, and cannot be used as tag field (after "
+"line %i)."
+msgstr ""
+
+#: parser.c:2424
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Z coordinate field, but \"missing_allowed\" was set to \"Yes"
+"\" (after line %i)."
+msgstr ""
+
+#: parser.c:2419
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" is Z coordinate field, but not of type 'double' (after line %i)."
+msgstr ""
+
+#: parser.c:2217
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\" needs a separator (after line %i)."
+msgstr ""
+
+#: parser.c:2288
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": \"empty_allowed\" and \"merge_seperators\" are mutually "
+"exclusive (after line %i)."
+msgstr ""
+
+#: parser.c:2307
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": Last field must not have a separator (after line %i)."
+msgstr ""
+
+#: parser.c:2319
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": Must not combine whitespace separators and \"empty_allowed"
+"\" (after line %i)."
+msgstr ""
+
+#: parser.c:2614
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": quoting char matches line geom tag (after line %i)."
+msgstr ""
+
+#: parser.c:2604
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": quoting char matches point geom tag (after line %i)."
+msgstr ""
+
+#: parser.c:2624
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": quoting char matches poly geom tag (after line %i)."
+msgstr ""
+
+#: parser.c:2273
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": quoting character matches comment char (after line %i)."
+msgstr ""
+
+#: parser.c:2235
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": quoting character matches separator (after line %i)."
+msgstr ""
+
+#: parser.c:2254
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": separator matches comment character (after line %i)."
+msgstr ""
+
+#: parser.c:2534
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": separator matches line geom tag (after line %i)."
+msgstr ""
+
+#: parser.c:2524
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": separator matches point geom tag (after line %i)."
+msgstr ""
+
+#: parser.c:2544
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field \"%s\": separator matches poly geom tag (after line %i)."
+msgstr ""
+
+#: parser.c:2135
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field defined after line %i has no name."
+msgstr ""
+
+#: parser.c:2140
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field defined after line %i has no type."
+msgstr ""
+
+#: parser.c:2155
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field defined after line %i has too many options. This special field only "
+"accepts \"info\", \"name\", \"type\" and \"value\"."
+msgstr ""
+
+#: parser.c:2206
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Field defined after line %i is no a text field.\n"
+"Therefore, \"change_case\" is not a valid option."
+msgstr ""
+
+#: parser.c:2507
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Geometry tags are not unique."
+msgstr ""
+
+#: parser.c:2495
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Geometry tags must be provided for both lines and polygons.\n"
+"Set both \"geom_tag_line\" and \"geom_tag_poly\""
+msgstr ""
+
+#: parser.c:2722
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Key field is not set to the name of a valid field."
+msgstr ""
+
+#: parser.c:1058 parser.c:1084
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" cannot be set to \"%s\"."
+msgstr ""
+
+#: parser.c:1132 parser.c:1141 parser.c:1150 parser.c:1191 parser.c:1205
+#: parser.c:1219 parser.c:1233 parser.c:1242 parser.c:1251 parser.c:1261
+#: parser.c:1271 parser.c:1286 parser.c:1295 parser.c:1304 parser.c:1323
+#: parser.c:1361 parser.c:1375 parser.c:1384 parser.c:1405 parser.c:1415
+#: parser.c:1425 parser.c:1435 parser.c:1445 parser.c:1488 parser.c:1498
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" has already been set in this context."
+msgstr ""
+
+#: parser.c:1346
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" is a reserved field name."
+msgstr ""
+
+#: parser.c:1196 parser.c:1210 parser.c:1224 parser.c:1328
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" is not a valid field name."
+msgstr ""
+
+#: parser.c:1398
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" is not a valid field type."
+msgstr ""
+
+#: parser.c:1165
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" is not a valid geometry tagging mode."
+msgstr ""
+
+#: parser.c:1548
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: \"%s\" is not a valid option in this context."
+msgstr ""
+
+#: parser.c:1336
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: A field with name \"%s\" was already defined."
+msgstr ""
+
+#: parser.c:1108
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Empty option name or value."
+msgstr ""
+
+#: parser.c:1657
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Exceeds limit of %i field definitions.\n"
+msgstr ""
+
+#: parser.c:1184
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Limit of %i distinct comment marks exceeded."
+msgstr ""
+
+#: parser.c:1481
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Limit of %i distinct field separators exceeded."
+msgstr ""
+
+#: parser.c:1458
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Line break is not a valid field separator."
+msgstr ""
+
+#: parser.c:1540
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Maximum number of lookup pairs (%i) exceeded."
+msgstr ""
+
+#: parser.c:1513
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: No string specified for content replacement."
+msgstr ""
+
+#: parser.c:1118
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Option \"%s\" has an empty value."
+msgstr ""
+
+#: parser.c:1124
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Option values cannot be longer than %i characters."
+msgstr ""
+
+#: parser.c:1503
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Quotation mark must be a single character."
+msgstr ""
+
+#: parser.c:1523
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: String to be replaced exceeds %i characters."
+msgstr ""
+
+#: parser.c:1528
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: String to replace with exceeds %i characters."
+msgstr ""
+
+#: parser.c:1277
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: Value for \"%s\" is not a valid integer number."
+msgstr ""
+
+#: parser.c:1365
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: field value not defined."
+msgstr ""
+
+#: parser.c:1684
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Line #%i: option/value out of context."
+msgstr ""
+
+#: parser.c:2334
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No X coordinate field defined."
+msgstr ""
+
+#: parser.c:2339
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No Y coordinate field defined."
+msgstr ""
+
+#: parser.c:2463
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No geometry tag field provided."
+msgstr ""
+
+#: parser.c:2642
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No key field specified."
+msgstr ""
+
+#: parser.c:2664
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No tag field specified."
+msgstr ""
+
+#: parser.c:2471
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No tag string for line type geometries given."
+msgstr ""
+
+#: parser.c:2482
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No tag string for point type geometries given."
+msgstr ""
+
+#: parser.c:2476
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"No tag string for polygon type geometries given."
+msgstr ""
+
+#: parser.c:2744
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Number of fields in reduced records must be smaller\n"
+"than in full records."
+msgstr ""
+
+#: parser.c:2171 parser.c:2191
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Overflow detected for value of field \"%s\"."
+msgstr ""
+
+#: parser.c:2176 parser.c:2196
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"String replacement not allowed for field \"%s\" (wrong type) ."
+msgstr ""
+
+#: parser.c:2694
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Tag field and key field must not be identical."
+msgstr ""
+
+#: parser.c:2709
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Tag field is not set to the name of a valid field."
+msgstr ""
+
+#: parser.c:2126
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"There are no field definitions."
+msgstr ""
+
+#: parser.c:2186
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Value of field \"%s\" is not a valid integer number."
+msgstr ""
+
+#: parser.c:2166
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Value of field \"%s\" is not a valid number."
+msgstr ""
+
+#: parser.c:2446
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"X coordinate field does not exist."
+msgstr ""
+
+#: parser.c:2451
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Y coordinate field does not exist."
+msgstr ""
+
+#: parser.c:2456
+#, c-format
+msgid ""
+"Error in parser schema (%s).\n"
+"Z coordinate field does not exist."
+msgstr ""
+
+#: gui_form.c:594
+#, c-format
+msgid "Error reading default settings from file '%s': %s"
+msgstr ""
+
+#: gui_form.c:425
+#, c-format
+msgid "Error reading file '%s': %s"
+msgstr ""
+
+#: gui_form.c:516 gui_form.c:556
+#, c-format
+msgid "Error saving file '%s': %s"
+msgstr ""
+
+#: parser.c:3046
+#, c-format
+msgid ""
+"Error storing data (line no.: %i):\n"
+"%s"
+msgstr ""
+
+#: parser.c:3040
+#, c-format
+msgid ""
+"Error storing data from file '%s' (line no.: %i):\n"
+"%s"
+msgstr ""
+
+#: parser.c:3064
+#, c-format
+msgid ""
+"Error validating data (line no.: %i):\n"
+"%s"
+msgstr ""
+
+#: parser.c:3058
+#, c-format
+msgid ""
+"Error validating data from file '%s' (line no.: %i):\n"
+"%s"
+msgstr ""
+
+#: reproj.c:600
+msgid "Existing WGS 84 datum transformation in input SRS will be overridden."
+msgstr ""
+
+#: reproj.c:632
+msgid "Existing grid file specification(s) in input SRS will be overridden."
+msgstr ""
+
+#: gui_field.c:543
+msgid "Expression:"
+msgstr ""
+
+#: main.c:1116 main.c:1129 main.c:1132 main.c:1135 main.c:1149 main.c:1153
+#: main.c:1211 main.c:1213 main.c:1215 main.c:1217
+msgid "Extra"
+msgstr ""
+
+#: export.c:713 export.c:720 export.c:727 export.c:734 export.c:741
+#: export.c:748 export.c:755
+msgid "Failed to create DBF attribute table schema for labels layer."
+msgstr ""
+
+#: export.c:671
+msgid "Failed to create DBF attribute table schema."
+msgstr ""
+
+#: export.c:646 export.c:706
+msgid "Failed to write DBF attribute table schema."
+msgstr ""
+
+#: main.c:1115
+msgid "Field to use for labels (if any)."
+msgstr ""
+
+#: gui_field.c:531
+msgid "Field:"
+msgstr ""
+
+#: gui_form.c:497
+msgid "File exists. Overwrite it?"
+msgstr ""
+
+#: main.c:1111
+msgid "File name for log file."
+msgstr ""
+
+#: gui_field.c:236
+msgid "File selection"
+msgstr ""
+
+#: gui_field.c:334 gui_field.c:1531 gui_form.c:333
+#, c-format
+msgid "Files: %i"
+msgstr ""
+
+#: main.c:1213
+msgid "Force 2D output:"
+msgstr ""
+
+#: parser.c:1780 parser.c:1990
+#, c-format
+msgid "GEOM TAG LINE:\t%s\n"
+msgstr ""
+
+#: parser.c:1782 parser.c:1992
+#, c-format
+msgid "GEOM TAG LINE:\tNone.\n"
+msgstr ""
+
+#: parser.c:1776 parser.c:1986
+#, c-format
+msgid "GEOM TAG POINT:\t%s\n"
+msgstr ""
+
+#: parser.c:1778 parser.c:1988
+#, c-format
+msgid "GEOM TAG POINT:\tNone.\n"
+msgstr ""
+
+#: parser.c:1784 parser.c:1994
+#, c-format
+msgid "GEOM TAG POLY:\t%s\n"
+msgstr ""
+
+#: parser.c:1786 parser.c:1996
+#, c-format
+msgid "GEOM TAG POLY:\tNone.\n"
+msgstr ""
+
+#: parser.c:1627
+#, c-format
+msgid ""
+"Garbage encountered in parser schema (%s).\n"
+"Skipping line #%i"
+msgstr ""
+
+#: parser.c:1744 parser.c:1954
+#, c-format
+msgid "INFO:\t\t%s\n"
+msgstr ""
+
+#: parser.c:1746 parser.c:1956
+#, c-format
+msgid "INFO:\t\tNone.\n"
+msgstr ""
+
+#: options.c:132
+#, c-format
+msgid "Includes PROJ.4 %s\n"
+msgstr ""
+
+#: options.c:1031 options.c:1035
+msgid "Incomplete command line: option \"-n\" must be specified."
+msgstr ""
+
+#: options.c:1021 options.c:1025
+msgid "Incomplete command line: option \"-o\" must be specified."
+msgstr ""
+
+#: options.c:999 options.c:1003
+msgid "Incomplete command line: option \"-p\" must be specified."
+msgstr ""
+
+#: main.c:555
+msgid "Incomplete or invalid options."
+msgstr ""
+
+#: main.c:1157
+msgid "Input CRS:"
+msgstr ""
+
+#: parser.c:2847
+#, c-format
+msgid ""
+"Input line too long.\n"
+"The maximum line length allowed is: %i characters."
+msgstr ""
+
+#: main.c:1107
+msgid "Input:"
+msgstr ""
+
+#: options.c:983 options.c:987
+#, c-format
+msgid "Invalid command line given. Use \"%s -h\" for help."
+msgstr ""
+
+#: selections.c:540
+#, c-format
+msgid "Invalid field name or type in selection: '%s'"
+msgstr ""
+
+#: options.c:1117
+#, c-format
+msgid "Invalid line label mode ('%s')."
+msgstr ""
+
+#: parser.c:378
+msgid "Invalid number of fields read."
+msgstr ""
+
+#: selections.c:520 selections.c:526
+msgid "Invalid or empty geometry type."
+msgstr ""
+
+#: selections.c:506 selections.c:511
+msgid "Invalid or empty selection type."
+msgstr ""
+
+#: options.c:1155
+#, c-format
+msgid "Invalid orientation mode ('%s')."
+msgstr ""
+
+#: options.c:1098
+#, c-format
+msgid "Invalid point label mode ('%s')."
+msgstr ""
+
+#: options.c:1136
+#, c-format
+msgid "Invalid polygon label mode ('%s')."
+msgstr ""
+
+#: selections.c:587
+msgid "Invalid range specification in selection."
+msgstr ""
+
+#: selections.c:554
+#, c-format
+msgid "Invalid regular expression in selection: '%s'"
+msgstr ""
+
+#: gui_field.c:359
+msgid "Invalid selection command syntax."
+msgstr ""
+
+#: gui_field.c:424
+msgid "Invalid selection command syntax. Will reset to defaults."
+msgstr ""
+
+#: selections.c:698
+#, c-format
+msgid "Invalid selection specification: '%s'"
+msgstr ""
+
+#: selections.c:721
+#, c-format
+msgid "Invalid selection: Malformed numeric value: '%s'."
+msgstr ""
+
+#: selections.c:718
+#, c-format
+msgid "Invalid selection: Overflow error in numeric value: '%s'."
+msgstr ""
+
+#: gui_form.c:234 gui_form.c:247 gui_form.c:385
+msgid "Invalid settings file."
+msgstr ""
+
+#: gui_field.c:566
+msgid "Invert:"
+msgstr ""
+
+#: main.c:1217
+msgid "Just validate parser schema."
+msgstr ""
+
+#: parser.c:1770 parser.c:1980
+#, c-format
+msgid "KEY FIELD:\t%s\n"
+msgstr ""
+
+#: parser.c:1755 parser.c:1965
+#, c-format
+msgid "KEY UNIQUE:\tNo.\n"
+msgstr ""
+
+#: parser.c:1753 parser.c:1963
+#, c-format
+msgid "KEY UNIQUE:\tYes.\n"
+msgstr ""
+
+#: options.c:677
+msgid "Label field name is empty."
+msgstr ""
+
+#: main.c:1115
+msgid "Label field:"
+msgstr ""
+
+#: main.c:1131
+msgid "Label mode (lines):"
+msgstr ""
+
+#: main.c:1128
+msgid "Label mode (points):"
+msgstr ""
+
+#: main.c:1134
+msgid "Label mode (polygons):"
+msgstr ""
+
+#: main.c:1131
+msgid "Label placement on line geometries."
+msgstr ""
+
+#: main.c:1128
+msgid "Label placement on point geometries."
+msgstr ""
+
+#: main.c:1134
+msgid "Label placement on polygon geometries."
+msgstr ""
+
+#: main.c:120
+msgid "Label settings:"
+msgstr ""
+
+#: parser.c:2841
+#, c-format
+msgid ""
+"Line too long in input file '%s' (line no.: %i).\n"
+"The maximum line length allowed is: %i characters."
+msgstr ""
+
+#: parser.c:1612
+#, c-format
+msgid ""
+"Line too long in parser schema file (line no.: %i).\n"
+"The maximum line length allowed is: %i characters."
+msgstr ""
+
+#: gui_field.c:220
+msgid "List of input files:"
+msgstr ""
+
+#: gui_field.c:698
+msgid "List of selection commands:"
+msgstr ""
+
+#: options.c:1354
+msgid "Local survey data cannot be reprojected."
+msgstr ""
+
+#: options.h:100
+msgid "Local: X-Z cross section"
+msgstr ""
+
+#: main.c:1111
+msgid "Log file:"
+msgstr ""
+
+#: geom.c:5438 geom.c:5444 geom.c:5450
+#, c-format
+msgid "Max. (right-most) input X coordinate is: '%f'."
+msgstr ""
+
+#: main.c:540 main.c:559 main.c:1835 main.c:1910 parser.c:1939
+msgid "Message"
+msgstr ""
+
+#: gui_form.c:1188
+msgid "Messages"
+msgstr ""
+
+#: main.c:217
+msgid "Messages and decimal notation set to English."
+msgstr ""
+
+#: main.c:1279
+msgid "Messages, errors and warnings will appear in this area.\n"
+msgstr ""
+
+#: geom.c:5437 geom.c:5443 geom.c:5449
+#, c-format
+msgid "Min. (left-most)  input X coordinate is: '%f'."
+msgstr ""
+
+#: options.c:665 options.c:689 options.c:698 options.c:707 options.c:718
+#: options.c:733 options.c:744 options.c:755 options.c:766 options.c:778
+#: options.c:788 options.c:798 options.c:808 options.c:818 options.c:828
+#: options.c:838 options.c:871 options.c:882 options.c:893 options.c:904
+#: options.c:915 options.c:926 options.c:937 options.c:948 options.c:959
+#: options.c:970
+#, c-format
+msgid "Missing option value (option '%s')."
+msgstr ""
+
+#: gui_field.c:556
+msgid "Mode:"
+msgstr ""
+
+#: parser.c:1740 parser.c:1950
+#, c-format
+msgid "NAME:\t\t%s\n"
+msgstr ""
+
+#: parser.c:1742 parser.c:1952
+#, c-format
+msgid "NAME:\t\tNot specified.\n"
+msgstr ""
+
+#: parser.c:1734
+#, c-format
+msgid "NO PARSER DESCRIPTION AVAILABLE.\n"
+msgstr ""
+
+#: main.c:1083
+msgid "Name of file with parsing schema."
+msgstr ""
+
+#: main.c:1175
+msgid "Name of input grid file for local datum transformation."
+msgstr ""
+
+#: gui_field.c:431
+msgid "New selection command"
+msgstr ""
+
+#: gui_form.c:501
+msgid "No"
+msgstr ""
+
+#: options.c:558
+msgid "No X coordinate offset specified (option '-x')."
+msgstr ""
+
+#: options.c:562
+msgid "No Y coordinate offset specified (option '-y')."
+msgstr ""
+
+#: options.c:566
+msgid "No Z coordinate offset specified (option '-z')."
+msgstr ""
+
+#: parser.c:2344
+#, c-format
+msgid ""
+"No Z field defined in parser schema (%s).\n"
+"Z assumed to be constant 0."
+msgstr ""
+
+#: options.c:554
+msgid "No dangling setting specified (option '-D')."
+msgstr ""
+
+#: options.c:618
+msgid "No datum grid file given (option '--proj-grid')."
+msgstr ""
+
+#: options.c:578
+msgid "No decimal grouping symbol specified (option '-g')."
+msgstr ""
+
+#: options.c:574
+msgid "No decimal point symbol specified (option '-i')."
+msgstr ""
+
+#: gui_field.c:975 gui_field.c:1187 gui_field.c:1263 gui_field.c:1345
+#: gui_field.c:1431 gui_field.c:1516 gui_field.c:1610
+msgid "No description available."
+msgstr ""
+
+#: options.c:582
+msgid "No input coordinate reference system given (option '--proj-in')."
+msgstr ""
+
+#: main.c:111
+msgid "No input files."
+msgstr ""
+
+#: options.c:518
+msgid "No label field specified (option '-L')."
+msgstr ""
+
+#: options.c:530
+msgid "No label mode for lines specified (option '--label-mode-line')."
+msgstr ""
+
+#: options.c:526
+msgid "No label mode for points specified (option '--label-mode-point')."
+msgstr ""
+
+#: options.c:534
+msgid "No label mode for polygons specified (option '--label-mode-poly')."
+msgstr ""
+
+#: options.c:542
+msgid "No log file name specified (option '-l')."
+msgstr ""
+
+#: options.c:522
+msgid "No orientation mode specified (option '-O')."
+msgstr ""
+
+#: options.c:602
+msgid "No output WGS 84 datum rotation X given (option '--proj-rx')."
+msgstr ""
+
+#: options.c:606
+msgid "No output WGS 84 datum rotation Y given (option '--proj-ry')."
+msgstr ""
+
+#: options.c:610
+msgid "No output WGS 84 datum rotation Z given (option '--proj-rz')."
+msgstr ""
+
+#: options.c:614
+msgid "No output WGS 84 datum scaling given (option '--proj-ds')."
+msgstr ""
+
+#: options.c:590
+msgid "No output WGS 84 datum shift X given (option '--proj-dx')."
+msgstr ""
+
+#: options.c:594
+msgid "No output WGS 84 datum shift Y given (option '--proj-dy')."
+msgstr ""
+
+#: options.c:598
+msgid "No output WGS 84 datum shift Z given (option '--proj-dz')."
+msgstr ""
+
+#: options.c:510 options.c:654
+msgid "No output base name specified (option '-n')."
+msgstr ""
+
+#: options.c:586
+msgid "No output coordinate reference system given (option '--proj-out')."
+msgstr ""
+
+#: options.c:506 options.c:642
+msgid "No output directory name specified (option '-o')."
+msgstr ""
+
+#: options.c:514
+msgid "No output format specified (option '-f')."
+msgstr ""
+
+#: parser.c:1574
+msgid "No parser file given."
+msgstr ""
+
+#: options.c:502 options.c:630
+msgid "No parser file specified (option '-p')."
+msgstr ""
+
+#: options.c:538
+msgid "No selection command specified (option '-S')."
+msgstr ""
+
+#: options.c:550
+msgid "No snapping setting specified (option '-s')."
+msgstr ""
+
+#: options.c:546
+msgid "No tolerance setting specified (option '-t')."
+msgstr ""
+
+#: parser.c:1766 parser.c:1856 parser.c:1976 parser.c:2066
+#, c-format
+msgid "None."
+msgstr ""
+
+#: parser.c:1837 parser.c:2047
+#, c-format
+msgid "None.\n"
+msgstr ""
+
+#: geom.c:2809
+#, c-format
+msgid "Not enough vertices given (need at least 2)."
+msgstr ""
+
+#: geom.c:2811
+#, c-format
+msgid "Not enough vertices given (need at least 3)."
+msgstr ""
+
+#: main.c:1626 options.c:1286
+#, c-format
+msgid "Number of decimal places cannot exceed %i."
+msgstr ""
+
+#: main.c:1620 options.c:1279
+msgid "Number of decimal places must be 0 or a positive number."
+msgstr ""
+
+#: options.c:570
+msgid "Number of decimal places not given (option '-d')."
+msgstr ""
+
+#: main.c:1207
+msgid "Numeric group character in input data."
+msgstr ""
+
+#: main.c:1191
+msgid "Numeric precision for DBF floating point attributes."
+msgstr ""
+
+#: options.c:1345
+msgid "Only output SRS specified. Ignoring."
+msgstr ""
+
+#: geom.c:2688 geom.c:2710 geom.c:2887 geom.c:3006
+#, c-format
+msgid "Out of memory."
+msgstr ""
+
+#: parser.c:193 parser.c:217
+msgid "Out of storage memory."
+msgstr ""
+
+#: main.c:1159
+msgid "Output CRS:"
+msgstr ""
+
+#: reproj.c:491
+#, c-format
+msgid "Output SRS (expanded): '%s'"
+msgstr ""
+
+#: main.c:769
+msgid "Output data may suffer from topological defects."
+msgstr ""
+
+#: main.c:1100
+msgid "Output file format."
+msgstr ""
+
+#: main.c:1085
+msgid "Output folder:"
+msgstr ""
+
+#: main.c:1100
+msgid "Output format:"
+msgstr ""
+
+#: main.c:1087
+msgid "Output name:"
+msgstr ""
+
+#: main.c:1148
+msgid "Output orientation:"
+msgstr ""
+
+#: main.c:163
+#, c-format
+msgid "Output orientation: %s"
+msgstr ""
+
+#: main.c:117
+#, c-format
+msgid "Output stored in: %s"
+msgstr ""
+
+#: reproj.c:93
+#, c-format
+msgid "PROJ.4 data path is: '%s'"
+msgstr ""
+
+#: reproj.c:1134 reproj.c:1159 reproj.c:1191 reproj.c:1216 reproj.c:1244
+#: reproj.c:1264 reproj.c:1293 reproj.c:1313
+#, c-format
+msgid "PROJ.4 error:'%s'"
+msgstr ""
+
+#: main.c:215
+msgid "Parser running in 'strict' mode."
+msgstr ""
+
+#: parser.c:1584
+msgid "Parser schema file must be provided."
+msgstr ""
+
+#: main.c:116
+#, c-format
+msgid "Parser schema file: %s"
+msgstr ""
+
+#: main.c:1083
+msgid "Parser schema:"
+msgstr ""
+
+#: options.h:83
+msgid "Place at center of geometry"
+msgstr ""
+
+#: options.h:84
+msgid "Place on first vertex"
+msgstr ""
+
+#: options.h:85
+msgid "Place on last vertex"
+msgstr ""
+
+#: main.c:539
+msgid "Please provide a valid parser schema file."
+msgstr ""
+
+#: main.c:558
+msgid ""
+"Please provide valid input file(s),\n"
+"parser schema file, base output name,\n"
+"and output folder name."
+msgstr ""
+
+#: parser.c:1938
+msgid "Please select a valid parser file."
+msgstr ""
+
+#: selections.c:571
+msgid "Problem: Caps array too small."
+msgstr ""
+
+#: selections.c:562
+msgid "Problem: Internal error."
+msgstr ""
+
+#: selections.c:565
+msgid "Problem: Invalid character set."
+msgstr ""
+
+#: selections.c:568
+msgid "Problem: Invalid meta character."
+msgstr ""
+
+#: selections.c:577
+msgid "Problem: Too many brackets."
+msgstr ""
+
+#: selections.c:574
+msgid "Problem: Too many branches."
+msgstr ""
+
+#: selections.c:559
+msgid "Problem: Unbalanced brackets."
+msgstr ""
+
+#: selections.c:556
+msgid "Problem: Unexpected quantifier."
+msgstr ""
+
+#: main.c:211
+msgid "Raw vertex data will be saved as additional output."
+msgstr ""
+
+#: main.c:1211
+msgid "Raw vertex output:"
+msgstr ""
+
+#: options.c:58
+#, c-format
+msgid ""
+"Read geometry and attribute descriptions from a survey protocol file\n"
+"in ASCII format and convert them to common GIS and CAD output formats.\n"
+msgstr ""
+
+#: gui_form.c:1254
+#, c-format
+msgid "Ready."
+msgstr ""
+
+#: parser.c:179
+msgid "Record to be stored contains no data."
+msgstr ""
+
+#: main.c:1158 main.c:1160 main.c:1161 main.c:1163 main.c:1165 main.c:1167
+#: main.c:1169 main.c:1171 main.c:1173 main.c:1175
+msgid "Reprojection"
+msgstr ""
+
+#: main.c:714
+msgid "Results of eliminating duplicate vertices may be insufficient."
+msgstr ""
+
+#: main.c:718
+msgid "Results of snapping vertices may be insufficient."
+msgstr ""
+
+#: parser.c:1738 parser.c:1948
+#, c-format
+msgid "SCHEMA FILE:\t%s\n"
+msgstr ""
+
+#: main.c:126
+msgid "SRS and reprojection:"
+msgstr ""
+
+#: main.c:1211
+msgid "Save raw vertex data as additional output."
+msgstr ""
+
+#: main.c:1173
+msgid "Scaling factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1173
+msgid "Scaling to WGS 84:"
+msgstr ""
+
+#: gui_field.c:168 gui_field.c:259 gui_field.c:1276 gui_form.c:404
+#: gui_form.c:464
+msgid "Select file"
+msgstr ""
+
+#: gui_field.c:1444
+msgid "Select folder"
+msgstr ""
+
+#: main.c:1153
+msgid "Select subset(s) of input data."
+msgstr ""
+
+#: main.c:165
+msgid "Selection commands:"
+msgstr ""
+
+#: main.c:1107
+msgid "Selection of input file(s)."
+msgstr ""
+
+#: gui_field.c:499
+msgid "Selection type:"
+msgstr ""
+
+#: main.c:1153
+msgid "Selection:"
+msgstr ""
+
+#: parser.c:373
+msgid "Slot number out of bounds."
+msgstr ""
+
+#: main.c:178
+#, c-format
+msgid "Snapping dist. (boundary vertices): %f"
+msgstr ""
+
+#: main.c:176
+msgid "Snapping dist. (boundary vertices): 0"
+msgstr ""
+
+#: main.c:183
+#, c-format
+msgid "Snapping dist. (line nodes): %f"
+msgstr ""
+
+#: main.c:181
+msgid "Snapping dist. (line nodes): 0"
+msgstr ""
+
+#: main.c:1532
+msgid "Snapping setting for boundaries must be 0 or a positive number."
+msgstr ""
+
+#: main.c:1554
+msgid "Snapping setting for dangles must be 0 or a positive number."
+msgstr ""
+
+#: options.c:1207
+msgid "Snapping setting must be 0 or a positive number."
+msgstr ""
+
+#: main.c:1183
+msgid "Snapping threshold for dangling line nodes."
+msgstr ""
+
+#: main.c:1181
+msgid "Snapping threshold for polygon boundary vertices."
+msgstr ""
+
+#: main.c:1828
+msgid "Software for exporting survey data to GIS standard formats."
+msgstr ""
+
+#: main.c:1614 options.c:1271
+msgid "Specified decimal places is not a valid number."
+msgstr ""
+
+#: options.c:1475
+msgid "Specified transformation grid file is not a readable file."
+msgstr ""
+
+#: options.c:1470
+msgid ""
+"Specify either WGS 84 transformation parameters or a grid file, not both."
+msgstr ""
+
+#: parser.c:210
+msgid "Storage slot already contains data."
+msgstr ""
+
+#: main.c:1215
+msgid "Strict parsing:"
+msgstr ""
+
+#: parser.c:1666
+#, c-format
+msgid ""
+"Syntax error in parser schema (%s).\n"
+"Line #%i: \"%s\" is not a valid section identifier.\n"
+msgstr ""
+
+#: parser.c:1678
+#, c-format
+msgid ""
+"Syntax error in parser schema (%s).\n"
+"Line #%i: Missing '=' (expected 'option=value' line)."
+msgstr ""
+
+#: parser.c:1636
+#, c-format
+msgid ""
+"Syntax error in parser schema (%s).\n"
+"Line #%i: Missing ']'."
+msgstr ""
+
+#: parser.c:1769 parser.c:1979
+#, c-format
+msgid "TAG FIELD:\t%s\n"
+msgstr ""
+
+#: parser.c:1747 parser.c:1957
+#, c-format
+msgid "TAG MODE:\t%i (\"%s\")\n"
+msgstr ""
+
+#: parser.c:1751 parser.c:1961
+#, c-format
+msgid "TAG STRICT:\tNo.\n"
+msgstr ""
+
+#: parser.c:1749 parser.c:1959
+#, c-format
+msgid "TAG STRICT:\tYes.\n"
+msgstr ""
+
+#: options.c:127
+#, c-format
+msgid ""
+"The \"--tolerance=\" setting determines the threshold of distance above\n"
+"which two coordinates are considered to be distinct.\n"
+msgstr ""
+
+#: options.c:123
+#, c-format
+msgid "The combined output will be written into at least one output file.\n"
+msgstr ""
+
+#: main.c:1749 options.c:1413
+msgid "The specified WGS 84 datum X rotation is not a valid number."
+msgstr ""
+
+#: main.c:1710 options.c:1371
+msgid "The specified WGS 84 datum X shift is not a valid number."
+msgstr ""
+
+#: main.c:1762 options.c:1427
+msgid "The specified WGS 84 datum Y rotation is not a valid number."
+msgstr ""
+
+#: main.c:1723 options.c:1385
+msgid "The specified WGS 84 datum Y shift is not a valid number."
+msgstr ""
+
+#: main.c:1775 options.c:1441
+msgid "The specified WGS 84 datum Z rotation is not a valid number."
+msgstr ""
+
+#: main.c:1736 options.c:1399
+msgid "The specified WGS 84 datum Z shift is not a valid number."
+msgstr ""
+
+#: main.c:1788 options.c:1455
+msgid "The specified WGS 84 datum scaling is not a valid number."
+msgstr ""
+
+#: main.c:1569 options.c:1235
+msgid "The specified X coordinate offset is not a valid number."
+msgstr ""
+
+#: main.c:1584 options.c:1247
+msgid "The specified Y coordinate offset is not a valid number."
+msgstr ""
+
+#: main.c:1599 options.c:1259
+msgid "The specified Z coordinate offset is not a valid number."
+msgstr ""
+
+#: options.c:1217
+msgid "The specified dangling setting is not a valid number."
+msgstr ""
+
+#: options.c:1175
+#, c-format
+msgid "The specified output format \"%s\" is unknown."
+msgstr ""
+
+#: main.c:1526
+msgid "The specified snapping setting for boundaries is not a valid number."
+msgstr ""
+
+#: main.c:1548
+msgid "The specified snapping setting for dangles is not a valid number."
+msgstr ""
+
+#: options.c:1200
+msgid "The specified snapping setting is not a valid number."
+msgstr ""
+
+#: main.c:1505 options.c:1185
+msgid "The specified tolerance setting is not a valid number."
+msgstr ""
+
+#: main.c:1909
+msgid ""
+"There was a problem with at least one option setting.\n"
+"Please check the \"Messages\" area for details."
+msgstr ""
+
+#: main.c:1829
+msgid ""
+"This is free software under the GNU Public License.\n"
+"A copy of the license agreement has been delivered to you in the file "
+"LICENSE.\n"
+"Translations can be found at http://www.gnu.org/licenses/gpl.html\n"
+"This software includes LGPL-licensed code from shapelib: http://shapelib."
+"maptools.org"
+msgstr ""
+
+#: parser.c:1843 parser.c:2053
+#, c-format
+msgid "To lower case.\n"
+msgstr ""
+
+#: parser.c:1840 parser.c:2050
+#, c-format
+msgid "To upper case.\n"
+msgstr ""
+
+#: main.c:1512 options.c:1193
+msgid "Tolerance setting < 0. Identical vertices will not be removed."
+msgstr ""
+
+#: parser.c:368
+msgid "Uninitialized data store specified."
+msgstr ""
+
+#: parser.c:383
+msgid "Uninitialized option set specified."
+msgstr ""
+
+#: parser.c:388
+msgid "Uninitialized parser specified."
+msgstr ""
+
+#: parser.c:2765
+#, c-format
+msgid ""
+"Unneeded setting in parser schema (%s).\n"
+"Setting for \"key_unique\" will be ignored."
+msgstr ""
+
+#: parser.c:2761
+#, c-format
+msgid ""
+"Unneeded setting in parser schema (%s).\n"
+"Setting for \"tag_strict\" will be ignored."
+msgstr ""
+
+#: parser.c:2653 parser.c:2753 parser.c:2757
+#, c-format
+msgid ""
+"Unneeded setting in parser schema (%s).\n"
+"Setting for key field will be ignored."
+msgstr ""
+
+#: parser.c:2686
+#, c-format
+msgid ""
+"Unneeded setting in parser schema (%s).\n"
+"Setting for tag field will be ignored."
+msgstr ""
+
+#: parser.c:2769
+#, c-format
+msgid ""
+"Unneeded setting(s) in parser schema (%s).\n"
+"Setting(s) for geometry tags will be ignored."
+msgstr ""
+
+#: options.c:57
+#, c-format
+msgid "Usage: %s -p FILE -o DIR -n NAME [OPTION]... [FILE]... \n"
+msgstr ""
+
+#: main.c:1215
+msgid "Use stricter input validation."
+msgstr ""
+
+#: reproj.c:588
+msgid "User has specified a seven-parameter transformation."
+msgstr ""
+
+#: reproj.c:594
+msgid "User has specified a three-parameter transformation."
+msgstr ""
+
+#: main.c:1217
+msgid "Validate only:"
+msgstr ""
+
+#: errors.c:125 errors.c:135 errors.c:146 errors.c:152
+#, c-format
+msgid "WARNING: "
+msgstr ""
+
+#: options.c:1484
+msgid ""
+"WGS 84 datum transformation requires input and output SRS specifications."
+msgstr ""
+
+#: options.h:99
+msgid "World: original X/Y/(Z)"
+msgstr ""
+
+#: geom.c:2800
+#, c-format
+msgid "Wrong geometry type (must be point, line or polygon)."
+msgstr ""
+
+#: parser.c:1788 parser.c:1998
+#, c-format
+msgid "X COORD FIELD:\t%s\n"
+msgstr ""
+
+#: parser.c:1790 parser.c:2000
+#, c-format
+msgid "X COORD FIELD:\tUndefined.\n"
+msgstr ""
+
+#: main.c:188
+#, c-format
+msgid "X coordinate offset: %f"
+msgstr ""
+
+#: main.c:186
+msgid "X coordinate offset: 0"
+msgstr ""
+
+#: main.c:1167
+msgid "X rotation factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1167
+msgid "X rotation to WGS 84:"
+msgstr ""
+
+#: main.c:1161
+msgid "X shift factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1161
+msgid "X shift to WGS 84:"
+msgstr ""
+
+#: parser.c:1792 parser.c:2002
+#, c-format
+msgid "Y COORD FIELD:\t%s\n"
+msgstr ""
+
+#: parser.c:1794 parser.c:2004
+#, c-format
+msgid "Y COORD FIELD:\tUndefined.\n"
+msgstr ""
+
+#: main.c:193
+#, c-format
+msgid "Y coordinate offset: %f"
+msgstr ""
+
+#: main.c:191
+msgid "Y coordinate offset: 0"
+msgstr ""
+
+#: main.c:1169
+msgid "Y rotation factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1169
+msgid "Y rotation to WGS 84:"
+msgstr ""
+
+#: main.c:1163
+msgid "Y shift factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1163
+msgid "Y shift to WGS 84:"
+msgstr ""
+
+#: gui_form.c:500
+msgid "Yes"
+msgstr ""
+
+#: parser.c:1796 parser.c:2006
+#, c-format
+msgid "Z COORD FIELD:\t%s\n"
+msgstr ""
+
+#: parser.c:1798 parser.c:2008
+#, c-format
+msgid "Z COORD FIELD:\tUndefined.\n"
+msgstr ""
+
+#: main.c:198
+#, c-format
+msgid "Z coordinate offset: %f"
+msgstr ""
+
+#: main.c:196
+msgid "Z coordinate offset: 0"
+msgstr ""
+
+#: main.c:1171
+msgid "Z rotation factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1171
+msgid "Z rotation to WGS 84:"
+msgstr ""
+
+#: main.c:1165
+msgid "Z shift factor for datum transformation to WGS 84."
+msgstr ""
+
+#: main.c:1165
+msgid "Z shift to WGS 84:"
+msgstr ""
+
+#: gui_form.c:995 gui_form.c:1170
+msgid "_Defaults"
+msgstr ""
+
+#: gui_form.c:935
+msgid "_Edit"
+msgstr ""
+
+#: gui_form.c:937
+msgid "_Help"
+msgstr ""
+
+#: gui_form.c:1003
+msgid "_Language"
+msgstr ""
+
+#: gui_form.c:934
+msgid "_Process"
+msgstr ""
+
+#: gui_form.c:955 gui_form.c:1167
+msgid "_Run"
+msgstr ""
+
+#: gui_form.c:936
+msgid "_Settings"
+msgstr ""

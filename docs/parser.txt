@@ -1,0 +1,196 @@
+# SYNTAX RULES
+#
+# Lines starting with '#' are comment lines.
+# 
+# Empty lines will be ignored.
+#
+# There are two types of sections: [Parser] and [Field].
+# There can be only one [Parser] section but up to 251 [Field]s.
+#
+# The case of section names and option names is ignored.
+#
+# Option names and values can be put in "" (quotation marks), section names cannot.
+#
+# Valid option names do not have whitespace.
+#
+# The "=" separates option names from option values.
+#
+# Option values stretch from the right of "=" to the end of the line.
+#
+# Empty option values are not allowed. To not set an option, delete both its name and value.
+#
+# Whitespace at the start and end of an option name or value (padding)
+# will be removed automatically when reading the schema file.
+#
+# Some options are of boolean type. They can be set to any of these values:
+# "Y", "Yes, "On", "1", "Enable", "True" 
+# Or
+# "N", "No, "Off", "0", "Disable", "False"
+#
+# Fields must be defined in the same order in which they appear in the input file!
+
+# Global parser options. This section is only allowed once per parser scheme file
+[Parser]
+
+# Optional: parser name
+name = survey2gis test parser
+
+# Optional: one-liner with description of parser
+info = This parser has been designed to test survey2gis
+
+# Mandatory: can be either "min", "max", "end", or "none"
+tagging_mode = min
+
+# One or more "comment_mark" definitions that define strings
+# which introduce comments in the input data.
+comment_mark = #
+comment_mark = //
+
+# Name of the one field that contains the geometry tags.
+# May be identical with "key_field" (see below). The field name
+# must match a "name" option's value in one of the "[Field]" sections.
+# Mandatory for all parser modes except "None".
+# The geometry key may be part of a regular attribute field,
+# but in that case the attribute values should never overlap
+# with the strings used as geometry tags.
+# The "tag_field" must not be identical with the "key_field" 
+# (see below) in mode "Max".
+tag_field = FIELD1
+
+# Mandatory for tagging modes "Max" and "End": Name of a field that
+# contains the record's measurement key. Successive records with
+# identical values in the "key_field" will be combined to
+# form polygon and polyline geometries in modes "End" and "Max".
+# The "key_field" must not be identical with the "tag_field" 
+# (see above) in mode "Max". The field name must match a
+# "name" option's value in one of the "[Field]" sections.
+key_field = FIELD1
+
+# Optional: If "tag_strict" exists and is set to any of 
+# "Yes", "Y", "On", "1", "Enable" or "True", then strict
+# tagging mode will be used, which means that every measurement
+# has to have a geometry tag, i.e. measurements without a
+# point geometry tag will not automatically be interpreted
+# as points.
+"tag_strict" = "No"
+
+# Optional: If this option's value is set to an integer
+# number, then that number will be used to represent
+# all missing data in the output, no matter whether the 
+# data type is text or numeric (integer or double).
+# If this option is not set, then empty numeric fields
+# will be stored as "NULL" in the output, and empty text
+# fields as "" (empty string).
+# Note that ESRI software does not support "NULL" data
+# attributes in DBFs (Shapefiles). Therefore, you must
+# specify a custom "NULL" value.
+no_data = -9999
+
+# Strings for geometry tagging.
+# Defaults:
+# Points = .
+# Lines = - (minus)
+# Polygons = + (plus)
+geom_tag_point = "."
+geom_tag_line = "-"
+geom_tag_poly = "+"
+
+# The following three settings identify the fields in the input file 
+# that hold the X, Y and Z coordinates, respectively. At least X
+# and Y fields must be specified. If Z is not specified, then all
+# Z coordinates are assumed to be "0.0".
+# The fields referenced must exist and must be of type "double".
+coor_x = Field_X
+coor_y = Field_Y
+coor_z = Field_Z
+
+#
+# FIELD DEFINITIONS
+#
+# After exactly one [Parser] section, there can be 1 to 251 field definitions.
+# Fields must be defined in the same order in which they appear in the input file!
+
+# Definition of a field.
+[Field]
+
+# Mandatory: Field name. May have a maximum of 10 characters,
+# only [a-z,A-Z,0-9,_] allowed. Field names are not processed
+# case-sensitively, so all names will be converted to all
+# upper characters by the software.
+name = FIELD1
+
+# Optional: one-liner with description of the field.
+info = First field
+
+# Mandatory: can be one of "Text", "Integer", "Double" (not case sensitive).
+type = text
+
+# Optional: If "empty_allowed" exists and is set to any of 
+# "Yes", "Y", "On", "1", "Enable" or "True", then this
+# field's contents are allowed to be empty, meaning that
+# it can be of zero characters length. Whitespace does not
+# count as field content.
+# "empty_allowed" must not be enabled for "key_field", "tag_field"
+# and any of the coordinate fields.
+# This option cannot be "Yes" if "merge_separators" is "Yes"!
+empty_allowed = No
+
+# Optional: If "unique" exists and is set to any of 
+# "Yes", "Y", "On", "1", "Enable" or "True", then this
+# field's contents must be unique (the "key_field" must
+# always contain unique values) in ALL input files.
+# If there are duplicate values in fields that are set
+# to be "unique", then they will be reported, but not
+# otherwise touched. The user has to decide how to deal
+# with them.
+# Duplicate attribute values will be checked PER GEOMETRY,
+# not per measurement/record!
+unique = No
+
+# Optional: If "persistent" exists and is set to any of 
+# "Yes", "Y", "On", "1", "Enable" or "True", then this
+# field is assumed to exist even in records that have
+# no other attribute fields ("coordinates only" lines).
+persistent = No
+
+# Optional: If "skip" exists and is set to any of 
+# "Yes", "Y", "On", "1", "Enable" or "True", then this
+# field will always be skipped, i.e. its contents will
+# never be stored in the output.
+skip = No
+
+# Optional: Can be used to automatically convert
+# the contents of a text field to all upper or all
+# lower cases.
+# Valid settings: "None", "Upper", "Lower" (default:
+# "None" = no conversion performed).
+change_case = None
+
+# One ore more separators that mark the end
+# of this field. This option is mandatory for all
+# expect the last field. It is an error to set
+# a separator character for the last field!
+# "tab" stands for "tabulator", "space" is a regular
+# space as produced by the spacebar key, "\n" (new line) is NOT
+# allowed.
+separator = ;
+separator = tab
+separator = "space"
+
+# Optional: If "merge_separators" exists and is set to any of 
+# "Yes", "Y", "On", "1", "Enable" or "True", then successive
+# separators (as listed above) will be skipped, if there are
+# no other characters in-between them.
+# This option cannot be "Yes" if "merge_separators" is "Yes"!
+merge_separators = No
+
+# One or more quotation characters may brace the field (e.g. ").
+# Only one can be specified. Set to "0" to disable.
+quotation =
+
+# Further field definitions have to follow the same sequence as
+# in the input data file(s).
+[ Field ]	
+
+# etc ...
+

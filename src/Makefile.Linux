@@ -1,0 +1,226 @@
+#############################################################################
+#
+# PROGRAM:		survey2gis
+# FILE:			Makefile.Linux
+# AUTHOR(S):	Benjamin Ducke for Regierungspraesidium Stuttgart,
+#				Landesamt fuer Denkmalpflege
+# 				http://www.denkmalpflege-bw.de/
+#
+# PURPOSE:	 	This is the Makefile for Linux systems. Nothing surprising here.
+#
+# COPYRIGHT:	(C) 2011-2018 by the gvSIG Community Edition team
+#
+#		This program is free software under the GPL (>=v2)
+#		Read the file COPYING that comes with this software for details.
+#############################################################################
+
+PRG=survey2gis
+
+# For locale codes see: http://www.gnu.org/s/hello/manual/gettext/Locale-Names.html
+CUR_LOCALE=de
+CUR_DIRNAME=de
+
+# Bundled version of Shapelib
+SHAPELIB_DIR=shapelib-1.3.0
+
+# Bundled version of PROJ4
+PROJ4_DIR=proj-4.9.3
+PROJ4_PREFIX=$(shell pwd)/${PROJ4_DIR}
+
+# Bundled version of SLRE
+SLRE_DIR=slre
+
+# set ARCH_FLAG to -m32 to force a 32 bit build
+# set ARCH_FLAG to -m64 to force a 64 bit build
+ARCH_FLAG=
+GCC=gcc
+GCC_STRICTNESS=-Wall -fno-common -fexceptions
+#For Valgrind'ing, use this:
+#GCC_STRICTNESS=-g -O0 -Wall -fno-common -fexceptions
+LD_EXTRA_FLAGS=$(LDFLAGS) ${ARCH_FLAG} -lm -lpthread
+GCC_EXTRA_FLAGS=${ARCH_FLAG} ${GCC_STRICTNESS} -I${SHAPELIB_DIR} -I${PROJ4_DIR}/include $(CFLAGS)
+TRANSLATIONS=translations
+MAKE=make
+
+# i18n settings
+I18N_PACKAGE=${PRG}
+I18N_LOCALE_DIR=locale
+
+# GUI support? Uncomment the following lines and adjust
+# the GTK include and library settings to match your system's.
+GUI="\#define GUI"
+# to use pkg-config for GTK2 auto-configuration:
+GUI_INC=$(shell pkg-config --cflags gtk+-2.0)
+GUI_LIB=$(shell pkg-config --libs gtk+-2.0)
+
+# No GUI support? Then we still need GLib for some services.
+#GUI_INC=$(shell pkg-config --cflags glib-2.0)
+#GUI_LIB=$(shell pkg-config --libs glib-2.0)
+
+# If pkg-config does not work/exist on your system, then specify
+# things manually here.
+#GUI_INC=-I/usr/include/gtk-2.0 -I/usr/lib/gtk-2.0/include -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0
+#GUI_LIB=-lgtk-x11-2.0
+
+export GCC
+export GCC_EXTRA_FLAGS
+export MAKE
+
+all: slre shapelib proj4 ${PRG}
+tests: test-platform
+
+
+#############################################################################
+
+config:
+	@ # PROJ.4
+	@ echo "Configuring bundled PROJ.4..."
+	@ cd ${PROJ4_DIR} ; ./configure -q --prefix=${PROJ4_PREFIX} --enable-shared==no --enable-static=yes --disable-dependency-tracking	
+	@ echo "... done."
+
+#############################################################################
+
+
+#############################################################################
+
+shapelib:
+	${MAKE} -C ${SHAPELIB_DIR}
+
+#############################################################################
+
+
+#############################################################################
+
+proj4:
+	@ cd ${PROJ4_DIR} ; ${MAKE}
+	@ cd ${PROJ4_DIR} ; ${MAKE} install
+	@ cp -R ${PROJ4_DIR}/share/proj ./ 
+
+#############################################################################
+
+
+#############################################################################
+
+slre: ${SLRE_DIR}/slre.o
+
+${SLRE_DIR}/slre.o: ${SLRE_DIR}/slre.c ${SLRE_DIR}/slre.h
+	${GCC} -c ${SLRE_DIR}/slre.c -I${SLRE_DIR} -o ${SLRE_DIR}/slre.o
+
+#############################################################################
+
+
+#############################################################################
+
+survey2gis: ${TRANSLATIONS} config.h errors.o export.o geom.o gui_conf.o gui_field.o gui_form.o i18n.o main.o options.o parser.o reproj.o selections.o tools.o
+	${GCC} errors.o export.o geom.o gui_conf.o gui_field.o gui_form.o i18n.o main.o options.o parser.o reproj.o selections.o tools.o ${SLRE_DIR}/slre.o ${SHAPELIB_DIR}/dbfopen.o ${SHAPELIB_DIR}/shpopen.o ${SHAPELIB_DIR}/libshp.a ${PROJ4_DIR}/lib/libproj.a -o ${PRG} ${LD_EXTRA_FLAGS} ${GUI_LIB} ${GCC_EXTRA_FLAGS}
+
+#############################################################################
+
+config.h:
+	@ echo "#ifndef CONFIG_H" > config.h
+	@ echo "#define CONFIG_H" >> config.h
+	@ echo "#define PACKAGE \"${I18N_PACKAGE}\"" >> config.h
+	@ echo "#define LOCALEDIR \"${I18N_LOCALE_DIR}\"" >> config.h
+	@ echo "#include \"${SHAPELIB_DIR}/shapefil.h\"" >> config.h
+	@ echo "#include \"${PROJ4_DIR}/include/proj_api.h\"" >> config.h
+	@ echo "${GUI}" >> config.h
+	@ echo "#endif /* CONFIG_H */" >> config.h
+
+errors.o: errors.c errors.h
+	${GCC} -c errors.c ${GUI_INC} ${GCC_EXTRA_FLAGS} global.h
+
+export.o: export.c export.h
+	${GCC} -c export.c ${GCC_EXTRA_FLAGS} global.h
+
+geom.o: geom.c geom.h global.h options.h parser.h
+	${GCC} -c geom.c ${GCC_EXTRA_FLAGS}
+
+gui_conf.o: gui_conf.c gui_conf.h global.h
+	${GCC} -c gui_conf.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+gui_field.o: gui_field.c gui_field.h global.h
+	${GCC} -c gui_field.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+gui_form.o: gui_form.c gui_form.h global.h header.xpm
+	${GCC} -c gui_form.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+i18n.o: i18n.c i18n.h options.h global.h
+	${GCC} -c i18n.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+main.o: main.c geom.h global.h gui_field.h gui_form.h i18n.h options.h parser.h
+	${GCC} -c main.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+options.o: options.c options.h global.h
+	${GCC} -c options.c ${GCC_EXTRA_FLAGS}
+
+parser.o: parser.c parser.h global.h options.h
+	${GCC} -c parser.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+reproj.o: reproj.c reproj.h global.h options.h
+	${GCC} -c reproj.c ${GUI_INC} ${GCC_EXTRA_FLAGS}
+
+selections.o: selections.c selections.h global.h
+	${GCC} -c selections.c ${GCC_EXTRA_FLAGS}
+
+tools.o: tools.c tools.h global.h
+	${GCC} -c tools.c ${GCC_EXTRA_FLAGS}
+
+#############################################################################
+
+test-platform: tests/test-platform.c
+	${GCC} tests/test-platform.c i18n.o tools.o -o test-platform ${GCC_EXTRA_FLAGS} ${LD_EXTRA_FLAGS}
+
+#############################################################################
+
+translations:
+	@ echo "Processing translation files..."
+	@ mkdir -p ${I18N_LOCALE_DIR}
+	@ xgettext -d ${I18N_PACKAGE} -s -k"_" -k"gettext_noop" -o ${I18N_LOCALE_DIR}/${I18N_PACKAGE}.pot *.c *.h
+	@ echo "Locale: ${CUR_LOCALE}..."
+	@ if [ -f "${I18N_LOCALE_DIR}/${CUR_LOCALE}.po" ] ; then \
+		msgmerge --backup=simple -U ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po ${I18N_LOCALE_DIR}/${I18N_PACKAGE}.pot ; \
+	else \
+		msginit --no-translator --locale="${CUR_LOCALE}" -o ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po -i ${I18N_LOCALE_DIR}/${I18N_PACKAGE}.pot ; \
+		awk '{sub(/charset=ASCII/,"charset=UTF-8")}; 1' ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po > ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po.tmp ; \
+		mv ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po.tmp ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po ; \
+	fi
+	@ msgfmt -c -o ${I18N_LOCALE_DIR}/${I18N_PACKAGE}.mo ${I18N_LOCALE_DIR}/${CUR_LOCALE}.po
+	@ mkdir -p ${I18N_LOCALE_DIR}/${CUR_DIRNAME}
+	@ mkdir -p ${I18N_LOCALE_DIR}/${CUR_DIRNAME}/LC_MESSAGES
+	@ mv ${I18N_LOCALE_DIR}/${I18N_PACKAGE}.mo ${I18N_LOCALE_DIR}/${CUR_DIRNAME}/LC_MESSAGES/
+	@ echo "********************************************************************************"
+	@ echo "* Check if ''Content-Type: text/plain; charset=UTF-8'' in the .po files.       *"
+	@ echo "********************************************************************************"
+	@ echo "\nCompiling source code..."
+
+
+#############################################################################
+
+clean:
+	rm -f *.o ${PRG}
+	rm -f *.h.gch
+	rm -f test-platform
+	rm -f ${SLRE_DIR}/slre.o
+	rm -f ${SHAPELIB_DIR}/*.o ${SHAPELIB_DIR}/libshp.a ${SHAPELIB_DIR}/shptest ${SHAPELIB_DIR}/shpcreate
+	rm -f ${SHAPELIB_DIR}/shpadd ${SHAPELIB_DIR}/shpdump ${SHAPELIB_DIR}/shprewind ${SHAPELIB_DIR}/dbfcreate
+	rm -f ${SHAPELIB_DIR}/dbfadd ${SHAPELIB_DIR}/dbfdump ${SHAPELIB_DIR}/sptreedump
+	@ cd ${PROJ4_DIR} ; ${MAKE} clean ; ${MAKE} uninstall
+	rm -f ${PROJ4_DIR}/bin/*
+	rm -rf ${PROJ4_DIR}/include
+	rm -rf ${PROJ4_DIR}/lib/pkgconfig
+	rm -f ${PROJ4_DIR}/lib/*
+	rm -rf ${PROJ4_DIR}/share
+	rm -rf proj
+	rm -f config.h
+
+#############################################################################
+
+
+#############################################################################
+
+install:
+	@echo "Nothing left to do."
+	@echo "Just run survey2gis from current directory."
+
+#############################################################################
+

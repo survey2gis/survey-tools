@@ -1,0 +1,239 @@
+*** Version 1.5.0 (2018-07-26) ***
+This is a new stable release that contains new features and
+bug fixes. It also contains important bug fixes. All users
+of earlier versions of Survey2GIS should upgrade to 1.5.0.
+
+The most important new feature in this version is support
+for spatial reference systems (SRS) and reprojections via
+PROJ.4 (see: proj4.org). In addition, limited support for
+"vertical data" (profiles, cross-sections) has been added.
+Please refer to the updated program manual for details.
+
+Changelog:
+Note: Two BETA versions were released prior to the final
+version 1.5.0. Therefore, additional changes are covered
+in the change log notes of these versions.
+- Bug fix: Ignore capitalization in "epgs:" SRS definitions.
+- Bug fix: Correctly resolve relative path for "--proj-grid=".
+- Bug fix: Support special characters in PROJ.4 grid file path (Windows). 
+- Bug fix: Made sure that PROJ.4 error messages display before exit (CLI).
+- Bug fix: Allow file/folder names with length of just one character.
+- Bug fix: Added error reporting for missing option values.
+- Misc.: Fixed duplicated German translations of CLI options.
+- Docs: Slight amendments to section about PROJ.4 grid files. 
+
+*** Version 1.5.0 BETA 2 (2018-07-10) ***
+This is a maintenance release on the way to the next major release.
+
+THIS IS A BETA QUALITY RELEASE!
+Expect problems and, if they occur, please report them to the
+developers, so that they can be fixed with the next release.
+
+Changelog:
+- Bug fix: Correctly detect bundled "proj" data folder (Windows).
+- Bug fix: Correctly parse transformation grid file path option (Windows).
+- Bug fix: Parse PROJ.4 format SRS definitions case-sensitively.
+- Bug fix: Corrected check for equality for SRS definitions of same lengths.
+- Bug fix: Allow to run parser file validation without input files.
+- Bug fix: Stop always switching messages back to English at export stage.
+- Misc.: Renamed all reprojection options to start on "--proj-".
+- Misc.: Updated/completed German translations of program messages.
+- Misc.: Removed unneeded "epsg" folder from distribution.
+- Misc.: Improved PROJ.4 error message details.
+- Misc.: Unified spelling of "Survey2GIS" throughout program.
+- Docs: Updated section on "Reprojection using PROJ.4".
+- Docs: Applied several clarifications and corrections.
+
+
+*** Version 1.5.0 BETA 1 (2018-05-06) ***
+This release adds support for specifying spatial reference systems
+(SRS) and performing coordinate reprojections using a bundled copy
+of PROJ.4, and support for "local X-Z" axes transformation.
+Please read the new manual sections for details.
+
+This release also contains important bug fixes.
+
+THIS IS A BETA QUALITY RELEASE!
+Expect problems and, if they occur, please report them to the
+developers, so that they can be fixed with the next release.
+
+A lot of the program logics have changed to handle new features, in particular
+the explicit setting of SRS and reprojection. This release will go through
+an extensive testing phase before it will be ready for production use.
+
+Changelog:
+- New feature: Added support for specifying input and output SRS.
+- New feature: Added support for reprojecting output coordinates.
+- New feature: Transform X/Y/Z data into 2D, local X/Z profiles.
+- Bug fix: Fixed formatting errors in multi-geometry GeoJSON output.
+- Bug fix: Fixed parsing error in mode "min" (bug present since version 1.4.0).
+- Bug fix: Attempt to remove geometry tags from label field contents (if coinciding).
+- Docs: Added section on SRS and reprojection.
+- Docs: Added section on transforming data to local vertical profiles.
+- Docs: Ensured consistent spelling of "Survey2GIS".
+- Docs: More details provided and better clarity in many places.
+- Misc.: Skip high-level topological cleaning for (user-declared) lat/lon data.
+- Misc.: Abort KML output if data is not declared as lat/lon. 
+- Misc.: Warn/abort GeoJSON output of data that is not lat/lon, WGS 84.
+- Misc.: Cleaned up and reformatted source code.
+- Misc.: Added some missing German translation bits.
+- Misc.: Improved formatting of many error messages.
+- Source code: Extended build system for bundled PROJ.4 library (static linking).
+
+
+*** Version 1.4.2 (2017-07-26) ***
+This is a maintenance release that fixes some problems with memory
+allocation for larger datasets that could lead to crashes.
+There are important bug fixes in this release. Please upgrade to this
+version if you are still using an earlier one.
+
+Changelog:
+- Bug fix: Initialize new (empty) geometries with better default values.
+- Bug fix: Fixed memory allocation for segment intersection points.
+- Bug fix: Handle intersections on corrupt geometries with parallel segments.
+- Bug fix: Fixed several memory management bugs.
+
+
+*** Version 1.4.1 (2016-12-08) ***
+This release focuses on providing additional export formats
+GeoJSON and KML, but it also contains some important bug fixes
+for the DXF exporter.
+
+Changelog:
+- New feature: Added support for GeoJSON output format.
+- New feature: Added support for Google KML output format (lat/lon data only).
+- Improvement: Enhanced list of reserved field names to include label properties.
+- Improvement: Topology: Sort vertices of polygon boundaries and holes before export.
+- Bug fix: Force English number format in DXF output.
+- Bug fix: Respect option "--force-2d" for all output formats.
+- Bug fix: Option "--raw-data" plus labels no longer crashing.
+- Docs: Described/clarified use of "no_data" setting in parser.
+
+
+*** Version 1.4.0 (2016-11-07) ***
+This release adds new features and productivity enhancements.
+It improves topological cleaning and fixes some bugs related
+to the latter.
+It also contains all improvements and bug fixes present in
+version 1.3.1, which was never officially released.
+
+Note: This release also adds stricter handling of field names:
+All field names will be converted to _lower_ case on parsing.
+Output data will contain only _lower_ case field names.
+See manual for details.
+
+Changelog:
+- New feature: Output an additional layer with feature labels
+  (depending on chosen output format: see manual for details).
+- New feature: Add nodes at intersection points of geometries.
+- New feature: Snap dangling first/last vertices of lines.
+- GUI improvement: Added page "Extra" and moved some settings
+  over to it, in order to trim the contents of the "Basic" page.
+- GUI improvement: Reduced size of "Messages" font to 10 points.
+- GUI improvement: Field name entries are restricted to allow
+  only valid field names (re. length, set of allowed characters,
+  lower case spelling).
+- Bug fix: Option --"snapping" now parsed on the command line.
+- Bug fix: Swapped order of polygon snapping and hole stamping.
+- Bug fix: Only thin out vertices that are neighbors (lines and polygons).
+- Bug fix: Re-added German translations for Linux and Mac OS X.
+- Docs: Revised and enhanced section on topological data cleaning.
+
+
+*** Version 1.3.1 (2016-09-19) [not officially released] ***
+This is a maintenance release that adds support for UI translations
+and improves handling of international characters and number formats.
+There are important bug fixes in this release. Please upgrade to this
+version if you are still using an earlier one.
+
+Note (Windows): The folder structure for the Windows version has been
+changed. Please see "README.Windows32" for details.
+
+Note (Linux): Linux binaries are now 64 bit.
+
+Changelog:
+- Enabled GUI translations (choose via "Settings" menu).
+- German UI translation (Many thanks to J. Valenta of arch-iv.de).
+- Default decimal point for data now ".", regardless of system region.
+- Default decimal group symbol for data now ",", regardless of system region.
+- Windows version: Added Unicode support for application messages.
+- Windows version: Added support for file paths with non-ASCII characters.
+- Windows version: Added support for non-ASCII option values passed by cmd.exe.
+- Windows version: Updated bundled GUI library to GTK 2.24.30.
+- Windows version: CLI client now also depends on GLib (mainly for i18n functions).
+- Parser schema: Allow to specify mode name using any case (e.g. "max", "Max" or "MAX").
+- Bug fix: Mode "Max": points no longer merged with preceding line or polygon vertices.
+- Bug fix: Mode "Max": last polygon/line now correctly finalized.
+- Bug fix: Option "-e" now correctly forces English messages and decimal format.
+- Bug fix: Setting decimal point and/or grouping character now works correctly.
+- Docs: Updated section on "Output formats" to make it more accurate.
+- Docs: Added a section on handling international character encodings.
+
+
+*** Version 1.3.0 (2015-10-20) ***
+- New feature: Selection commands for processing of input data subsets.
+- Revised GUI button labels to prevent ambiguous use of term "selection".
+- New 3rd party library (included): https://github.com/cesanta/slre
+- LICENSE CHANGE: Starting with this version, survey2gis is licensed
+  under the GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+  This change was made for conformance with SLRE's license.
+
+
+*** Version 1.2.1 (2015-05-25) ***
+- Fixed parsing of minimal X/Y/(Z) lines in mode "Min".
+- Fixed parser validation: force "persistent=yes" for coord. fields in mode "Min".
+- Added null pointer guard for rare error that sets field values to "null".
+
+
+*** Version 1.2.0 (2014-10-03) ***
+- Added support for Mac OS X (compiled and tested on Mac OS 10.9).
+- Added missing parser modes: "Min", "All" and "None" (see manual).
+- Improved robustness against missing attribute field values.
+- Allow "--tolerance=" to assume negative values (=no elimination of identical vertices).
+- Bug fix: Re-enabled full error parsing for parsers with pseudo fields (option "value=").
+- Bug fix: Correctly validate parsers with missing definitions for key fields and geometry tags.
+- Translated example file contents to English.
+- Revised/provided example input files for all parser modes.
+- Revised/provided example parser description files for all parser modes.
+- Updated and revised documentation.
+
+
+*** Version 1.1.1 (2014-09-18) ***
+- Bug fix: Fixed seemingly random crashes triggered by long parser files.
+- Bug fix: Removed multiple consecutive file path separators in console output.
+- Bug fix: Fields of type integer no longer exported as reals with precision "0".
+- Bug fix: Corrected field length tests for integer and double type fields.
+
+
+*** Version 1.1.0 (2013-12-13) ***
+- New feature: Export to AutoCAD (R15/2000) DXF.
+- New feature: Expand text field values using look-up lists (see "@" field option).
+- Improvement: Coordinate extents of input data added to processing log.
+- GUI improvement: Renamed menu "File" to "Process".
+- GUI improvement: Renamed menu "Execute" to "Run".
+- GUI improvement: Renamed menu "Restore" to "Default".
+- Strictness: "GEOM_ID" is now a reserved field name.
+
+
+*** Version 1.0.3 (2013-08-21) ***
+- Critical bug fixes: Please upgrade to this version from any earlier version!
+- Processing of overlapping polygons no longer leads to program crash.
+- Windows version: Double type attributes are now stored with correct decimal precision.
+
+
+*** Version 1.0.2 (2013-08-20) ***
+- Critical bug fixes: please upgrade to this version from any earlier version!
+- Processing of input without multi-part geometries no longer leads to program crash.
+- New feature: pseudo fields with constant value (see new field option "value").
+
+
+*** Version 1.0.1 (2013-08-19) ***
+- Windows version: Fixed a bug that corrupted double type attribute table field values
+  (this would occur if the data used a different numeric format than Windows itself).
+- Multi-part geometries in one input file are now correctly processed.
+- Updated bundled shapelib to version 1.3.0 (http://shapelib.maptools.org).
+- Improvements to source code organisation and compilation (makefiles).
+
+
+*** Version 1.0.0 (2013-07-01) ***
+- Initial release.

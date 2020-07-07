@@ -1,0 +1,74 @@
+<-:| Survey2GIS |:->
+
+COMPILING FROM SOURCE CODE
+
+2017-11-06
+Written by the survey-tools.org development team
+(c) 2013-2017 by the survey-tools.org development team
+
+This file contains information on how to compile Survey2GIS
+from source code.
+
+Survey2gGIS is written in ANSI C, is highly portable and
+has minimal dependencies on 3rd party libraries.
+
+The graphical user interface (GUI) requires GTK+ to be installed
+on your system. In addition to the GTK+ libraries, you need
+all header files and the 'pkg-config' script for things to
+work out of the box. Both the GUI and the pure CLI versions
+require GLib. The latter should be present on any system that
+has GTK+.
+
+Even without the GUI, some parts of GLIB (which underlies GTK)
+are required by Survey2GIS.  
+
+There are several 'makefiles' for building Survey2GIS on the
+respective operating system:
+
+Makefile.MinGW	-- for Windows
+Makefile.Linux  -- for Linux
+Makefile.MacOSX -- for Mac OS X   
+
+These makefiles are for the GCC tool chain. There is no
+support for Visual Studio or other (proprietary) tool chains.
+
+Each Makefile contains more specific comments for compiling
+the sources under the different OS. Please read them!
+
+Check/edit the Makefile for your OS to make sure that it suits
+your system's setup. 
+
+(In the instructions below, replace "Makefile.Linux" with the
+appropriate makefile four your OS, as required.)
+
+First the build system needs to be configured. This is necessary
+so that some bundled 3rd party libraries can compile correctly:
+
+  make -f Makefile.Linux config
+
+Then the source code can be compiled:
+
+  make -f Makefile.Linux
+
+This will compile Survey2GIS, as well as any bundled 3rd party
+libraries on which it depends (read the makefile to find
+further compilation targets if required).
+
+After successful compilation, you will find a 'survey2gis'
+executable which you can start directly to use the software.
+
+Should you wish to start over, deleting all previous configurations
+and compiled objects, issue:
+
+  make -f Makefile.Linux clean
+  
+Then repeat the steps above.
+
+Alternatively, to clean up the build system, regardless
+which OS was used to configure and compile during the
+previous run: 
+
+  make -f Makefile clean
+
+(Note that this may not work perfectly, and that it is better
+to clean the build tree using the OS-specific makefile!)

@@ -1,0 +1,151 @@
+# This file is part of survey2gis (http://www.survey-tools.org).
+#
+# It contains a sample parser description for parser mode "Min" (see manual).
+# Try this with the sample survey data in "sample_data_min.dat".
+#
+# Last edited: 2014-09-23
+
+[Parser]
+name = survey2gis parser description: sample for mode "Min"
+tagging_mode = min
+tag_field = TAG
+key_field = ID
+#key_unique = Yes
+tag_strict = No
+no_data = -1
+geom_tag_point = "."
+geom_tag_line = "$"
+geom_tag_poly = "@"
+coor_x = COORX
+coor_y = COORY
+coor_z = COORZ
+comment_mark = #
+
+# Field definitions
+
+# Pseudo field with constant value
+[Field]
+name = CONST1
+info = pseudo field of type double
+type = double
+value = 123.45
+
+# Index field
+[Field]
+name = IDX
+info = Field with measurement index [0..n]
+type = integer
+empty_allowed = No
+persistent = Yes
+separator = space
+merge_separators = No
+unique = Yes
+
+# Excavation levels
+[Field]
+name = LEVEL
+info = N/A
+type = Integer
+empty_allowed = No
+separator = _
+merge_separators = No
+
+# Artefact types
+[Field]
+name = TYPE
+info = N/A
+type = Text
+empty_allowed = No
+separator = _
+merge_separators = No
+change_case = upper
+@AU = Gold
+@AG = Silver
+@KE = Pottery 
+
+# Auxillary field
+[Field]
+name = AUX
+info = N/A
+type = Text
+empty_allowed = No
+separator = _
+merge_separators = No
+change_case = upper
+@P = Control point
+
+# Features
+[Field]
+name = ID
+info = N/A
+type = Integer
+empty_allowed = No
+separator = space
+merge_separators = No
+
+# Geometry tag field (separate)
+[Field]
+name = TAG
+info = N/A
+type = Text
+empty_allowed = No
+separator = space
+merge_separators = No
+skip = Yes
+
+# X Label field: simply contains "X"
+[Field]
+name = XLABEL
+info = Useless field
+type = text
+empty_allowed = No
+separator = space
+merge_separators = No
+skip = Yes
+
+# X Coordinates
+[Field]
+name = COORX
+info = Holds X coordinate
+type = double
+empty_allowed = No
+separator = space
+merge_separators = No
+
+# Y Label field: simply contains "Y"
+[Field]
+name = YLABEL
+info = Useless field
+type = text
+empty_allowed = No
+separator = space
+merge_separators = No
+skip = Yes
+
+# Y Coordinates
+[Field]
+name = COORY
+info = Holds Y coordinate
+type = double
+empty_allowed = No
+separator = space
+merge_separators = No
+
+# Z Label field: simply contains "Z"
+[Field]
+name = ZLABEL
+info = Useless field
+type = text
+empty_allowed = No
+separator = space
+merge_separators = No
+skip = Yes
+
+# Z Coordinates
+[Field]
+name = COORZ
+info = Holds Z coordinate
+type = double
+empty_allowed = No
+# last field: must have no separator
+
