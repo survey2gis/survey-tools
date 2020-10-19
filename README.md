@@ -52,8 +52,7 @@ this software.
 
 In the subfolder "src".
 
-
-HOW DO I COMPILE THIS SOFTWARE FROM SOURCE CODE?
+## How do I compile this software from source code?
 
 See the file "COMPILING" in the subfolder "src".
 
