@@ -3,12 +3,12 @@
 It is a little tool that can process survey data, such
 as produced by a GPS or total station, and export it as topologically
 cleaned data fit for use in GIS. For more information, see
-http://www.survey-tools.org and the user manual that came with
+http://survey-tools.org and the user manual that came with
 this software.
 
 # Important links
 
-Official Website: http://www.survey-tools.org.
+Official Website: http://survey-tools.org.
 Bugtracker: https://github.com/survey2gis/survey-tools/issues
 Mailinglist: https://groups.io/g/survey2gis/topics
 
