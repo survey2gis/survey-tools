@@ -47,10 +47,6 @@ Detailed instructions can be found in the user manual that came with
 this software.
 
 
-## Where do I get the source code of this software?
-
-In the subfolder "src".
-
 ## How do I compile this software from source code?
 
 See the file "COMPILING" in the subfolder "src".
