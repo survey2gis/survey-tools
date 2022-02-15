@@ -1,10 +1,9 @@
-# survey2gis
+# What is this?
 
-It is a little tool that can process survey data, such
-as produced by a GPS or total station, and export it as topologically
-cleaned data fit for use in GIS. For more information, see
-http://survey-tools.org and the user manual that came with
-this software.
+Survey2GIS is a robust, powerful tool for processing survey data, such
+as produced by a GPS or total station, and exporting it as topologically
+cleaned data, fit for use in GIS. For more information, see
+http://survey-tools.org and the user manual that ships with the software.
 
 # Important links
 
