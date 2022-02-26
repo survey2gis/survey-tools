@@ -52,6 +52,7 @@ static const char GEOM_TYPE_NAMES[][10] =
 /*
  * List of geometry types.
  */
+#define GEOM_WINDING_UNKNOWN		-3
 #define GEOM_WINDING_REVERSE		-2 /* boundaries = ccw, holes = cw */
 #define GEOM_WINDING_AUTO			-1 /* boundaries = cw, holes = ccw */
 #define GEOM_WINDING_CW				0 /* clockwise */
@@ -76,6 +77,10 @@ static const char GEOM_PLANAR_MODE_NAMES[][10] =
 { "const", "plane", "first", "final", "" };
 
 
+#define GEOM_PREC_PLACE_P_SEG		0.000001 /* allowed rounding error for testing */
+											 /* if a point lies on a straight segment between two */
+											 /* existing vertices */
+
 #define GEOM_STORE_CHUNK_BIG		100 /* chunk size for memory allocations */
 #define GEOM_STORE_CHUNK_SMALL		10 /* chunk size for memory allocations */
 
@@ -89,7 +94,10 @@ typedef struct geom_store_polygon geom_store_polygon;
 typedef struct geom_part geom_part;
 /* this stores intersections vertices for delayed geometry cleaning */
 typedef struct geom_store_intersection geom_store_intersection;
-
+/* a simplified polygon representation specifically for use with 'multclip' 3rd party functions */
+typedef struct geom_multclip_poly geom_multclip_poly;
+/* simple 3d coordinates struct for use as return value */
+typedef struct geom_coords_3d geom_coords_3d;
 
 /* A geometry store holds a hierarchical, strongly
  * structured collection of (multi-part) geometries.
@@ -168,6 +176,8 @@ struct geom_store_point
 	BOOLEAN is_3D;
 	/* TRUE if this geom slot is currently empty */
 	BOOLEAN is_empty;
+	/* TRUE if this geometry has 'fatal' errors and must be excluded from high-level operations. */
+	BOOLEAN has_errors;
 	/* TRUE, if this geometry is part of the current selection */
 	BOOLEAN is_selected;
 	/* 2D label point for this geometry (optional) */
@@ -194,6 +204,9 @@ struct geom_store_line
 	unsigned int line;
 	BOOLEAN is_3D;
 	BOOLEAN is_empty;
+	/* TRUE if this geometry has 'fatal' errors (e.g. self-intersection) and
+	   must be excluded from high-level operations. */
+	BOOLEAN has_errors;
 	/* TRUE, if this geometry is part of the current selection */
 	BOOLEAN is_selected;
 };
@@ -220,6 +233,8 @@ struct geom_store_polygon
 	unsigned int line;
 	BOOLEAN is_3D;
 	BOOLEAN is_empty;
+	/* TRUE if this geometry has 'fatal' errors and must be excluded from high-level operations. */
+	BOOLEAN has_errors;
 	/* TRUE, if this geometry is part of the current selection */
 	BOOLEAN is_selected;
 };
@@ -247,6 +262,8 @@ struct geom_part
 	double dist_undershoot_last;
 	double x_undershoot_last;
 	double y_undershoot_last;
+	/* error stats */
+	int err_self_intersects; /* number of self-intersections */
 	BOOLEAN is_empty;
 };
 
@@ -268,6 +285,37 @@ struct geom_store_intersection
 	double *Z;
 	int *v; /* index position at which to insert the intersection vertex */
 	BOOLEAN *added; /* Has this been added to its associated geometry? */
+};
+
+
+/* Represents a polygon that has exactly one outer ring
+ * and zero or more inner rings.
+ * This is a compatibility struct to translate between the
+ * polygon geometry representation by this program and
+ * that of 'multclip', a bundled 3rd party polygon clipping
+ * library. The latter is a little more constrained in that
+ * it cannot represent multi-part polygons. */
+struct geom_multclip_poly
+{
+	/* outer boundary */
+	geom_part *outer; /* outer boundary */
+	unsigned int org_outer; /* to track original outer polygon part */
+	/* inner boundaries (holes) */
+	geom_part **inner; /* any number of inner boundaries/holes */
+	unsigned int num_inner;
+	unsigned int *org_inner; /* to track original inner polygon parts */
+	double bbox_x1, bbox_x2, bbox_y1, bbox_y2, bbox_z1, bbox_z2; /* bounding box */
+};
+
+
+/* A simple struct to store a 3D coordinate triplet.
+ * This is mostly useful for various functions that
+ * need to return 'raw' coordinates. */
+struct geom_coords_3d
+{
+	double X;
+	double Y;
+	double Z;
 };
 
 
@@ -302,8 +350,11 @@ int geom_topology_remove_splinters_lines ( parser_data_store *ds, options *opts 
 /* remove polygons with less than 3 vertices */
 int geom_topology_remove_splinters_polygons ( parser_data_store *ds, options *opts );
 
-/* punch holes into overlapped areas of polygons */
-unsigned int geom_topology_poly_overlap_2D ( geom_store *gs, parser_desc *parser );
+/* punch holes into overlaid areas of polygons ("punch holes") */
+unsigned int geom_topology_poly_overlay_2D ( geom_store *gs, parser_desc *parser );
+
+/* remove overlap areas from intersecting polygons */
+unsigned int geom_topology_poly_remove_overlap_2D ( geom_store *gs, parser_desc *parser, options *opts );
 
 /* snap polygon boundaries */
 unsigned int geom_topology_snap_boundaries_2D ( geom_store *gs, options *opts );
@@ -319,14 +370,28 @@ unsigned int geom_topology_clean_dangles_2D ( geom_store *gs, options *opts, uns
 /* sort vertices in polygons */
 unsigned int geom_topology_sort_vertices ( geom_store *gs, int mode );
 
+/* Checks whether geom part A is intersected by B; registers the intersection point(s) */
+int geom_tools_parts_intersection_2D ( geom_part* A, geom_part* B, geom_store *gs,
+		int geom_type, unsigned int geom_id, unsigned int part_idx, BOOLEAN check_only );
+
 /* check if polygon part A lies completely within polygon part B */
 BOOLEAN geom_tools_part_in_part_2D ( geom_part *A, geom_part *B );
+
+/* interpolate Z coordinate for X/Y location on a straight line between two given 3D points */
+double geom_tools_interpolate_z ( double p0_x, double p0_y, double p0_z, double p1_x, double p1_y, double p1_z,
+		double v_x, double v_y );
 
 /* ensure that all nodes of a geometry lie on the same plane */
 void geom_tools_planarize ();
 
 /* re-orientate data along synthetic local X-Y axes */
 void geom_reorient_local_xz(parser_data_store *storage);
+
+/* update bounding boxes */
+void geom_tools_update_bboxes (geom_store *gs);
+
+/* resort vertices of a polygon part into 'reverse' order */
+void geom_tools_sort_part_reverse ( geom_part *poly_part );
 
 /* check if measurements have Z coordinates */
 BOOLEAN geom_ds_has_z(parser_data_store *storage);
