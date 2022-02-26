@@ -1,3 +1,72 @@
+*** Version 1.5.2 (2022-02-26) ***
+This version fixes some important bugs and adds features to
+enhance productivity and further improve topological data quality.
+The focus of this release is on improving the flexibility and
+reliability of automated topological data corrections.
+
+NOTE 1: It is now possible to directly turn on/off sets of topological
+cleaning operations (see Changelog). Higher-level cleaning functions
+remain untested for lat/lon data. The software will issue a warning
+in such cases.
+
+NOTE 2: Two 1.5.1 BETA versions were released prior to this version.
+Therefore, additional changes are covered in the change log notes of
+these versions. No official version 1.5.1 (final) was ever released.
+
+Changelog:
+- New feature: Option "--topology=" controls topological cleaning level.
+- Bug fix: Insert line/boundary intersection points in correct order.
+- Bug fix: Prevent polygon boundaries from snapping onto themselves.
+- Bug fix: Fix crash when snapping boundaries of multi-part polygons.
+- Bug fix: Fix crash when cropping overlap areas of multi-part polygons.
+- Bug fix: Completely crop all overlap areas of multi-part polygons.
+- Improvement: Overlap correction for polygons now much more zealous.
+- Improvement: Issue a warning if duplicate vertices appear after snapping.
+- Docs: Added advice on extreme topological case of crossing polygons.
+
+
+*** Version 1.5.1 ***
+[this version was skipped]
+
+
+*** Version 1.5.1 BETA (2019-10-14) ***
+This is a maintenance release on the way to the next revision 1.5.1.
+
+THIS IS A BETA QUALITY RELEASE!
+Expect problems and, if they occur, please report them to the
+developers, so that they can be fixed with the next release.
+
+This version fixes some important bugs and adds features to
+enhance productivity and further improve topological data quality.
+The focus of this release is on improving the flexibility and
+reliability of automated topological data corrections.
+
+- New feature: Automatically cut overlapping polygons (see manual for details).
+- New feature: Handle line/boundary self-intersections (see manual for details).
+- New feature: Allow to specify more than one geometry tag per geometry type.
+- Bug fix: Detect multiple boundary/line intersections on the same segment.
+- Bug fix: Detect multiple self-intersections on the same segment.
+- Bug fix: Always use 3D thresholding for point thinning, as stated in manual.
+- Bug fix: Fixed memory leaks & exit on error in parser validation.
+- Bug fix: Check that no geometry tag overlaps with any field's quotation mark.
+- Bug fix: Fixed crashes when running without any SRS settings.
+- Improvement: Unified conversion of PROJ.4 data folder settings to absolute paths.
+- Improvement: PROJ.4 data folder now looked up in program directory by default.
+- Improvement: Ignore line/boundary intersections at existing vertices.
+- Improvement: More exhaustive checking for boundary vertex snapping.
+- Improvement: Delete duplicate, non-adjacent vertices from lines/polygons.
+- Improvement: Correctly treat extreme cases when checking polygons for overlap.
+- Improvement: Recompute exact geometry bounding boxes whenever necessary.
+- Improvement: Better handling of geometry tags that are part of numeric fields.
+- Docs: Reworked and enhanced section on topological data processing. 
+- Docs: Correction: Only one quotation mark can be defined per field. 
+- Docs: Correction: "no_data" is a Parser setting, not a Field setting! 
+- Docs: Added details on valid geometry tag definitions.
+- Source code: Fixed linking of function "i18n_get_locale_decp" from "tools.c".
+- Misc.: Improved/fixed some German translations of program messages.
+. Misc.: Updated COMPILE and LICENSE files.
+
+
 *** Version 1.5.0 (2018-07-26) ***
 This is a new stable release that contains new features and
 bug fixes. It also contains important bug fixes. All users
@@ -21,6 +90,7 @@ in the change log notes of these versions.
 - Bug fix: Added error reporting for missing option values.
 - Misc.: Fixed duplicated German translations of CLI options.
 - Docs: Slight amendments to section about PROJ.4 grid files. 
+
 
 *** Version 1.5.0 BETA 2 (2018-07-10) ***
 This is a maintenance release on the way to the next major release.
