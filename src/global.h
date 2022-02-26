@@ -64,10 +64,11 @@ typedef unsigned short BOOLEAN;
 #define PRG_EXIT_ERR	EXIT_FAILURE
 
 /* general program information */
-#define PRG_NAME 			"Survey2GIS"
+#define PRG_NAME 			"Survey2GIS" /* name as displayed in messages and dialogs */
+#define PRG_CMD_NAME		"survey2gis" /* name of command to run */
 #define PRG_VERSION_MAJOR		1
 #define PRG_VERSION_MINOR		5
-#define PRG_VERSION_REVISION	0
+#define PRG_VERSION_REVISION	2
 /* a value > 0 indicates a beta quality release */
 #define PRG_VERSION_BETA		0
 
@@ -123,6 +124,18 @@ static const char PRG_RESERVED_FIELD_NAMES[][PRG_MAX_FIELD_LEN+1] =
 #define LBL_FIELD_NAME_FONT_SIZE 		"fontsize"
 #define LBL_FIELD_NAME_FONT_ROTATE 		"fontrotate"
 #define LBL_FIELD_NAME_GEOM_TYPE 		"geomtype"
+
+/* name of program in file system, as we would expect it to be by default */
+static const char PRG_NAME_DEFAULT[] = "survey2gis";
+
+/* name of program as ACTUALLY called from CLI */
+extern char *PRG_NAME_CLI;
+
+/* absolute path of program as called from CLI */
+extern char *PRG_PATH_CLI;
+
+/* absolute path to directory that contains program, as called from CLI */
+extern char *PRG_DIR_CLI;
 
 /* extension for settings files */
 static const char PRG_SETTINGS_FILE_EXT[] = ".s2g";
