@@ -14,6 +14,11 @@
  *		Read the file COPYING that comes with this software for details.
  ****************************************************************************/
 
+/* //TODO: We miss a function that is capable of resolving cases where polygon
+ * A completely crosses Polygon B, effectively deviding B in two. In such cases,
+ * Polygon A should be split into two parts automatically.
+ */
+
 #include <errno.h>
 #include <limits.h>
 #include <math.h>
@@ -29,6 +34,8 @@
 #include "parser.h"
 #include "selections.h"
 #include "tools.h"
+
+#include "multclip/polyarea.h"
 
 
 void geom_tools_part_destroy ( geom_part* part );
@@ -98,11 +105,10 @@ int geom_multiplex_mode_end (parser_data_store *storage, parser_desc *parser) {
 							"GEOM M'PLEX: found tagged record (line %i)\n",
 							i + 1);
 					fprintf(stderr, "[%s]\n", storage->records[i].tag);
-					fprintf(stderr, "[%s]\n", parser->geom_tag_point);
 				}
 				/* point? */
-				if (parser->geom_tag_point != NULL && !strcmp(
-						storage->records[i].tag, parser->geom_tag_point)) {
+				if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POINT, (const char*)storage->records[i].tag )) {
+				//if (parser->geom_tag_point != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_point)) { DELETE ME
 					if (DEBUG == TRUE)
 						fprintf(stderr, "GEOM M'PLEX: found POINT tag \n");
 					/* make this a single-point geometry */
@@ -113,15 +119,14 @@ int geom_multiplex_mode_end (parser_data_store *storage, parser_desc *parser) {
 					if ( inc_geom_id (storage,i) < 0 ) return ( -1 );
 				}
 				/* line? */
-				if (parser->geom_tag_line != NULL && !strcmp(
-						storage->records[i].tag, parser->geom_tag_line)) {
+				if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag )) {
+				//if (parser->geom_tag_line != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_line)) { DELETE ME
 					/* find the other records that belong to this one */
 					if (DEBUG == TRUE)
 						fprintf(stderr, "GEOM M'PLEX: found LINE tag \n");
 					vertices = 0;
 					/* guard against corrupted key field */
-					if ( storage->records[i].key != NULL
-							&& storage->records[i-1].key != NULL ) {
+					if ( i > 0 && storage->records[i].key != NULL && storage->records[i-1].key != NULL ) {
 						if (i > 0 && strlen(storage->records[i - 1].key)
 						<= strlen(storage->records[i].key)) {
 							/* crop key field of tagged record if necessary */
@@ -181,15 +186,14 @@ int geom_multiplex_mode_end (parser_data_store *storage, parser_desc *parser) {
 					}
 				}
 				/* polygon? */
-				if (parser->geom_tag_poly != NULL && !strcmp(
-						storage->records[i].tag, parser->geom_tag_poly)) {
+				if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, (const char*)storage->records[i].tag )) {
+				//if (parser->geom_tag_poly != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_poly)) { DELETE ME
 					/* find the other records that belong to this one */
 					if (DEBUG == TRUE)
 						fprintf(stderr, "GEOM M'PLEX: found POLY tag \n");
 					vertices = 0;
 					/* guard against corrupted key field */
-					if ( storage->records[i].key != NULL
-							&& storage->records[i-1].key != NULL ) {
+					if ( i>0 && storage->records[i].key != NULL && storage->records[i-1].key != NULL ) {
 						if (i > 0 && strlen(storage->records[i - 1].key)
 						<= strlen(storage->records[i].key)) {
 							/* crop key field of tagged record if necessary */
@@ -660,17 +664,20 @@ int geom_multiplex_mode_min (parser_data_store *storage, parser_desc *parser) {
 					is_line = FALSE;
 					is_poly = FALSE;
 					is_point = FALSE;
-					if (parser->geom_tag_point != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_point)) {
+					if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POINT, (const char*)storage->records[i].tag )) {
+					//if (parser->geom_tag_point != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_point)) { DELETE ME
 						is_point = TRUE;
 						is_line = FALSE;
 						is_poly = FALSE;
 					}
-					if (parser->geom_tag_line != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_line)) {
+					if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag )) {
+					//if (parser->geom_tag_line != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_line)) { DELETE ME
 						is_point = FALSE;
 						is_line = TRUE;
 						is_poly = FALSE;
 					}
-					if (parser->geom_tag_poly != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_poly)) {
+					if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, (const char*)storage->records[i].tag )) {
+					//if (parser->geom_tag_poly != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_poly)) { DELETE ME
 						is_point = FALSE;
 						is_line = FALSE;
 						is_poly = TRUE;
@@ -700,17 +707,20 @@ int geom_multiplex_mode_min (parser_data_store *storage, parser_desc *parser) {
 					is_point = FALSE;
 					is_line = FALSE;
 					is_poly = FALSE;
-					if (parser->geom_tag_point != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_point)) {
+					if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POINT, (const char*)storage->records[i].tag )) {
+					//if (parser->geom_tag_point != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_point)) { DELETE ME
 						is_point = TRUE;
 						is_line = FALSE;
 						is_poly = FALSE;
 					}
-					if (parser->geom_tag_line != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_line)) {
+					if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag )) {
+					//if (parser->geom_tag_line != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_line)) { DELETE ME
 						is_point = FALSE;
 						is_line = TRUE;
 						is_poly = FALSE;
 					}
-					if (parser->geom_tag_poly != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_poly)) {
+					if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, (const char*)storage->records[i].tag )) {
+					//if (parser->geom_tag_poly != NULL && !strcmp(storage->records[i].tag, parser->geom_tag_poly)) { DELETE ME
 						is_point = FALSE;
 						is_line = FALSE;
 						is_poly = TRUE;
@@ -805,8 +815,8 @@ int geom_multiplex_mode_max (parser_data_store *storage, parser_desc *parser) {
 				}
 			} else {
 				/* point? */
-				if (parser->geom_tag_point != NULL && !strcmp(
-						storage->records[i].tag, parser->geom_tag_point)) {
+				if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POINT, (const char*)storage->records[i].tag )) {
+				//if (parser->geom_tag_point != NULL && !strcmp( storage->records[i].tag, parser->geom_tag_point)) { DELETE ME
 					/* make this a single-point geometry */
 					if ( inc_geom_id (storage,i) < 0 ) return ( -1 );
 					/*
@@ -827,12 +837,15 @@ int geom_multiplex_mode_max (parser_data_store *storage, parser_desc *parser) {
 					continue;
 				}
 				/* line or polygon? */
+				if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag ) ||
+						parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, (const char*)storage->records[i].tag ) ) {
+				/*
 				if (	parser->geom_tag_line != NULL
 						&&
 						( !strcmp(storage->records[i].tag, parser->geom_tag_line)
 								||
 								!strcmp(storage->records[i].tag, parser->geom_tag_poly) ) )
-				{
+				{*/
 					if ( storage->records[i].key == NULL ) {
 						err_show (ERR_NOTE,"");
 						if (strcmp(storage->input, "-") != 0) {
@@ -862,18 +875,22 @@ int geom_multiplex_mode_max (parser_data_store *storage, parser_desc *parser) {
 								fprintf ( stderr, "\tGEOM ID = %d\n", GEOM_ID);
 							}
 							 */
-							if ( !strcmp(storage->records[i].tag, parser->geom_tag_line) ) {
+							if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag )) {
+							//if ( !strcmp(storage->records[i].tag, parser->geom_tag_line) ) { DELETE ME
 								storage->records[i].geom_type = GEOM_TYPE_LINE;
 							} else {
 								storage->records[i].geom_type = GEOM_TYPE_POLY;
 							}
 							open = TRUE;
 						} else {
-							/* if ( !strcmp ( last_key, storage->records[i].key ) &&
-									( !strcmp(storage->records[i].tag, parser->geom_tag_line) ||
-									  !strcmp(storage->records[i].tag, parser->geom_tag_poly) )
-								) {*/
-							if ( !strcmp ( last_key, storage->records[i].key ) ) {
+							/* if ( !strcmp ( last_key, storage->records[i].key ) &&				DELETE ME
+									( !strcmp(storage->records[i].tag, parser->geom_tag_line) ||	DELETE ME
+									  !strcmp(storage->records[i].tag, parser->geom_tag_poly) )		DELETE ME
+								) { DELETE ME */
+							if ( !strcmp ( last_key, storage->records[i].key ) &&
+									(parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag ) ||
+									parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, (const char*)storage->records[i].tag ))
+								) {
 								last_tag = storage->records[i].tag;
 								storage->records[i].geom_id = GEOM_ID;
 								/*
@@ -888,7 +905,8 @@ int geom_multiplex_mode_max (parser_data_store *storage, parser_desc *parser) {
 									fprintf ( stderr, "\tGEOM ID = %d\n", GEOM_ID);
 								}
 								 */
-								if ( !strcmp(storage->records[i].tag, parser->geom_tag_line) ) {
+								if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag )) {
+								//if ( !strcmp(storage->records[i].tag, parser->geom_tag_line) ) { DELETE ME
 									storage->records[i].geom_type = GEOM_TYPE_LINE;
 								} else {
 									storage->records[i].geom_type = GEOM_TYPE_POLY;
@@ -899,7 +917,8 @@ int geom_multiplex_mode_max (parser_data_store *storage, parser_desc *parser) {
 								last_tag = storage->records[i].tag;
 								last_key = storage->records[i].key;
 								/* build geometry! */
-								if ( !strcmp(storage->records[i].tag, parser->geom_tag_line) ) {
+								if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)storage->records[i].tag )) {
+								//if ( !strcmp(storage->records[i].tag, parser->geom_tag_line) ) { DELETE ME
 									/* build line geometry */
 									/*
 									if ( DEBUG ) {
@@ -943,11 +962,13 @@ int geom_multiplex_mode_max (parser_data_store *storage, parser_desc *parser) {
 
 	/* if there is still an open line or poly geometry: close it now */
 	if ( open == TRUE && last_tag != NULL ) {
-		if ( ( !strcmp(last_tag, parser->geom_tag_line) ) ) {
+		if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, (const char*)last_tag )) {
+		//if ( ( !strcmp(last_tag, parser->geom_tag_line) ) ) { DELETE ME
 			storage->num_lines++;
 			num_multiplexed ++;
 		}
-		if ( ( !strcmp(last_tag, parser->geom_tag_poly) ) ) {
+		if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, (const char*)last_tag )) {
+		//if ( ( !strcmp(last_tag, parser->geom_tag_poly) ) ) { DELETE ME
 			storage->num_polygons++;
 			num_multiplexed ++;
 		}
@@ -1420,7 +1441,7 @@ int geom_store_make_paths_shp ( geom_store *gs, options *opts, char *error )
 	}
 	if ( selections_get_num_selected ( GEOM_TYPE_LINE, gs ) > 0 ) {
 		check_path = gs->path_lines_atts;
-	}	
+	}
 	if ( selections_get_num_selected ( GEOM_TYPE_POLY, gs ) > 0 ) {
 		check_path = gs->path_polys_atts;
 	}
@@ -1707,56 +1728,89 @@ BOOLEAN geom_tools_point_in_part_2D ( double X, double Y, geom_store_polygon *po
 
 
 /*
- * Tests if the bounding boxes of A and B overlap.
+ * Tests if the bounding boxes, represented by two sets of 2D corner coordinates, overlap.
  * Bounding boxes include the entire polygons, i.e. all of their parts.
- * If tolerance != 0, then a buffer of size "tolerance" will be considered
- * around bounding box A and B, in turn.
  */
-BOOLEAN geom_tools_bb_overlap_2D ( geom_store_polygon *A, geom_store_polygon *B, double tolerance )
+BOOLEAN geom_tools_bb_xy_overlap_2D ( double A_x1, double A_x2, double A_y1, double A_y2,
+		double B_x1, double B_x2, double B_y1, double B_y2 )
 {
-	double t = tolerance;
+	/* Normal case: Partial overlap. */
+	if ( A_y1 >= B_y1 && A_y1 <= B_y2 ) {
+		if ( A_x1 >= B_x1 && A_x1 <= B_x2 )
+			return ( TRUE );
+		if ( A_x2 >= B_x1 && A_x2 <= B_x2 )
+			return ( TRUE );
+	}
+	if ( A_y2 >= B_y1 && A_y2 <= B_y2 ) {
+		if ( A_x1 >= B_x1 && A_x1 <= B_x2 )
+			return ( TRUE );
+		if ( A_x2 >= B_x1 && A_x2 <= B_x2 )
+			return ( TRUE );
+	}
+	if ( B_y1 >= A_y1 && B_y1 <= A_y2 ) {
+		if ( B_x1 >= A_x1 && B_x1 <= A_x2 )
+			return ( TRUE );
+		if ( B_x2 >= A_x1 && B_x2 <= A_x2 )
+			return ( TRUE );
+	}
+	if ( B_y2 >= A_y1 && B_y2 <= A_y2 ) {
+		if ( B_x1 >= A_x1 && B_x1 <= A_x2 )
+			return ( TRUE );
+		if ( B_x2 >= A_x1 && B_x2 <= A_x2 )
+			return ( TRUE );
+	}
 
+	/* Extreme case 1: All corner points outside overlap area. */
+	if ( A_x1 >= B_x1 && A_x2 <= B_x2 ) {
+		if ( A_y1 <= B_y1 && A_y2 >= B_y2 ) {
+			/* north and south edges of bbox A are outside of bbox B, but
+			 * body of bbox A overlaps bbox B */
+			return ( TRUE );
+		}
+	}
+	if ( A_y1 >= B_y1 && A_y2 <= B_y2 ) {
+		if ( A_x1 <= B_x1 && A_x2 >= B_x2 ) {
+			/* east and west edges of bbox A are outside of bbox B, but
+			 * body of bbox A overlaps bbox B */
+			return ( TRUE );
+		}
+	}
 
-	if ( A->bbox_y1-t >= B->bbox_y1 && A->bbox_y1-t <= B->bbox_y2 ) {
-		if ( A->bbox_x1-t >= B->bbox_x1 && A->bbox_x1-t <= B->bbox_x2 )
-			return ( TRUE );
-		if ( A->bbox_x2+t >= B->bbox_x1 && A->bbox_x2+t <= B->bbox_x2 )
-			return ( TRUE );
+	/* Extreme case 2: Equal bboxes */
+	if ( A_x1 == B_x1 && A_x2 == B_x2 &&
+			A_y1 == B_y1 && A_y2 == B_y2 ) {
+		return ( TRUE );
 	}
-	if ( A->bbox_y2+t >= B->bbox_y1 && A->bbox_y2+t <= B->bbox_y2 ) {
-		if ( A->bbox_x1-t >= B->bbox_x1 && A->bbox_x1-t <= B->bbox_x2 )
-			return ( TRUE );
-		if ( A->bbox_x2+t >= B->bbox_x1 && A->bbox_x2+t <= B->bbox_x2 )
-			return ( TRUE );
-	}
-	if ( B->bbox_y1-t >= A->bbox_y1 && B->bbox_y1-t <= A->bbox_y2 ) {
-		if ( B->bbox_x1-t >= A->bbox_x1 && B->bbox_x1-t <= A->bbox_x2 )
-			return ( TRUE );
-		if ( B->bbox_x2+t >= A->bbox_x1 && B->bbox_x2+t <= A->bbox_x2 )
-			return ( TRUE );
-	}
-	if ( B->bbox_y2+t >= A->bbox_y1 && B->bbox_y2+t <= A->bbox_y2 ) {
-		if ( B->bbox_x1-t >= A->bbox_x1 && B->bbox_x1-t <= A->bbox_x2 )
-			return ( TRUE );
-		if ( B->bbox_x2+t >= A->bbox_x1 && B->bbox_x2+t <= A->bbox_x2 )
-			return ( TRUE );
-	}
+
+	/* No overlap */
 	return ( FALSE );
 }
 
 
 /*
- * Tests if part "A" of a polygon lies completely within
- * part "B" of a polygon.
- *
- * Returns TRUE if so; FALSE if not so.
- *
- * This test does not differentiate between parts that are marked
- * "hole" and those that are not.
- *
- * If A == B then this test returns FALSE.
- *
+ * Tests if the bounding boxes of A and B overlap.
+ * Bounding boxes include the entire polygons, i.e. all of their parts.
  */
+BOOLEAN geom_tools_bb_overlap_2D ( geom_store_polygon *A, geom_store_polygon *B )
+{
+	return ( geom_tools_bb_xy_overlap_2D (A->bbox_x1, A->bbox_x2, A->bbox_y1, A->bbox_y2,
+				B->bbox_x1, B->bbox_x2, B->bbox_y1, B->bbox_y2) );
+}
+
+
+/*
+ * Tests if the bounding boxes of A and B overlap. This version compares a
+ * regular geom_store polygon 'A' with a simplified 'multclip' polygon 'B'.
+ * Such simplified polygons consist of only one part.
+ */
+BOOLEAN geom_tools_mpoly_bb_overlap_2D ( geom_store_polygon *A, geom_multclip_poly *B )
+{
+	return ( geom_tools_bb_xy_overlap_2D (A->bbox_x1, A->bbox_x2, A->bbox_y1, A->bbox_y2,
+				B->bbox_x1, B->bbox_x2, B->bbox_y1, B->bbox_y2) );
+}
+
+
+//DELETE ME: outdated version of this method.
 BOOLEAN geom_tools_part_in_part_2D ( geom_part *A, geom_part *B )
 {
 	BOOLEAN odd = FALSE;
@@ -1791,23 +1845,200 @@ BOOLEAN geom_tools_part_in_part_2D ( geom_part *A, geom_part *B )
 }
 
 
+/**
+ * Tests if part "A" of a polygon lies COMPLETELY (i.e.
+ * with all its vertices AND edges) within part "B"
+ * of a polygon (including the case that "B" is a hole).
+ *
+ * Returns TRUE if A lies completely in B; FALSE otherwise.
+ *
+ * This test does not differentiate between parts that are marked
+ * "hole" and those that are not. Therefore, this test is
+ * appropriate at the stage of topological processing where the
+ * presence of a hole in a polygon is checked for the first time.
+ *
+ * Note that equal bounding boxes do not necessarily mean equal
+ * geometries. Note also that this test counts vertices of B that
+ * lie exactly on edges or vertices of A as "within A".
+ *
+ * If A == B (same memory location or same set of 2D coordinates)
+ * then this test returns FALSE.
+ *
+ * If A or B is NULL then this test returns FALSE.
+ *
+ * If A or B has less than 3 vertices then this test returns FALSE.
+ *
+ * CAVEATS: Will return FALSE if the two parts have the same set
+ * of 2D vertices. In this case, geometric equality is assumed,
+ * even the Z coordinates differ.
+ */
+BOOLEAN geom_tools_part_in_part_2D_NEW ( geom_part *A, geom_part *B )
+{
+	if ( A == NULL || B == NULL ) {
+		return ( FALSE );
+	}
+
+	if ( A->num_vertices < 3 || B->num_vertices < 3 ) {
+		return ( FALSE );
+	}
+
+	if ( A == B ) {
+		return ( FALSE );
+	}
+
+	/* Check for special case A == B (coordinates). */
+	/* Test if A and B share the same set of vertices. */
+	if ( A->num_vertices == B->num_vertices ) {
+		BOOLEAN diff = FALSE;
+		int i = 0;
+		for ( i = 0; i < A->num_vertices; i++ ) {
+			int j = 0;
+			double x = A->X[i];
+			double y = A->Y[i];
+			for ( j = 0; j < B->num_vertices; j++ ) {
+				if (( x != B->X[j]) || ( y != B->Y[j])) {
+					diff = TRUE;
+					break;
+				}
+			}
+			if ( diff == TRUE ) {
+				break;
+			}
+		}
+		if ( diff == FALSE ) {
+			/* Did not find a coordinate pair that A and do NOT have in common! */
+			return ( FALSE );
+		}
+	}
+
+	/* Compute bounding boxes for A and B. */
+	double min_x_A = 0.0;
+	double min_y_A = 0.0;
+	double max_x_A = 0.0;
+	double max_y_A = 0.0;
+	double min_x_B = 0.0;
+	double min_y_B = 0.0;
+	double max_x_B = 0.0;
+	double max_y_B = 0.0;
+	{
+		/* Bounding box of A */
+		BOOLEAN min_set = FALSE;
+		BOOLEAN max_set = FALSE;
+
+		int i = 0;
+		for ( i = 0; i < A->num_vertices; i ++ ) {
+			if ( min_set == FALSE ) {
+				min_x_A = A->X[i];
+				min_y_A = A->Y[i];
+				min_set = TRUE;
+			}
+			if ( max_set == FALSE ) {
+				max_x_A = A->X[i];
+				max_y_A = A->Y[i];
+				max_set = TRUE;
+			}
+			if ( A->X[i] < min_x_A ) {
+				min_x_A = A->X[i];
+			}
+			if ( A->Y[i] < min_y_A ) {
+				min_y_A = A->Y[i];
+			}
+			if ( A->X[i] > max_x_A ) {
+				max_x_A = A->X[i];
+			}
+			if ( A->Y[i] > max_y_A ) {
+				max_y_A = A->Y[i];
+			}
+		}
+
+		/* Bounding box of B */
+		min_set = FALSE;
+		max_set = FALSE;
+		for ( i = 0; i < B->num_vertices; i ++ ) {
+			if ( min_set == FALSE ) {
+				min_x_B = B->X[i];
+				min_y_B = B->Y[i];
+				min_set = TRUE;
+			}
+			if ( max_set == FALSE ) {
+				max_x_B = B->X[i];
+				max_y_B = B->Y[i];
+				max_set = TRUE;
+			}
+			if ( B->X[i] < min_x_B ) {
+				min_x_B = B->X[i];
+			}
+			if ( B->Y[i] < min_y_B ) {
+				min_y_B = B->Y[i];
+			}
+			if ( B->X[i] > max_x_B ) {
+				max_x_B = B->X[i];
+			}
+			if ( B->Y[i] > max_y_B ) {
+				max_y_B = B->Y[i];
+			}
+		}
+
+	}
+
+	/* Check if the bounding box of A lies completely within
+	 * the bounding box of B. This is NOT enough to tell whether
+	 * A is indeed completely contained within B (since some edges
+	 * of A might cross concave sections of B), but it is the first
+	 * condition that must be fulfilled for A to lie completely
+	 * (with all edges and vertices) within B! */
+	BOOLEAN bbox_A_within_bbox_B = FALSE;
+	if ( ( min_x_A >= min_x_B ) &&
+		( max_x_A <= max_x_B ) &&
+		( min_y_A >= min_y_B ) &&
+		( max_y_A <= max_x_B ) ) {
+		bbox_A_within_bbox_B = TRUE;
+	}
+	if ( bbox_A_within_bbox_B == FALSE ) {
+		/* We have at least one vertex of A outside the bounding box of B.
+		 * By definition, this means that A cannot lie completely within B! */
+		return ( FALSE );
+	}
+
+	/* If we got this far, then all vertices of A lie within the bounding
+	 * box of B. If, in addition, there are no intersection between the
+	 * edges of A and B, either, then we can be sure that A lies completely
+	 * within B! So we now do an exhaustive edge intersection test.
+	 */
+	int intersects = geom_tools_parts_intersection_2D ( A, B, NULL, -1, -1, -1, TRUE );
+
+	if ( intersects < 1 ) {
+		/* A completely within B */
+		return ( TRUE );
+	}
+
+	/* Intersection detected: A not completely within B */
+	return ( FALSE );
+}
+
+
 /*
- * Tests if part "A" of a polygon lies completely within
- * _any_ part of polygon "B" which is itself not a hole.
+ * Tests if part "A" of a polygon lies COMPLETELY (i.e. with
+ * all vertices AND edges) within _any_ part of polygon "B"
+ * (i.e. any part of B that is NOT a hole!).
  *
- * Returns TRUE if so; FALSE if not so.
+ * Returns TRUE if so; FALSE otherwise.
  *
- * All vertices of A will be checked to see if they are
- * all contained by B[i]. If B[i] is a hole itself, then
- * they are not contained within B[i].
+ * This test is appropriate if e.g. a new polygon (part)
+ * is checked to see whether it is a hole that needs to be
+ * added to an existing polygon.
  *
- * This function should be called by geom_store_build() each
+ * This function is called by geom_store_build() each
  * time a new part is added to an existing polygon object,
  * to mark all internal rings as holes.
  *
  */
-BOOLEAN geom_tools_part_in_poly_2D ( 	geom_part *A,
-		geom_store_polygon *B )
+//TODO: This test is currently insufficient: derive new version from geom_tools_part_in_part_2D()!
+//- MUST BE COMPLETELY WITHIN OUTER BOUNDARY
+//- MUST _NOT_ BE COMPLETELY WITHIN ANY EXISTING INNER BOUNDARY (HOLE)
+//- REPHRASE DESCRIPTION OF FUNCTION
+
+BOOLEAN geom_tools_part_in_poly_2D ( geom_part *A, geom_store_polygon *B )
 {
 	int i, j;
 	/* step through all parts in B */
@@ -1817,6 +2048,9 @@ BOOLEAN geom_tools_part_in_poly_2D ( 	geom_part *A,
 			BOOLEAN inside = TRUE;
 			for ( j=0; j < A->num_vertices; j ++ ) {
 				/* test every single vertex in A against the current part in B */
+				/* TODO: This test is insufficient if B is concave (edge crossings)!
+				 * Use geom_tools_part_in_part_2D() instead!
+				 */
 				inside = geom_tools_point_in_part_2D ( A->X[j], A->Y[j], B, i );
 				if ( inside == FALSE )
 					break;
@@ -1859,6 +2093,7 @@ void geom_tools_part_destroy ( geom_part* part )
 
 /*
  * Returns a deep copy of "part".
+ * New memory for returned result is allocated and must be free'd by caller
  *
  * Returns NULL if the argument is NULL.
  */
@@ -1890,6 +2125,7 @@ struct geom_part* geom_tools_part_duplicate ( geom_part* part )
 		result->dist_undershoot_last = part->dist_undershoot_last;
 		result->x_undershoot_last = part->x_undershoot_last;
 		result->y_undershoot_last = part->y_undershoot_last;
+		result->err_self_intersects = part->err_self_intersects;
 		result->is_empty = part->is_empty;
 	}
 
@@ -1900,9 +2136,52 @@ struct geom_part* geom_tools_part_duplicate ( geom_part* part )
 /*
  * Returns TRUE if the two line segments defined by the 2D points "p0" and "p1",
  * and "p2" and "p3", respectively, intersect, FALSE otherwise.
- * The 2D intersection point is returned in "i_x" and "i_y".
+ * The 2D intersection point is returned in "i_x" and "i_y" if each is a non-NULL
+ * memory location.
+ *
+ * An intersection point that lies exactly at the coordinates of one of the
+ * given vertices constitutes an extreme case and is not regarded a valid
+ * intersection (i.e. "FALSE" is returned in such case). This makes sure that
+ * this method will also work properly when checking for self-intersections
+ * between connected line/boundary segments.
+ *
+ * Note: 'i_x' and 'i_y' must point to properly allocated variables to store
+ * intersection coordinates.
  */
 BOOLEAN geom_tools_line_intersection_2D (double p0_x, double p0_y, double p1_x, double p1_y,
+		double p2_x, double p2_y, double p3_x, double p3_y, double *i_x, double *i_y)
+{
+    double s1_x, s1_y, s2_x, s2_y;
+    double s, t;
+
+
+    s1_x = p1_x - p0_x;
+    s1_y = p1_y - p0_y;
+    s2_x = p3_x - p2_x;
+    s2_y = p3_y - p2_y;
+
+    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+        /* intersection detected */
+        if (i_x != NULL)
+            *i_x = p0_x + (t * s1_x);
+        if (i_y != NULL)
+            *i_y = p0_y + (t * s1_y);
+        return TRUE;
+    }
+
+    return FALSE; /* No intersection or parallel lines */
+}
+
+
+/*
+ * Basically the same as geom_tools_line_intersection_2D(), but with an
+ * added guard against self-intersections. This function is only called
+ * by geom_store_add().
+ */
+BOOLEAN geom_tools_line_self_intersection_2D (double p0_x, double p0_y, double p1_x, double p1_y,
 		double p2_x, double p2_y, double p3_x, double p3_y, double *i_x, double *i_y)
 {
 	double s1_x, s1_y, s2_x, s2_y;
@@ -1923,7 +2202,13 @@ BOOLEAN geom_tools_line_intersection_2D (double p0_x, double p0_y, double p1_x, 
 			*i_x = p0_x + (t * s1_x);
 		if (i_y != NULL)
 			*i_y = p0_y + (t * s1_y);
-		return TRUE;
+		/* guard for extreme cases: intersection point exactly at existing line vertex */
+		if ( (p0_x != *i_x && p0_y != *i_y) &&
+				(p1_x != *i_x && p1_y != *i_y) &&
+				(p2_x != *i_x && p2_y != *i_y) &&
+				(p3_x != *i_x && p3_y != *i_y)) {
+			return TRUE; /* passed: valid intersection point */
+		}
 	}
 
 	return FALSE; /* No intersection or parallel lines */
@@ -2075,6 +2360,8 @@ geom_part *geom_tools_line_part_remove_last_vertex ( geom_part *part )
 
 /*
  * Registers a new intersection point in 'gs'.
+ * Does NOT add a new vertex to a geometry (this is done by
+ * geom_topology_intersections_2D_add).
  * Intersection coordinates, node position, geometry store,
  * geometry ID and part index no. must all be provided.
  *
@@ -2083,7 +2370,7 @@ geom_part *geom_tools_line_part_remove_last_vertex ( geom_part *part )
 BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position,
 		geom_store *gs, int geom_type, unsigned int geom_id, unsigned int part_idx )
 {
-	/* BOOLEAN DEBUG = FALSE; */
+	BOOLEAN DEBUG = FALSE;
 	geom_store_intersection *gsi = NULL;
 	void *new_mem = NULL;
 	int i = 0;
@@ -2102,13 +2389,11 @@ BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position
 	if ( geom_type == GEOM_TYPE_LINE ) {
 		gsi = gs->lines_intersections;
 		if ( gsi->capacity < 1 ) {
-			/*
 			if ( DEBUG == TRUE ) {
 				fprintf (stderr, "\n*** increase capacity of lines intersection list ***\n");
 				fprintf (stderr, "store intersection #%u\n", gsi->num_intersections);
 				fprintf (stderr, "increase to: %u\n\n", gs->lines_intersections->num_intersections + GEOM_STORE_CHUNK_BIG);
 			}
-			 */
 			/* need more memory */
 			int length = gs->lines_intersections->num_intersections + GEOM_STORE_CHUNK_BIG;
 			int size = 0;
@@ -2168,13 +2453,11 @@ BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position
 	} else {
 		gsi = gs->polygons_intersections;
 		if ( gsi->capacity < 1 ) {
-			/*
 			if ( DEBUG == TRUE ) {
 				fprintf (stderr, "\n*** increase capacity of polygons intersection list ***\n");
 				fprintf (stderr, "store intersection #%u\n", gsi->num_intersections);
 				fprintf (stderr, "increase to: %u\n\n", gs->polygons_intersections->num_intersections + GEOM_STORE_CHUNK_BIG);
 			}
-			 */
 			/* need more memory */
 			int length = gs->polygons_intersections->num_intersections + GEOM_STORE_CHUNK_BIG;
 			int size = 0;
@@ -2234,7 +2517,7 @@ BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position
 	}
 
 	/* make sure we have a valid geometry */
-	if ( gsi == NULL ) {
+	if ( gsi == NULL || geom_id < 0 ) { // if ( gsi == NULL ) {
 		return ( FALSE );
 	}
 
@@ -2258,7 +2541,6 @@ BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position
 	gsi->v[gsi->num_intersections] = position;
 	gsi->added[gsi->num_intersections] = FALSE;
 
-	/*
 	if ( DEBUG == TRUE ) {
 		fprintf (stderr, "\n*** add intersection point to list ***\n");
 		fprintf (stderr, "store intersection #%u\n", gsi->num_intersections);
@@ -2272,7 +2554,6 @@ BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position
 		fprintf (stderr, "coordinates: %.12f/%.12f/%.12f\n", gsi->X[gsi->num_intersections], gsi->Y[gsi->num_intersections], gsi->Z[gsi->num_intersections]);
 		fprintf (stderr, "vertex: %i\n\n", gsi->v[gsi->num_intersections]);
 	}
-	 */
 
 	/* increase intersections counter */
 	gsi->num_intersections ++;
@@ -2283,30 +2564,76 @@ BOOLEAN geom_tools_new_intersection ( double x, double y, double z, int position
 	return ( TRUE );
 }
 
+/*
+ * Helper function: Returns the number of intersection vertices registered for a
+ * given geom and part ID of a given geometry type that have _not_ yet been added
+ * as vertices to the given geometry part.
+ */
+int geom_tools_get_num_open_intersects ( unsigned int geom_id, unsigned int part_id, int geom_type, geom_store *gs ) {
+	int result = 0;
+
+	if ( (gs != NULL) && ( ( geom_type = GEOM_TYPE_LINE ) || ( geom_type = GEOM_TYPE_POLY ) ) ) {
+		geom_store_intersection* lists = gs->polygons_intersections; /* default: check poly intersections */
+		if ( geom_type == GEOM_TYPE_LINE ) {
+			lists = gs->lines_intersections; /* otherwise: check line intersections */
+		}
+		unsigned int i;
+		for ( i=0; i < lists->num_intersections; i ++ ) {
+			if ( ( lists->geom_id[i] == geom_id ) && ( lists->part_id[i] == part_id ) ) {
+				if ( lists->added[i] == FALSE ) {
+					result ++;
+				}
+			}
+		}
+	}
+
+	return (result);
+}
+
 
 /*
  * Checks whether geom part A is intersected by B and, if so, registers the intersection
- * point in the geometry store 'gs'. Since the geometry store keeps separate intersection
- * lists for lines and polygons, the geometry type for A must also be provided.
- * Also, the geometry ID and part index no. of A must be provided.
+ * point(s) in the geometry store 'gs'. Since the geometry store keeps separate intersection
+ * lists for lines and polygons, the geometry type for A must also be provided. Also, the
+ * geometry ID and part index no. of A must be provided.
+ * This mode of operation is set by passing "check_only" as "FALSE". It requires "gs" to be
+ * a properly allocated geom_store struct.
  *
- * Returns number of intersections detected or -1 on error.
+ * Alternatively, this function can perform only the intersection test, without registering
+ * any points. This mode of operation is set by passing "check_only" as "TRUE". In that
+ * case, "gs" can also be passed as "NULL", and "geom_type", "geom_id" and "part_idx" can be
+ * passed as any value: they will be ignored.
+ *
+ * Returns number of intersections detected (0 or more) or -1 on error.
  */
-int geom_tools_parts_intersection_2D ( geom_part* A, geom_part* B, geom_store *gs,
+ int geom_tools_parts_intersection_2D ( geom_part* A, geom_part* B, geom_store *gs,
 		int geom_type, unsigned int geom_id, unsigned int part_idx, BOOLEAN check_only )
 {
 	int result = 0;
+	double p0_x = 0.0;
+	double p0_y = 0.0;
+	double p0_z = 0.0;
+	double p1_x = 0.0;
+	double p1_y = 0.0;
+	double p1_z = 0.0;
+	double p2_x = 0.0;
+	double p2_y = 0.0;
+	double p3_x = 0.0;
+	double p3_y = 0.0;
+	double i_x = 0.0;
+	double i_y = 0.0;
+	double v_x = 0.0;
+	double v_y = 0.0;
+	double v_z = 0.0;
 	double dist_ab_2d  = 0.0;
-	double dist_a_new_2d = 0.0;
-	double dist_b_new_2d = 0.0;
-	double weight_a = 0.0;
-	double weight_b = 0.0;
-	int i, j = 0;
+	int i, j, k = 0;
 	int offset = 0;
+	BOOLEAN inserted_node = FALSE;
+	BOOLEAN found = FALSE;
 	BOOLEAN DEBUG = FALSE;
 
 
-	if ( A == NULL || B == NULL || gs == NULL ) {
+	if ( A == NULL || B == NULL ) {
 		return (-1);
 	}
 	if ( A->is_empty == TRUE || B->is_empty == TRUE ) {
@@ -2316,82 +2643,158 @@ int geom_tools_parts_intersection_2D ( geom_part* A, geom_part* B, geom_store *g
 		return (-1);
 	}
 
-	if ( ( geom_type != GEOM_TYPE_LINE ) && ( geom_type != GEOM_TYPE_POLY ) ) {
-		return (-1);
+	/* We need an allocated geom_store if we want to store intersection points. */
+	if ( check_only == FALSE ) {
+		if ( gs == NULL ) {
+			return ( -1 );
+		}
 	}
 
-	/* check for intersections of all line segments in A with all line segments in B */
-	offset = 0;
-
-	for ( i = 0; i < A->num_vertices-1; i ++ ) {
-		double p0_x = A->X[i];
-		double p0_y = A->Y[i];
-		double p0_z = A->Z[i];
-		double p1_x = A->X[i+1];
-		double p1_y = A->Y[i+1];
-		double p1_z = A->Z[i+1];
-		if ( DEBUG == TRUE ) {
-			fprintf (stderr,"Segment A: (%i/%i)%.10f/%.10f -- (%i/%i)%.10f/%.10f\n", i, i, p0_x, p0_y, (i+1), (i+1), p1_x, p1_y );
+	/* We need to know the geometry type if we want to store intersection points. */
+	if ( check_only == FALSE ) {
+		if ( ( geom_type != GEOM_TYPE_LINE ) && ( geom_type != GEOM_TYPE_POLY ) ) {
+			return (-1);
 		}
-		for ( j = 0; j < B->num_vertices-1; j ++ ) {
-			double p2_x = B->X[j];
-			double p2_y = B->Y[j];
-			double p3_x = B->X[j+1];
-			double p3_y = B->Y[j+1];
+	}
+
+	/* Main loop: Repeat, until we complete one run without inserting a now node at
+	   an intersection point. */
+	do {
+		/* Outer loop: step through all "line segments", i.e. pairs of immediately
+		   consecutive vertices in geometry A (i.e. the one into which we might need
+		   to insert new intersection vertices. */		
+		for ( i = 0; i < A->num_vertices-1; i ++ ) {
+			/* */
+			inserted_node = FALSE; /* Presume that we won't have to insert a node. */
+			/* these are to store a simplified representation of the current segment */
+			p0_x = A->X[i]; /* first vertex of current segment */
+			p0_y = A->Y[i];
+			p0_z = A->Z[i];
+			p1_x = A->X[i+1]; /* second vertex of current segment */
+			p1_y = A->Y[i+1];
+			p1_z = A->Z[i+1];
 			if ( DEBUG == TRUE ) {
-				fprintf (stderr,"Segment B: (%i/%i)%.10f/%.10f -- (%i/%i)%.10f/%.10f\n", j, j, p2_x, p2_y, (j+1), (j+1), p3_x, p3_y );
+				fprintf (stderr,"Segment A: (%i/%i)%.10f/%.10f -- (%i/%i)%.10f/%.10f\n", i, i, p0_x, p0_y, (i+1), (i+1), p1_x, p1_y );
 			}
-			double i_x = 0.0;
-			double i_y = 0.0;
-			if ( geom_tools_line_intersection_2D ( p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, &i_x, &i_y) == TRUE ) {
-				/* add only if intersection point is _not_ an existing node in A (special case) */
-				if ( ( ( i_x != p0_x ) || ( i_y != p0_y ) ) && ( ( i_x != p1_x ) || ( i_y != p1_y ) ) ) {
-					/* build new vertex at intersection */
-					double v_x = i_x;
-					double v_y = i_y;
-					/* get vertex distances */
-					dist_ab_2d  = sqrt ( pow ( ( p1_x - p0_x ), 2 ) + pow ( ( p1_y - p0_y ), 2 ) );
-					dist_a_new_2d = sqrt ( pow ( ( p0_x - v_x ), 2 ) + pow ( ( p0_y - v_y ), 2 ) );
-					dist_b_new_2d = sqrt ( pow ( ( p1_x - v_x ), 2 ) + pow ( ( p1_y - v_y ), 2 ) );
-					if ( dist_ab_2d > 0.0 ) {
-						/* interpolate Z as weighted (by distance from existing vertices) arithmetic mean */
-						weight_a = ( dist_a_new_2d / dist_ab_2d );
-						weight_b = ( dist_b_new_2d / dist_ab_2d );
-						double v_z = ( weight_a * p0_z ) + ( weight_b * p1_z );
-						/* register new intersection vertex */
-						if ( check_only == FALSE ) {
-							geom_tools_new_intersection ( v_x, v_y, v_z, i+1+offset, gs, geom_type, geom_id, part_idx );
-							/*
-							if ( DEBUG ) {
-								fprintf (stderr,"\tINTERSECTION: REGISTERED VERTEX: %.10f/%.10f\n", v_x, v_y);
-								fprintf (stderr,"\tP0: %.10f/%.10f\n", p0_x, p0_y);
-								fprintf (stderr,"\tP1: %.10f/%.10f\n", p1_x, p1_y);
-								fprintf (stderr,"\tOFFSET: %i\n", offset);
-							}
-							*/
-							offset ++;
-							/* update count */
-							result ++;
+			/* Inner loop: step through all segments of geometry B.*/
+			for ( j = 0; j < B->num_vertices-1; j ++ ) {
+				p2_x = B->X[j];
+				p2_y = B->Y[j];
+				p3_x = B->X[j+1];
+				p3_y = B->Y[j+1];				
+				if ( DEBUG == TRUE ) {
+					fprintf (stderr,"Segment B: (%i/%i)%.10f/%.10f -- (%i/%i)%.10f/%.10f\n", j, j, p2_x, p2_y, (j+1), (j+1), p3_x, p3_y );
+				}
+				/* By definition, a line segment cannot intersect with another line segment more than once! */
+				if ( geom_tools_line_intersection_2D ( p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, &i_x, &i_y) == TRUE ) {
+					/* We have an intersection:
+					   add, but only if intersection point is _not_ an already existing node in A!
+					   Note that we round coordinate when checking for identical points. This is necessary,
+					   as limited geometrical precision can result in "phantom points" on sloping segments. */					   
+					found = FALSE;
+					for ( k = 0; k < A->num_vertices-1; k ++ ) {
+						if ( ( fabs ( A->X[k] - i_x ) < 0.000000001 ) && ( ( fabs ( A->Y[k] - i_y ) < 0.000000001 ) ) ) {							
+							found = TRUE;
+							break;
 						}
 					}
+					if ( found == FALSE ) {
+						/* Ok: It's a new intersection point: build new vertex at intersection */
+						v_x = i_x;
+						v_y = i_y;
+						/* get vertex distances */
+						dist_ab_2d  = sqrt ( pow ( ( p1_x - p0_x ), 2 ) + pow ( ( p1_y - p0_y ), 2 ) );
+						if ( dist_ab_2d > 0.0 ) {
+							/* interpolate Z as weighted (by distance from existing vertices) arithmetic mean */
+							v_z = geom_tools_interpolate_z ( p0_x, p0_y, p0_z, p1_x, p1_y, p1_z, v_x, v_y );
+							/* register new intersection vertex */
+							if ( check_only == FALSE ) {								
+								if ( DEBUG == TRUE ) {
+									fprintf (stderr,"\tINTERSECTION: ADD %i/%i betw. %i-%i: %.10f/%.10f\n", 
+											i+1+offset, A->num_vertices, i, (i+1), v_x, v_y);									
+									//fprintf (stderr,"\tP0: %.10f/%.10f\n", p0_x, p0_y);
+									//fprintf (stderr,"\tP1: %.10f/%.10f\n", p1_x, p1_y);									
+								}
+								geom_tools_new_intersection ( v_x, v_y, v_z, i+1+offset, gs, geom_type, geom_id, part_idx );
+								/* Rewrite this part of geometry A */
+								//TODO: What to do with return value? Should be = 1 if operation was successful!
+								geom_topology_intersections_2D_add ( gs, NULL ); //TODO: this function does not actually use *opts!
+								//num_vertices_added = geom_topology_intersections_2D_add ( gs, opts );								
+								inserted_node = TRUE; /* This means we have to restart at first segment of A! */
+								/* update count */								
+								result ++;
+							}
+						}
+						break; /* Important: we need to break here and restart, as the geometry has changed!
+								  The caller must make sure that the process for this part is restartet,
+								  until no more intersections are detected for it! */						
+					}
 				}
-			}
+			}			
 		}
-	}
+	} while ( inserted_node == TRUE ); /* We only do one more round of a node was inserted. */
+
 	if ( DEBUG == TRUE ) {
 		fprintf (stderr,"PART DONE.\n");
 	}
 
-	return (result);
+	return result;
+}
+
+
+/*
+ * Interpolates Z coordinate for a new vertex (defined by 'v_x' and 'v_y') that
+ * lies on a straight line between the existing vertices 'p0' and 'p1' (both of
+ * the latter are defined by 3D coordinates). This is a simple linear interpolation.
+ *
+ * Returns the new Z coordinate.
+ *
+ * Note: For best results, 'v_x' and 'v_y' should describe a point that lies exactly
+ * on the straight 2D line between the X/Y locations of p0 and p1. If this is
+ * not the case then the result will be less accurate/realistic!
+ */
+double geom_tools_interpolate_z ( double p0_x, double p0_y, double p0_z,
+								double p1_x, double p1_y, double p1_z,
+								double v_x, double v_y )
+{
+	double dist_ab_2d;
+	double dist_a_new_2d;
+	double dist_b_new_2d;
+	double weight_a;
+	double weight_b;
+	double v_z = 0.0;
+
+	dist_a_new_2d = sqrt ( pow ( ( p0_x - v_x ), 2 ) + pow ( ( p0_y - v_y ), 2 ) );
+	dist_b_new_2d = sqrt ( pow ( ( p1_x - v_x ), 2 ) + pow ( ( p1_y - v_y ), 2 ) );
+	dist_ab_2d  = dist_a_new_2d + dist_b_new_2d;
+	/* Note: if the new vertex lies on the straight line between the two given ones,
+	 * then dist_ab_2d = sqrt ( pow ( ( p1_x - p0_x ), 2 ) + pow ( ( p1_y - p0_y ), 2 ) );
+	 *                 = dist_a_new_2d + dist_b_new_2d;
+	 */
+	if ( dist_ab_2d > 0.0 ) {
+		/* interpolate Z as weighted (by distance from existing vertices) arithmetic mean */
+		weight_a = ( dist_a_new_2d / dist_ab_2d );
+		weight_b = ( dist_b_new_2d / dist_ab_2d );
+		v_z = ( weight_a * p0_z ) + ( weight_b * p1_z );
+	} else {
+		/* vertices are at identical X/Y location */
+		v_z = ( p0_z + p1_z ) / 2.0;
+	}
+
+	return ( v_z );
 }
 
 
 /*
  * Adds a new vertex, defined by its X, Y and Z coordinates, to an existing geometry part.
- * The vertex is added after the one specified by "position", which must be an integer
+ * The vertex is added _at_ the specified "position", which must be an integer
  * value between "0" (inclusive) and part->num_vertices (exclusive).
  *
  * Returns a new geometry part with the added vertex on success, NULL on error.
+ *
+ * If a vertex already exists (at any index position) with the exact same X/Y/Z coordinates
+ * then the returned results will be an exact copy (i.e. with the same number of vertices)
+ * of the part passed to this function.
  */
 geom_part* geom_tools_part_add_vertex ( geom_part* part, int position, double x, double y, double z )
 {
@@ -2414,6 +2817,15 @@ geom_part* geom_tools_part_add_vertex ( geom_part* part, int position, double x,
 	}
 	if ( part->X == NULL || part->Y == NULL || part->Z == NULL ) {
 		return NULL;
+	}
+
+	/* check whether vertex does already exist */
+	for ( i = 0; i < part->num_vertices; i ++ ) {
+		if ( part->X[i] == x && part->Y[i] == y && part->Z[i] == z )
+		{
+			// return an exact duplicate of the part
+			return (geom_tools_part_duplicate ( part ));
+		}
 	}
 
 	/* we work on a copy of the original part */
@@ -2541,6 +2953,8 @@ struct geom_part* geom_tools_line_part_extend_3D ( geom_part* part, double amoun
 	/* done */
 	return ( result );
 }
+
+
 
 
 /*
@@ -2748,6 +3162,7 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 			points[num_points].Z = 0.0;
 		}
 		points[num_points].is_empty = FALSE;
+		points[num_points].has_errors = FALSE;
 		points[num_points].is_selected = TRUE;
 		points[num_points].is_3D = is_3D;
 		points[num_points].has_label = FALSE;
@@ -2836,6 +3251,8 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 					for ( i = gs->num_lines; i < (gs->num_lines+GEOM_STORE_CHUNK_BIG); i++ ) {
 						gs->lines[i].geom_id = -1;
 						gs->lines[i].is_empty = TRUE;
+						gs->lines[i].has_errors = FALSE;
+						gs->lines[i].is_3D = TRUE;
 						gs->lines[i].num_parts = 0;
 						gs->lines[i].parts = NULL;
 						gs->lines[i].bbox_x1 = 0.0;
@@ -2864,6 +3281,8 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 					for ( i = gs->num_polygons; i < (gs->num_polygons+GEOM_STORE_CHUNK_BIG); i++ ) {
 						gs->polygons[i].geom_id = -1;
 						gs->polygons[i].is_empty = TRUE;
+						gs->polygons[i].has_errors = FALSE;
+						gs->polygons[i].is_3D = TRUE;
 						gs->polygons[i].num_parts = 0;
 						gs->polygons[i].parts = NULL;
 						gs->polygons[i].bbox_x1 = 0.0;
@@ -3042,24 +3461,78 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 		gs->lines[cur_geom].parts[part].dist_undershoot_last = -1.0;
 		gs->lines[cur_geom].parts[part].x_undershoot_last = 0.0;
 		gs->lines[cur_geom].parts[part].y_undershoot_last = 0.0;
+		gs->lines[cur_geom].parts[part].err_self_intersects = 0;
 		gs->lines[cur_geom].parts[part].is_empty = FALSE;
 		gs->lines[cur_geom].free_parts --;
-		/* compute real bounding box */
-		int j;
-		for ( j=0; j < num_vertices; j++ ) {
-			if ( X[j] < gs->lines[cur_geom].bbox_x1 )
-				gs->lines[cur_geom].bbox_x1 = X[j];
-			if ( X[j] > gs->lines[cur_geom].bbox_x2 )
-				gs->lines[cur_geom].bbox_x2 = X[j];
-			if ( Y[j] < gs->lines[cur_geom].bbox_y1 )
-				gs->lines[cur_geom].bbox_y1 = Y[j];
-			if ( Y[j] > gs->lines[cur_geom].bbox_y2 )
-				gs->lines[cur_geom].bbox_y2 = Y[j];
+		/* check all line segments for self-intersections */
+		for ( i = 1; i < (num_vertices-1); i ++ ) {
+			int j;
+			BOOLEAN result = TRUE;
+			while ( (result == TRUE) ) {
+				for ( j = 0; j < (num_vertices-2); j ++ ) {
+					if ( i != j ) { /* make sure that we only compare different segments */
+						/* current segment to check with */
+						double p0_x = gs->lines[cur_geom].parts[part].X[i];
+						double p0_y = gs->lines[cur_geom].parts[part].Y[i];
+						double p1_x = gs->lines[cur_geom].parts[part].X[i+1];
+						double p1_y = gs->lines[cur_geom].parts[part].Y[i+1];
+						/* preceding segment to check against */
+						double p2_x = gs->lines[cur_geom].parts[part].X[j];
+						double p2_y = gs->lines[cur_geom].parts[part].Y[j];
+						double p3_x = gs->lines[cur_geom].parts[part].X[j+1];
+						double p3_y = gs->lines[cur_geom].parts[part].Y[j+1];
+						double i_x;
+						double i_y;
+						result = geom_tools_line_self_intersection_2D (p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, &i_x, &i_y);
+						if (result == TRUE ) {
+							err_show (ERR_WARN, _("\nSelf-intersection in line geometry at %.3f/%.3f (geometry #%i, part #%i).\n"),
+									i_x, i_y, cur_geom, part);
+							/* mark errors in geometry */
+							gs->lines[cur_geom].has_errors = TRUE;
+							gs->lines[cur_geom].parts[part].err_self_intersects ++;
+							/* interpolate Z on checked segment at intersection point */
+							double p0_z = gs->lines[cur_geom].parts[part].Z[i];
+							double p1_z = gs->lines[cur_geom].parts[part].Z[i+1];
+							double z = geom_tools_interpolate_z(p0_x, p0_y, p0_z, p1_x, p1_y, p1_z, i_x, i_y);
+							/* add intersection point to geometry part as new vertex */
+							int pos = i+1;
+							double x = i_x;
+							double y = i_y;
+							geom_part* new_part = geom_tools_part_add_vertex ( &gs->lines[cur_geom].parts[part], pos, x, y, z );
+							if ( new_part != NULL ) {
+								/* swap old part for new part with added self-intersection vertex */
+								gs->lines[cur_geom].parts[part].num_vertices = new_part->num_vertices;
+								gs->lines[cur_geom].parts[part].X = malloc ( sizeof (double ) * new_part->num_vertices );
+								gs->lines[cur_geom].parts[part].Y = malloc ( sizeof (double ) * new_part->num_vertices );
+								gs->lines[cur_geom].parts[part].Z = malloc ( sizeof (double ) * new_part->num_vertices );
+								for ( j = 0; j < new_part->num_vertices; j ++ ) {
+									gs->lines[cur_geom].parts[part].X[j] = new_part->X[j];
+									gs->lines[cur_geom].parts[part].Y[j] = new_part->Y[j];
+									gs->lines[cur_geom].parts[part].Z[j] = new_part->Z[j];
+								}
+								geom_tools_part_destroy ( new_part );
+								free ( new_part );
+							}
+						}
+					}
+				}
+			}
+		}
+		/* compute real bounding box from given data (excl. any self-intersection points) */
+		for ( i=0; i < num_vertices; i++ ) {
+			if ( X[i] < gs->lines[cur_geom].bbox_x1 )
+				gs->lines[cur_geom].bbox_x1 = X[i];
+			if ( X[i] > gs->lines[cur_geom].bbox_x2 )
+				gs->lines[cur_geom].bbox_x2 = X[i];
+			if ( Y[i] < gs->lines[cur_geom].bbox_y1 )
+				gs->lines[cur_geom].bbox_y1 = Y[i];
+			if ( Y[i] > gs->lines[cur_geom].bbox_y2 )
+				gs->lines[cur_geom].bbox_y2 = Y[i];
 			if ( is_3D == TRUE ) {
-				if ( Z[j] < gs->lines[cur_geom].bbox_z1 )
-					gs->lines[cur_geom].bbox_z1 = Z[j];
-				if ( Z[j] > gs->lines[cur_geom].bbox_z2 )
-					gs->lines[cur_geom].bbox_z2 = Z[j];
+				if ( Z[i] < gs->lines[cur_geom].bbox_z1 )
+					gs->lines[cur_geom].bbox_z1 = Z[i];
+				if ( Z[i] > gs->lines[cur_geom].bbox_z2 )
+					gs->lines[cur_geom].bbox_z2 = Z[i];
 			}
 		}
 	} else {
@@ -3088,9 +3561,65 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 		gs->polygons[cur_geom].parts[part].is_hole =
 				geom_tools_part_in_poly_2D ( &gs->polygons[cur_geom].parts[part],
 						&gs->polygons[cur_geom] );
+		gs->polygons[cur_geom].parts[part].err_self_intersects = 0;
 		gs->polygons[cur_geom].parts[part].is_empty = FALSE;
 		gs->polygons[cur_geom].free_parts --;
-		/* compute real bounding box */
+		/* check all boundary segments for self-intersections */
+		for ( i = 1; i < (num_vertices-1); i ++ ) {
+			int j;
+			BOOLEAN result = TRUE;
+			while ( (result == TRUE) ) {
+				for ( j = 0; j < (num_vertices-2); j ++ ) {
+					if ( i != j ) { /* make sure that we only compare different segments */
+						/* current segment to check with */
+						double p0_x = gs->polygons[cur_geom].parts[part].X[i];
+						double p0_y = gs->polygons[cur_geom].parts[part].Y[i];
+						double p1_x = gs->polygons[cur_geom].parts[part].X[i+1];
+						double p1_y = gs->polygons[cur_geom].parts[part].Y[i+1];
+						/* preceding segment to check against */
+						double p2_x = gs->polygons[cur_geom].parts[part].X[j];
+						double p2_y = gs->polygons[cur_geom].parts[part].Y[j];
+						double p3_x = gs->polygons[cur_geom].parts[part].X[j+1];
+						double p3_y = gs->polygons[cur_geom].parts[part].Y[j+1];
+						double i_x;
+						double i_y;
+						result = geom_tools_line_self_intersection_2D (p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y, &i_x, &i_y);
+						if ( result == TRUE ) {
+							err_show (ERR_WARN, _("\nSelf-intersection in polygon geometry at %.3f/%.3f (geometry #%i, part #%i).\n"),
+									i_x, i_y, cur_geom, part);
+							/* mark errors in geometry */
+							gs->polygons[cur_geom].has_errors = TRUE;
+							gs->polygons[cur_geom].parts[part].err_self_intersects ++;
+							/* interpolate Z on checked segment at intersection point */
+							double p0_z = gs->polygons[cur_geom].parts[part].Z[i];
+							double p1_z = gs->polygons[cur_geom].parts[part].Z[i+1];
+							double z = geom_tools_interpolate_z(p0_x, p0_y, p0_z, p1_x, p1_y, p1_z, i_x, i_y);
+							/* add intersection point to geometry part as new vertex */
+							int pos = i+1;
+							double x = i_x;
+							double y = i_y;
+							geom_part* new_part = geom_tools_part_add_vertex ( &gs->polygons[cur_geom].parts[part], pos, x, y, z );
+							if ( new_part != NULL ) {
+								/* swap old part for new part with added self-intersection vertex */
+								gs->polygons[cur_geom].parts[part].num_vertices = new_part->num_vertices;
+								gs->polygons[cur_geom].parts[part].X = malloc ( sizeof (double ) * new_part->num_vertices );
+								gs->polygons[cur_geom].parts[part].Y = malloc ( sizeof (double ) * new_part->num_vertices );
+								gs->polygons[cur_geom].parts[part].Z = malloc ( sizeof (double ) * new_part->num_vertices );
+								for ( j = 0; j < new_part->num_vertices; j ++ ) {
+									gs->polygons[cur_geom].parts[part].X[j] = new_part->X[j];
+									gs->polygons[cur_geom].parts[part].Y[j] = new_part->Y[j];
+									gs->polygons[cur_geom].parts[part].Z[j] = new_part->Z[j];
+								}
+								geom_tools_part_destroy ( new_part );
+								free ( new_part );
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/* compute real bounding box from given data (excl. any self-intersection points) */
 		int j;
 		for ( j=0; j < num_vertices; j++ ) {
 			if ( X[j] < gs->polygons[cur_geom].bbox_x1 )
@@ -3109,6 +3638,8 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 			}
 		}
 	}
+
+	//TODO: CONTINUE: SKIP (SOME) TOPOLOGY TESTS FOR GEOMETRIES THAT HAVE SELF-INTERSECTION ERRORS!
 
 	/* Add label point? */
 	if ( opts != NULL && opts->label_field != NULL ) {
@@ -3297,6 +3828,8 @@ BOOLEAN geom_store_add 	( 	geom_store *gs, parser_desc *parser,
 }
 
 
+
+
 /*
  * Adds a point to a geometry store.
  */
@@ -3309,6 +3842,8 @@ BOOLEAN geom_store_add_point ( 	geom_store *gs, parser_desc *parser,
 {
 	return ( geom_store_add (gs, parser, geom_id, 1, GEOM_TYPE_POINT, &X, &Y, &Z, part_id, atts, source, line, is_3D, error, opts) );
 }
+
+
 
 
 /*
@@ -3326,6 +3861,8 @@ BOOLEAN geom_store_add_point_raw ( 	geom_store *gs, parser_desc *parser,
 }
 
 
+
+
 /*
  * Adds a (multi-)line (part) to a geometry store.
  */
@@ -3340,6 +3877,8 @@ BOOLEAN geom_store_add_line ( 	geom_store *gs, parser_desc *parser,
 }
 
 
+
+
 /*
  * Adds a (multi-)polygon (part) to a geometry store.
  */
@@ -3352,6 +3891,8 @@ BOOLEAN geom_store_add_poly ( 	geom_store *gs, parser_desc *parser,
 {
 	return ( geom_store_add (gs, parser, geom_id, num_vertices, GEOM_TYPE_POLY, X, Y, Z, part_id, atts, source, line, is_3D, error, opts) );
 }
+
+
 
 
 /*
@@ -3432,6 +3973,8 @@ void geom_store_print 	( geom_store *gs, BOOLEAN print_points )
 	}
 
 }
+
+
 
 
 /*
@@ -3811,6 +4354,8 @@ void geom_topology_invalidate(parser_data_store *ds, options *opts) {
 }
 
 
+
+
 /*
  * Remove duplicate vertices within one geometry.
  * Two vertices are considered duplicates if their
@@ -3864,13 +4409,8 @@ int geom_topology_remove_duplicates ( parser_data_store *ds, options *opts, BOOL
 					if (comp->is_empty == FALSE && comp->is_valid == TRUE
 							&& comp->geom_type == GEOM_TYPE_POINT && comp
 							!= rec) {
-						/* invalidate this point if it is a duplicate */
-						if ( in3D == TRUE )
-							d = (sqrt(pow((rec->x - comp->x), 2) + pow((rec->y
-									- comp->y), 2) + pow((rec->z - comp->z), 2)));
-						else
-							d = (sqrt(pow((rec->x - comp->x), 2) + pow((rec->y
-									- comp->y), 2) ));
+						/* invalidate this point if it is a duplicate (always use 3D distance for points) */
+						d = (sqrt(pow((rec->x - comp->x), 2) + pow((rec->y - comp->y), 2) + pow((rec->z - comp->z), 2)));
 						if (d <= opts->tolerance) {
 							err_show(ERR_NOTE, "");
 							if ( d == 0.0 ) {
@@ -3898,8 +4438,7 @@ int geom_topology_remove_duplicates ( parser_data_store *ds, options *opts, BOOL
 					parser_record *comp = &ds->records[j];
 					if (comp->is_empty == FALSE && comp->is_valid == TRUE
 							&& comp->geom_type == GEOM_TYPE_LINE
-							&& comp->geom_id == rec->geom_id && comp != rec &&
-							labs(j-i) == 1 ) { /* Only delete if the two are direct neighbours! */
+							&& comp->geom_id == rec->geom_id && comp != rec ) {
 						/* invalidate this point if it is a duplicate */
 						if ( in3D == TRUE )
 							d = (sqrt(pow((rec->x - comp->x), 2) + pow((rec->y
@@ -3936,8 +4475,7 @@ int geom_topology_remove_duplicates ( parser_data_store *ds, options *opts, BOOL
 					/* check all vertices in the same polygon */
 					if (comp->is_empty == FALSE && comp->is_valid == TRUE
 							&& comp->geom_type == GEOM_TYPE_POLY
-							&& comp->geom_id == rec->geom_id && comp != rec &&
-							labs(j-i) == 1 ) { /* Only delete if the two are direct neighbours! */
+							&& comp->geom_id == rec->geom_id && comp != rec ) {
 						/* invalidate this point if it is a duplicate */
 						if ( in3D == TRUE )
 							d = (sqrt(pow((rec->x - comp->x), 2) + pow((rec->y
@@ -3972,6 +4510,8 @@ int geom_topology_remove_duplicates ( parser_data_store *ds, options *opts, BOOL
 	free(input);
 	return (count);
 }
+
+
 
 
 /*
@@ -4034,6 +4574,8 @@ int geom_topology_remove_splinters (unsigned int min, int geom_type,
 	return (count);
 }
 
+
+
 /*
  * Removes lines that have less than two vertices.
  * Returns number of lines removed.
@@ -4048,6 +4590,8 @@ int geom_topology_remove_splinters_lines(parser_data_store *ds,
 
 	return (count);
 }
+
+
 
 /*
  * Removes poylgons that have less than three vertices.
@@ -4065,16 +4609,18 @@ int geom_topology_remove_splinters_polygons (parser_data_store *ds,
 }
 
 
+
+
 /*
  * Tests if any part of A (that is not a hole) lies completely within
  * any part of B (that is also not a hole).
  *
  * If so, then a new inner ring (hole) is added to B in the shape
- * of the overlapping part from A.
+ * of the overlaid part from A ("punch hole").
  *
- * Returns number of overlaps detected.
+ * Returns number of overlays detected.
  */
-unsigned int geom_topology_poly_overlap_2D ( geom_store *gs, parser_desc *parser )
+unsigned int geom_topology_poly_overlay_2D ( geom_store *gs, parser_desc *parser )
 {
 	unsigned int i, j, k;
 	unsigned int overlaps;
@@ -4089,14 +4635,14 @@ unsigned int geom_topology_poly_overlap_2D ( geom_store *gs, parser_desc *parser
 	/* Go through all polygons in the geom store,
 	 * check each poly against each other. */
 	overlaps = 0;
-	for ( i = 1; i < gs->num_polygons; i++ ) {
-		if ( gs->polygons[i].is_selected == TRUE ) {
+	for ( i = 0; i < gs->num_polygons; i++ ) {
+		if ( ( gs->polygons[i].is_selected == TRUE ) && ( gs->polygons[i].is_empty == FALSE ) ) {
 			for ( j = 0; j < gs->num_polygons-1; j++ ) {
-				if ( gs->polygons[j].is_selected == TRUE ) {
+				if ( ( i != j ) && ( gs->polygons[j].is_selected == TRUE ) && ( gs->polygons[j].is_empty == FALSE ) ) {
 					A = &gs->polygons[i];
 					B = &gs->polygons[j];
 					/* need to compare only if bounding boxes overlap */
-					if ( geom_tools_bb_overlap_2D ( A, B, 0.0 ) == TRUE ) {
+					if ( geom_tools_bb_overlap_2D ( A, B ) == TRUE ) {
 						for ( k = 0; k< A->num_parts; k ++ ) {
 							if ( A->parts[k].is_hole == FALSE ) {
 								if ( geom_tools_part_in_poly_2D ( &A->parts[k], B ) == TRUE ) {
@@ -4118,11 +4664,1615 @@ unsigned int geom_topology_poly_overlap_2D ( geom_store *gs, parser_desc *parser
 }
 
 
+/**
+ * Updates bounding boxes for all lines and polygons in given geometry store.
+ */
+void geom_tools_update_bboxes ( geom_store *gs )
+{
+	unsigned int i, j, v;
+	geom_store_polygon *P;
+	geom_store_line *L;
+
+	if ( gs == NULL ) {
+		return;
+	}
+
+	/* POLYGONS */
+	for ( i = 0; i < gs->num_polygons; i++ ) {
+		P = &gs->polygons[i];
+		if ( P->is_empty == FALSE ) {
+			for ( j = 0; j < P->num_parts; j ++ ) {
+				geom_part *p = &P->parts[j];
+				for ( v = 0; v < p->num_vertices; v++ ) {
+					if ( p->X[v] < P->bbox_x1 ) { P->bbox_x1 = p->X[v]; }
+					if ( p->X[v] > P->bbox_x2 ) { P->bbox_x2 = p->X[v]; }
+					if ( p->Y[v] < P->bbox_y1 ) { P->bbox_y1 = p->Y[v]; }
+					if ( p->Y[v] > P->bbox_y2 ) { P->bbox_y2 = p->Y[v]; }
+					if ( P->is_3D == TRUE ) {
+						if ( p->Z[v] < P->bbox_z1 ) { P->bbox_z1 = p->Z[v]; }
+						if ( p->Z[v] > P->bbox_z2 ) { P->bbox_z2 = p->Z[v]; }
+					}
+				}
+			}
+		}
+	}
+
+	/* LINES */
+	for ( i = 0; i < gs->num_lines; i++ ) {
+		L = &gs->lines[i];
+		if ( L->is_empty == FALSE ) {
+			for ( j = 0; j < L->num_parts; j ++ ) {
+				geom_part *p = &L->parts[j];
+				for ( v = 0; v < p->num_vertices; v++ ) {
+					if ( p->X[v] < L->bbox_x1 ) { L->bbox_x1 = p->X[v]; }
+					if ( p->X[v] > L->bbox_x2 ) { L->bbox_x2 = p->X[v]; }
+					if ( p->Y[v] < L->bbox_y1 ) { L->bbox_y1 = p->Y[v]; }
+					if ( p->Y[v] > L->bbox_y2 ) { L->bbox_y2 = p->Y[v]; }
+					if ( L->is_3D == TRUE ) {
+						if ( p->Z[v] < L->bbox_z1 ) { L->bbox_z1 = p->Z[v]; }
+						if ( p->Z[v] > L->bbox_z2 ) { L->bbox_z2 = p->Z[v]; }
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* Retrieves all coordinate values stored in a ring of a 'multclip' polygon structure,
+ * and their count. The parameter 'coord_idx' determine which coordinates are
+ * retrieved:
+ *
+ * 0 = X
+ * 1 = Y
+ * 2 = Z
+ *
+ * For convenience, wrapper functions exist that do not require 'coord_idx':
+ *
+ * geom_tools_get_mpoly_X();
+ * geom_tools_get_mpoly_Y();
+ * geom_tools_get_mpoly_Z();
+ *
+ * Index of first/outer ring/contour in input 'mpoly' is '0'.
+ *
+ * This function will return NULL if an invalid ring index is given or
+ * the polygon is empty, or 'count' is a NULL pointer, or there is not enough
+ * memory for the result, or 'coord_idx' is invalid.
+ *
+ * Otherwise, a newly allocated array of Z coordinates is returned.
+ * The first and last Z value will always be identical (as they represent the
+ * coordinates of a closed polygon, where first vertex = last vertex).
+ * Allocated memory for the result must be released by caller when no longer
+ * needed.
+ *
+ * In addition, the number of vertices will be stored in 'count'.
+ */
+double *geom_tools_get_mpoly_coords ( POLYAREA *mpoly, int ring, int *count, int coord_idx)
+{
+	int num_vertices = 0;
+	double *result = NULL;
+
+	if ( count == NULL ) {
+		return NULL;
+	}
+
+	if ( coord_idx < 0 || coord_idx > 2 ) {
+		*count = 0;
+		return NULL;
+	}
+
+	if ( mpoly == NULL ) {
+		*count = 0;
+		return NULL;
+	}
+
+	if ( ring < 0 ) {
+		*count = 0;
+		return NULL;
+	}
+
+	/* Get number of vertices in current ring. */
+	int c = 0; /* index of ring/contour in 'multclip' representation */
+	PLINE *cntr;
+	for ( cntr = mpoly->contours; cntr != NULL; cntr = cntr->next ) {
+		VNODE *cur;
+		cur = &cntr->head;
+		do {
+			if ( c == ring ) {
+				num_vertices ++;
+			}
+		} while ( ( cur = cur->next ) != &cntr->head );
+		c ++;
+	}
+
+	if ( num_vertices < 1 ) {
+		*count = 0;
+		return NULL;
+	}
+
+	/* We have vertices: allocate new array and store them. */
+	result = malloc ( sizeof(double) * (num_vertices+1)); /* add one slot for duplicate Z coord */
+	if ( result == NULL ) {
+		/* Unable to allocate memory. */
+		if ( count != NULL ) {
+			*count = 0;
+		}
+		return ( NULL );
+	}
+
+	c = 0; /* index of ring/contour in 'multclip' representation */
+	int pos = 0;
+	for ( cntr = mpoly->contours; cntr != NULL; cntr = cntr->next ) {
+		VNODE *cur;
+		cur = &cntr->head;
+		do {
+			if ( c == ring ) {
+				result[pos] = cur->point[coord_idx];
+				pos++;
+			}
+		} while ( ( cur = cur->next ) != &cntr->head );
+		c ++;
+	}
+
+	/* add closing vertex' coordinate */
+	result[pos] = result[0];
+
+	/* return result data */
+	*count = (num_vertices+1);
+	return ( result );
+}
+
+
+/* Retrieves all X coordinate values stored in a ring of a 'multclip' polygon structure,
+ * and their count.
+ *
+ * See geom_tools_get_mpoly_coords() for details.
+ */
+double *geom_tools_get_mpoly_X ( POLYAREA *mpoly, int ring, int *count ) {
+	return (geom_tools_get_mpoly_coords (mpoly, ring, count, 0));
+}
+
+
+/* Retrieves all Y coordinate values stored in a ring of a 'multclip' polygon structure,
+ * and their count.
+ *
+ * See geom_tools_get_mpoly_coords() for details.
+ */
+double *geom_tools_get_mpoly_Y ( POLYAREA *mpoly, int ring, int *count ) {
+	return (geom_tools_get_mpoly_coords (mpoly, ring, count, 1));
+}
+
+
+/* Retrieves all Z coordinate values stored in a ring of a 'multclip' polygon structure,
+ * and their count.
+ *
+ * See geom_tools_get_mpoly_coords() for details.
+ */
+double *geom_tools_get_mpoly_Z ( POLYAREA *mpoly, int ring, int *count ) {
+	return (geom_tools_get_mpoly_coords (mpoly, ring, count, 2));
+}
+
+
+/* Retrieves the maximum Z value stored in a 'multclip' polygon structure. */
+double geom_tools_get_max_z ( geom_multclip_poly *mpoly )
+{
+	int i, j;
+	double max_Z;
+
+	if ( mpoly == NULL ) {
+		return ( 0.0 );
+	}
+
+	/* Outer ring. */
+	for ( i = 0; i < mpoly->outer->num_vertices; i++) {
+		/* Init/update max Z statistic. */
+		if ( i == 0 ) {
+			max_Z = mpoly->outer->Z[0];
+		} else {
+			if ( max_Z < mpoly->outer->Z[i] ) {
+				max_Z = mpoly->outer->Z[i];
+			}
+		}
+	}
+
+	/* Inner ring(s). */
+	for ( j = 0; j < mpoly->num_inner; j++) {
+		for ( i = 0; i < mpoly->inner[j]->num_vertices; i++) {
+			/* Update max Z statistic. */
+			if ( max_Z < mpoly->inner[j]->Z[i] ) {
+				max_Z = mpoly->inner[j]->Z[i];
+			}
+		}
+	}
+
+	return ( max_Z );
+}
+
+
+/**
+ * Helper function for geom_topology_poly_intersect():
+ * Compares an original (simplified) polygon 'org' with the result of
+ * a 'multclip' operation stored in 'new'. If there are any new vertices
+ * in 'new', then Z values will be interpolated for them ('multclip' produces
+ * strictly 2D results, but it's data struct does have 3D vertices).
+ *
+ * When running in 2D mode, all Z coordinates of new vertices will be
+ * set to '0.0'. Otherwise, for all vertices that exist in both 'org' and 'new',
+ * Z values will be transferred from 'org' by linear interpolation.
+ * Therefore, 'org' must have valid Z values at all of its vertices!
+ * If the inerpolation failes, Z='0.0' will be stored and a warning issued.
+ *
+ * To allow useful error reporting, 'poly_id' and 'part_id' of currently processed
+ * polygon must also be passed to this function.
+ *
+ * Return:
+ * Newly allocated array with all new vertices (for which Z values were interpolated
+ * or set to '0.0'). Memory for this must be released by caller!
+ *
+ * 'count' must be a pre-allocated integer and will store the number of interpolated vertices.
+ *
+ * Any interpolated Z values are also stored directly in the vertices of 'new'.
+ *
+ * (This function will _modify_ its parameter 'new'.)
+ *
+ */
+/*
+TODO: It would be possible to improve the accuracy of this function by using
+      an IDW interpolation on all available Z coords from all polygons!
+*/
+geom_coords_3d *geom_topology_poly_check_z_interpolate ( geom_multclip_poly *org, POLYAREA *new, int poly_id, int part_id, options *opts, int *count )
+{
+	int num_new_z = 0;
+	int i;
+	int num_new_vertices = 0;
+	BOOLEAN DEBUG = FALSE;
+	geom_coords_3d *store = NULL;
+
+	/* Basic validity checks */
+	if ( count == NULL ) {
+		return ( NULL );
+	}
+
+	if ( org == NULL || new == NULL ) {
+		*count = 0;
+		return ( NULL );
+	}
+
+	if ( org->outer == NULL ) {
+		*count = 0;
+		return ( NULL );
+	}
+
+	/* Retrieve maximum Z coordinate value from 'org'. */
+	double max_Z = geom_tools_get_max_z ( org );
+
+	/* PASS ONE: Transfer Z values from existing vertices in 'org' to
+	 * corresponding vertices in 'new'. */
+
+	/* Step through all vertices in all rings/contours of 'new'. */
+	int c = 0; /* index of ring/contour in 'multclip' representation */
+	PLINE *cntr;
+	for ( cntr = new->contours; cntr != NULL; cntr = cntr->next ) {
+		VNODE *cur;
+		cur = &cntr->head;
+		do
+		{
+			double p1_x = cur->point[0];
+			double p1_y = cur->point[1];
+			/* Check all vertices on outer ring of 'org' against all vertices in 'new'
+			 * to find the vertices that are not part of the boundary of 'org'. */
+			double p2_x;
+			double p2_y;
+			double p2_z;
+			/* We abort the point search if a vertex with identical coordinates was found (2D)! */
+			BOOLEAN found = FALSE;
+			for ( i = 0; i < org->outer->num_vertices; i++) {
+				/* Init/update max Z statistic. */
+				if ( i == 0 ) {
+					max_Z = org->outer->Z[0];
+				} else {
+					if ( max_Z < org->outer->Z[i] ) {
+						max_Z = org->outer->Z[i];
+					}
+				}
+				p2_x = org->outer->X[i];
+				p2_y = org->outer->Y[i];
+				p2_z = org->outer->Z[i];
+				if ( (p1_x == p2_x) && (p1_y == p2_y) ) {
+					found = TRUE;
+					cur->point[2] = (double) p2_z; /* copy Z value from existing vertex */
+					break;
+				}
+			}
+			if ( found == FALSE ) {
+				/* Now check all vertices on inner ring(s) of 'org' (if any). */
+				int j;
+				for ( j = 0; j < org->num_inner; j++) {
+					if ( found == FALSE ) {
+						p1_x = cur->point[0];
+						p1_y = cur->point[1];
+						p2_x = 0.0;
+						p2_y = 0.0;
+						p2_z = 0.0;
+						for ( i = 0; i < org->inner[j]->num_vertices; i++) {
+							/* Update max Z statistic. */
+							if ( max_Z < org->inner[j]->Z[i] ) {
+								max_Z = org->inner[j]->Z[i];
+							}
+							p2_x = org->inner[j]->X[i];
+							p2_y = org->inner[j]->Y[i];
+							p2_z = org->inner[j]->Z[i];
+							if ( (p1_x == p2_x) && (p1_y == p2_y) ) {
+								found = TRUE;
+								cur->point[2] = (double) p2_z; /* copy Z value from existing vertex */
+								break;
+							}
+						}
+					}
+				}
+			}
+
+			/* New point? Mark for interpolation! */
+			if ( found == FALSE ) {
+				/* Assigning this point with "Max Z + 1" marks it for
+				 * interpolation in pass two.*/
+				cur->point[2] = max_Z + 1.0;
+			}
+
+		} while ( ( cur = cur->next ) != &cntr->head );
+		c ++;
+	}
+
+	/* Count number of new vertices and create storage space for them. */
+	c = 0;
+	for ( cntr = new->contours; cntr != NULL; cntr = cntr->next ) {
+		VNODE *cur;
+		cur = &cntr->head;
+		do
+		{
+			if ( cur->point[2] > max_Z ) { /* Point marked for interpolation? */
+				num_new_vertices ++;
+			}
+		} while ( ( cur = cur->next ) != &cntr->head );
+		c ++; /* next ring */
+	}
+	store = malloc ( sizeof(geom_coords_3d) * num_new_vertices);
+
+	/* PASS TWO: Interpolate missing Z values for those vertices in 'new'
+	 * for which no Z coordinates could be transfered during 1st pass. */
+	int pos = 0; /* index of storage array for new vertices */
+    int cur_v = 0; /* index of current vertex on current ring */
+	c = 0;
+	for ( cntr = new->contours; cntr != NULL; cntr = cntr->next ) {
+		VNODE *cur;
+		cur = &cntr->head;
+		do
+		{
+			double p1_x = cur->point[0];
+			double p1_y = cur->point[1];
+			double p1_z = cur->point[2];
+			if ( p1_z > max_Z ) { /* Point marked for interpolation? */
+
+				/* Running in 2D mode? Then we just store Z=0.0 and done. */
+				if ( opts->force_2d == TRUE ) {
+					cur->point[2] = 0.0;
+					store[pos].X = p1_x;
+					store[pos].Y = p1_y;
+					store[pos].Z = 0.0;
+					pos ++;
+				} else {
+
+					/* Interpolate new Z value for this vertex: */
+					/* Since the vertices in 'new' are ordered, we can just
+					 * retrieve the two nearest neighbours (on the current
+					 * ring/contour) with previous Z coordinates, and perform a
+					 * Z value interpolation between them. */
+
+					//DEBUG
+					if ( DEBUG ) {
+						fprintf ( stderr, "\tINTERPOLATE Z FOR: %f\t%f\n", p1_x, p1_y);
+					}
+					/* retrieve array of all Z coordinates */
+					int count;
+					double *z_coords = geom_tools_get_mpoly_Z ( new, c, &count);
+
+					if ( z_coords == NULL ) {
+						err_show (ERR_NOTE,"");
+						err_show ( ERR_WARN,_("\nZ interpolation failed (polygon %i, part %i, vertex %i). Z coordinate set to '0.0' instead."),
+								poly_id, part_id, cur_v);
+						cur->point[2] = 0.0;
+						store[pos].X = p1_x;
+						store[pos].Y = p1_y;
+						store[pos].Z = 0.0;
+						pos ++;
+					} else {
+						//DEBUG
+						if ( DEBUG ) {
+							int v;
+							for ( v = 0; v < count; v ++ ) {
+								fprintf ( stderr, "\t\t%i/%i has Z: %f\n", (v+1), count, z_coords[v]);
+							}
+						}
+						/* get "left" neighbour */
+						int ln = cur_v;
+						double ln_z = z_coords[cur_v];
+						while ( ln > 0 ) {
+							ln --;
+							if ( z_coords[ln] <= max_Z ) {
+								ln_z = z_coords[ln];
+								break;
+							}
+						}
+						/* get "right" neighbour */
+						int rn = cur_v;
+						double rn_z = z_coords[cur_v];
+						while ( rn < count ) {
+							rn ++;
+							if ( z_coords[rn] <= max_Z ) {
+								rn_z = z_coords[rn];
+								break;
+							}
+						}
+						/* Did we get two valid Z coords? */
+						if ( ( ln_z <= max_Z ) && ( rn_z <= max_Z ) ) {
+							//DEBUG
+							if ( DEBUG ) {
+								fprintf ( stderr, "\t\tLN Z = %f\n", ln_z);
+								fprintf ( stderr, "\t\tRN Z = %f\n", rn_z);
+							}
+							double *x_coords = geom_tools_get_mpoly_X ( new, c, &count);
+							double *y_coords = geom_tools_get_mpoly_Y ( new, c, &count);
+							if ( ( x_coords == NULL ) || ( y_coords == NULL ) ) {
+								err_show (ERR_NOTE,"");
+								err_show ( ERR_WARN,_("\nZ interpolation failed (polygon %i, part %i, vertex %i). Z coordinate set to '0.0' instead."),
+										poly_id, part_id, cur_v);
+								cur->point[2] = 0.0;
+								store[pos].X = p1_x;
+								store[pos].Y = p1_y;
+								store[pos].Z = 0.0;
+								pos ++;
+							} else {
+								/* Now interpolate Z, weighted by distance from each neighbour. */
+								//DEBUG
+								if ( DEBUG ) {
+									fprintf ( stderr, "LEFT  NN: %f\t%f\t%f\n", x_coords[ln], y_coords[ln], z_coords[ln] );
+									fprintf ( stderr, "RIGHT NN: %f\t%f\t%f\n", x_coords[rn], y_coords[rn], z_coords[rn] );
+								}
+								cur->point[2] = geom_tools_interpolate_z ( x_coords[ln], y_coords[ln], z_coords[ln],
+										x_coords[rn], y_coords[rn], z_coords[rn], p1_x, p1_y );
+								store[pos].X = p1_x;
+								store[pos].Y = p1_y;
+								store[pos].Z = cur->point[2];
+								pos ++;
+								//DEBUG
+								if ( DEBUG ) {
+									fprintf ( stderr, "NEW    Z: %f\n", cur->point[2] );
+								}
+							}
+							/* release mem */
+							t_free ( x_coords );
+							t_free ( y_coords );
+						} else {
+							err_show (ERR_NOTE,"");
+							err_show ( ERR_WARN,_("\nZ interpolation failed (polygon %i, part %i, vertex %i). Z coordinate set to '0.0' instead."),
+									poly_id, part_id, cur_v);
+							cur->point[2] = 0.0;
+							store[pos].X = p1_x;
+							store[pos].Y = p1_y;
+							store[pos].Z = 0.0;
+							pos ++;
+						}
+						/* release mem */
+						t_free ( z_coords );
+						/* keep count of interpolated Z coordinates */
+						num_new_z ++;
+					}
+				}
+			}
+			cur_v ++; /* next vertex on current ring */
+		} while ( ( cur = cur->next ) != &cntr->head );
+		c ++; /* next ring */
+		cur_v = 0; /* reset to first vertex */
+	}
+	*count = num_new_vertices;
+	return (store);
+}
+
+
+/**
+ * Helper function for geom_topology_poly_intersect():
+ * Attempts to insert a new vertex (represented by x,y and z coords) into any one
+ * of the boundaries of polygon A (a simplified 'multclip' representation), i.e.
+ * the outer boundary or any of the inner boundaries/holes (if present).
+ *
+ * Insertion succeeds only if the new vertex (x/y/z) lies directly on a straight
+ * line segment between two existing, consecutive vertices of A, and if it is
+ * not an exact duplicate of an existing vertex. Since this is a
+ * geometric test, an acceptable tolerance value for the location test must also
+ * be provided: Insertion will occur if the difference of the sum of straight-line
+ * distances (2D!) between the new vertex and the two existing neighbours and the
+ * straight line distance between the two existing vertices is <= 'tolerance'.
+ *
+ * Returns: TRUE if the vertex was inserted, FALSE otherwise.
+ *
+ * This function modifies its argument 'A'!
+ */
+BOOLEAN geom_topology_mpoly_place_vertex ( geom_multclip_poly *A, double Nx, double Ny, double Nz, double tolerance )
+{
+	int i,r;
+	BOOLEAN DEBUG = FALSE;
+
+	if ( A == NULL ) {
+		return ( FALSE );
+	}
+
+	/* CHECK IF VERTEX EXISTS ALREADY */
+
+	int num_vertices = 0; /* while we are here, we might as well count the vertices... */
+
+	/* check vertices on outer ring */
+	for ( i = 0; i < A->outer->num_vertices; i++) {
+		double Ax = A->outer->X[i];
+		double Ay = A->outer->Y[i];
+		if ( Ax == Nx && Ay == Ny ) {
+			return (FALSE);
+		}
+		num_vertices ++;
+	}
+	/* loop through all inner rings */
+	for ( r = 0; r < A->num_inner; r ++ ) {
+		/* check vertices on this inner ring */
+		for ( i = 0; i < A->inner[r]->num_vertices; i++) {
+			double Ax = A->inner[r]->X[i];
+			double Ay = A->inner[r]->Y[i];
+			if ( Ax == Nx && Ay == Ny ) {
+				return (FALSE);
+			}
+			num_vertices ++;
+		}
+	}
+
+	/* CHECK IF VERTEX LIES BETWEEN TWO EXISTING ONES */
+
+	/* Check between all consecutive vertices on outer ring: */
+	for ( i = 0; i < A->outer->num_vertices-1; i++) {
+		double Ax = A->outer->X[i];
+		double Ay = A->outer->Y[i];
+		double Bx = A->outer->X[i+1];
+		double By = A->outer->Y[i+1];
+		double dist_a_new_2d = sqrt ( pow ( ( Ax - Nx ), 2 ) + pow ( ( Ay - Ny ), 2 ) );
+		double dist_b_new_2d = sqrt ( pow ( ( Bx - Nx ), 2 ) + pow ( ( By - Ny ), 2 ) );
+		double dist_ab_2d    = sqrt ( pow ( ( Ax - Bx ), 2 ) + pow ( ( Ay - By ), 2 ) );
+		if ( fabs ( (dist_a_new_2d + dist_b_new_2d) - dist_ab_2d ) <= tolerance ) {
+			/* Found a place for this vertex! */
+			//DEBUG
+			if ( DEBUG ) {
+				fprintf (stderr, "\t* PLACED VERTEX %f %f ON OUTER RING.\n", Nx, Ny);
+			}
+			/* Create new part with new vertex added to it at the correct position! */
+			geom_part* new_part = geom_tools_part_add_vertex ( A->outer, i, Nx, Ny, Nz );
+			if ( new_part == NULL ) {
+				return ( FALSE );
+			}
+			geom_tools_part_destroy (A->outer);
+			A->outer = new_part;
+			return (TRUE);
+		}
+	}
+
+	/* loop through all inner rings and do the same check */
+	for ( r = 0; r < A->num_inner; r ++ ) {
+		/* check vertices on this inner ring */
+		for ( i = 0; i < A->inner[r]->num_vertices-1; i++) {
+			double Ax = A->inner[r]->X[i];
+			double Ay = A->inner[r]->Y[i];
+			double Bx = A->inner[r]->X[i+1];
+			double By = A->inner[r]->Y[i+1];
+			double dist_a_new_2d = sqrt ( pow ( ( Ax - Nx ), 2 ) + pow ( ( Ay - Ny ), 2 ) );
+			double dist_b_new_2d = sqrt ( pow ( ( Bx - Nx ), 2 ) + pow ( ( By - Ny ), 2 ) );
+			double dist_ab_2d    = sqrt ( pow ( ( Ax - Bx ), 2 ) + pow ( ( Ay - By ), 2 ) );
+			if ( fabs ( (dist_a_new_2d + dist_b_new_2d) - dist_ab_2d ) <= tolerance ) {
+				/* Found a place for this vertex! */
+				//DEBUG
+				if ( DEBUG ) {
+					fprintf (stderr, "\t* PLACED VERTEX %f %f ON INNER RING %i.\n", Nx, Ny, (r+1));
+				}
+				geom_part* new_part = geom_tools_part_add_vertex ( A->inner[r], i, Nx, Ny, Nz );
+				if ( new_part == NULL ) {
+					return ( FALSE );
+				}
+				geom_tools_part_destroy (A->inner[r]);
+				A->inner[r] = new_part;
+				return (TRUE);
+			}
+		}
+	}
+
+	return (FALSE);
+}
+
+
+/**
+ * Helper function for geom_topology_poly_intersect():
+ * Attempts to insert a new vertex (represented by x,y and z coords) into an
+ * existing polygon part.
+ *
+ * Insertion succeeds only if the new vertex (x/y/z) lies directly on a straight
+ * line segment between two existing, consecutive vertices of A, and if it is
+ * not an exact duplicate of an existing vertex. Since this is a
+ * geometric test, an acceptable tolerance value for the location test must also
+ * be provided: Insertion will occur if the difference of the sum of straight-line
+ * distances (2D!) between the new vertex and the two existing neighbours and the
+ * straight line distance between the two existing vertices is <= 'tolerance'.
+ *
+ * Returns: A newly allocated geom_part (memory must be freed by caller) that
+ * is a copy of 'part' plus the added vertex, or NULL if no vertex was added
+ * or there was an error.
+ *
+ */
+geom_part *geom_topology_part_place_vertex ( geom_part *part, double Nx, double Ny, double Nz, double tolerance )
+{
+	int i;
+	BOOLEAN DEBUG = FALSE;
+
+	if ( part == NULL ) {
+		return ( NULL );
+	}
+
+	if ( part->is_empty == TRUE ) {
+		return ( NULL );
+	}
+
+	/* CHECK IF VERTEX EXISTS ALREADY */
+	for ( i = 0; i < part->num_vertices; i++) {
+		double Ax = part->X[i];
+		double Ay = part->Y[i];
+		if ( Ax == Nx && Ay == Ny ) {
+			return (NULL);
+		}
+	}
+
+	/* CHECK IF VERTEX LIES BETWEEN TWO EXISTING ONES */
+	for ( i = 0; i < part->num_vertices-1; i++) {
+		double Ax = part->X[i];
+		double Ay = part->Y[i];
+		double Bx = part->X[i+1];
+		double By = part->Y[i+1];
+		double dist_a_new_2d = sqrt ( pow ( ( Ax - Nx ), 2 ) + pow ( ( Ay - Ny ), 2 ) );
+		double dist_b_new_2d = sqrt ( pow ( ( Bx - Nx ), 2 ) + pow ( ( By - Ny ), 2 ) );
+		double dist_ab_2d    = sqrt ( pow ( ( Ax - Bx ), 2 ) + pow ( ( Ay - By ), 2 ) );
+		if ( fabs ( (dist_a_new_2d + dist_b_new_2d) - dist_ab_2d ) <= tolerance ) {
+			/* Found a place for this vertex! */
+			//DEBUG
+			if ( DEBUG ) {
+				fprintf (stderr, "\t* PLACED VERTEX %f %f ON PART (%i - %i).\n", Nx, Ny, i, i+1);
+			}
+			/* Create new part with new vertex added to it at the correct position! */
+			geom_part* new_part = geom_tools_part_add_vertex ( part, i+1, Nx, Ny, Nz );
+			return (new_part);
+			//return (geom_tools_part_duplicate(part)); //DEBUG
+		}
+	}
+
+	return (NULL);
+}
+
+
+/**
+ * Helper function for geom_topoly_poly_remove_overlap_2D():
+ * Uses 'multclip' 3rd party functions to check whether two
+ * polygons (A&B) intersect, and cuts the intersecting polygon (B)
+ * if required. Also, additional intersection vertices are added
+ * to each affected boundary of 'A'.
+ * The polygons must be passed in the special, simplified
+ * representation and inverse vertex order required by 'multclip'.
+ * The polygon and part IDs must be passed to allow this function to produce
+ * meaningful error messages.
+ *
+ * Return values:
+ * If there is an areal overlap (intersection), then 'true' is returned and
+ * 'B' is _modified_ to represent the original polygon _minus_ the intersection
+ * area. At the same time, 'A' is _modified_ by adding additional vertices at
+ * the intersection points along its boundary.
+ * Otherwise, 'false' is returned and 'A' and 'B' remain unmodified.
+ *
+ * This function modifies its arguments 'A' and 'B'!
+ */
+//DEBUG
+BOOLEAN geom_topology_poly_intersect (geom_multclip_poly *A, geom_multclip_poly *B,
+		int A_poly_id, int A_part_id, int B_poly_id, int B_part_id, geom_store *gs, options *opts )
+{
+	BOOLEAN result = FALSE;
+	POLYAREA *pA = NULL;
+	POLYAREA *pB = NULL;
+	PLINE *res = NULL;
+	Vector v;
+	int i, r;
+	BOOLEAN DEBUG = FALSE;
+	BOOLEAN DEBUG_MORE = FALSE;
+
+
+	/* Basic validity checks for input geometries. */
+	if ( A == NULL || B == NULL ) {
+		return ( FALSE );
+	}
+
+	if ( A == B ) {
+		return ( FALSE );
+	}
+
+	if ( A->outer == NULL ) {
+		return ( FALSE );
+	}
+
+	if ( B->outer == NULL ) {
+		return ( FALSE );
+	}
+
+	/* Skip this test if one of the polygons lies entirely within the other! */
+	/* TODO: This does not work as it returns false positives, leading to uncleaned
+	      polygons. Disabled for the time being. It is also questionable whether
+	      this test should be performed here at all. In the sequence of topological
+	      cleaning ops, polygon boundary intersections are cleaned first, then
+	      polygon overlays (holes, poly in poly) are detected in the next step;
+	      so we should not be concerned about this here!
+	if ( geom_tools_part_in_part_2D ( A->outer, B->outer ) == TRUE ) {
+		return ( FALSE );
+	}
+	if ( geom_tools_part_in_part_2D ( B->outer, A->outer ) == TRUE ) {
+		return ( FALSE );
+	}
+	*/
+
+	/* BUILD ADHOC 'multclip' DATA STRUCTURES */
+
+	if ( DEBUG ) {
+		fprintf (stderr, "    BUILD A\n");
+	}
+
+	/* polygon A */
+	pA = poly_Create(); /* a complete 'multclip' polygon */
+	res = NULL;			/* one ring in a complete 'multclip' polygon */
+	/* add this part's outer ring */
+	for ( i = 0; i < A->outer->num_vertices-1; i++) { /* 'multclip' does not require 1st vertex = last vertex */
+		v[0] = (double) A->outer->X[i];
+		v[1] = (double) A->outer->Y[i];
+		v[2] = (double) 0.0; /* default Z value: 'multclip' operates in 2D */
+		if ( res == NULL ) {
+			res = poly_NewContour(v); /* create new ring and add first vertex to it */
+		} else {
+			poly_InclVertex(res->head.prev, poly_CreateNode(v)); /* add another vertex to existing ring */
+		}
+		if ( DEBUG_MORE ) {
+			fprintf(stderr,"ADD[%i]: %.3f/%.3f/%.3f\n", (i), v[0], v[1], v[2]);
+			fprintf(stderr,"ORG[%i]: %.3f/%.3f/%.3f\n", (i), A->outer->X[i], A->outer->Y[i], A->outer->Z[i]);
+		}
+	}
+	/* Add outer ring to 'mulclip' polygon 'A'. */
+	poly_PreContour(res, TRUE); /* determines orientation(!) of ring and removes NULL vertices */
+	BOOLEAN check = poly_InclContour(pA, res); /* include ring in polygon */
+	if ( DEBUG ) {
+		fprintf (stderr, "    INCL: %i\n",check);
+		fprintf (stderr, "    VALID: %i\n",poly_Valid(pA));
+	}
+	res = NULL; /* now ref'd by polygon struct */
+	if ( ( check == FALSE ) || (!poly_Valid(pA)) ) {
+		err_show (ERR_NOTE,"");
+		err_show ( ERR_WARN,_("\nInvalid polygon ring (outer) detected (ID %i, part %i). Overlap cleaning skipped."),
+				A_poly_id, A_part_id);
+		if ( pA != NULL ) {
+			poly_Free (&pA);
+		}
+		return ( FALSE );
+	}
+	/* add all of this part's inner rings */
+	for ( r = 0; r < A->num_inner; r ++ ) {
+		res = NULL;
+		for ( i = 0; i < A->inner[r]->num_vertices-1; i++) {
+			v[0] = (double) A->inner[r]->X[i];
+			v[1] = (double) A->inner[r]->Y[i];
+			v[2] = (double) 0.0;
+			if ( res == NULL ) {
+				res = poly_NewContour(v);
+			} else {
+				poly_InclVertex(res->head.prev, poly_CreateNode(v));
+			}
+			if ( DEBUG_MORE ) {
+				fprintf(stderr,"NEW[%i]: %.3f/%.3f/%.3f\n", (i), v[0], v[1], v[2]);
+				fprintf(stderr,"ORG[%i]: %.3f/%.3f/%.3f\n", (i), A->inner[r]->X[i], A->inner[r]->Y[i], A->inner[r]->Z[i]);
+			}
+		}
+		poly_PreContour(res, TRUE);
+		BOOLEAN check = poly_InclContour(pA, res);
+		if ( DEBUG ) {
+			fprintf (stderr, "INCL: %i\n", check);
+			fprintf (stderr, "VALID: %i\n", poly_Valid(pA));
+		}
+		res = NULL;
+		if ( ( check == FALSE ) || (!poly_Valid(pA)) ) {
+			err_show (ERR_NOTE,"");
+			err_show ( ERR_WARN,_("\nInvalid polygon ring (inner) detected (ID %i, part %i). Overlap cleaning skipped."), A_poly_id, A_part_id);
+			if ( pA != NULL ) {
+				poly_Free (&pA);
+			}
+			return ( FALSE );
+		}
+	}
+
+	/* polygon B */
+
+	if ( DEBUG ) {
+		fprintf (stderr, "    BUILD B\n");
+	}
+
+	pB = poly_Create();
+	res = NULL;
+	/* add outer ring */
+	for ( i = 0; i < B->outer->num_vertices-1; i++) { /* 'multclip' does not require 1st vertex = last vertex */
+		v[0] = (double) B->outer->X[i];
+		v[1] = (double) B->outer->Y[i];
+		v[2] = (double) 0.0;
+		if ( res == NULL ) {
+			res = poly_NewContour(v);
+		} else {
+			poly_InclVertex(res->head.prev, poly_CreateNode(v));
+		}
+		if ( DEBUG_MORE ) {
+			fprintf(stderr,"NEW[%i]: %.3f/%.3f/%.3f\n", (i), v[0], v[1], v[2]);
+			fprintf(stderr,"ORG[%i]: %.3f/%.3f/%.3f\n", (i), B->outer->X[i], B->outer->Y[i], B->outer->Z[i]);
+		}
+	}
+	poly_PreContour(res, TRUE);
+	check = poly_InclContour(pB, res);
+	if ( DEBUG ) {
+		fprintf (stderr, "    INCL: %i\n",check);
+		fprintf (stderr, "    VALID: %i\n",poly_Valid(pB));
+	}
+	res = NULL; /* now ref'd by polygon struct */
+	if ( ( check == FALSE ) || (!poly_Valid(pB)) ) {
+		err_show (ERR_NOTE,"");
+		err_show ( ERR_WARN,_("\nInvalid polygon ring (outer) detected (ID %i, part %i). Overlap cleaning skipped."),
+				B_poly_id, B_part_id);
+		if ( pA != NULL ) {
+			poly_Free (&pA);
+		}
+		if ( pB != NULL ) {
+			poly_Free (&pB);
+		}
+		return ( FALSE );
+	}
+	/* add all inner rings */
+	for ( r = 0; r < B->num_inner; r ++ ) {
+		res = NULL;
+		for ( i = 0; i < B->inner[r]->num_vertices-1; i++) {
+			v[0] = (double) B->inner[r]->X[i];
+			v[1] = (double) B->inner[r]->Y[i];
+			v[2] = (double) 0.0;
+			if ( res == NULL ) {
+				res = poly_NewContour(v);
+			} else {
+				poly_InclVertex(res->head.prev, poly_CreateNode(v));
+			}
+			if ( DEBUG_MORE ) {
+				fprintf(stderr,"NEW[%i]: %.3f/%.3f/%.3f\n", (i), v[0], v[1], v[2]);
+				fprintf(stderr,"ORG[%i]: %.3f/%.3f/%.3f\n", (i), B->inner[r]->X[i], B->inner[r]->Y[i], B->inner[r]->Z[i]);
+			}
+		}
+		poly_PreContour(res, TRUE);
+		BOOLEAN check = poly_InclContour(pB, res);
+		res = NULL;
+		if ( ( check == FALSE ) || (!poly_Valid(pB)) ) {
+			err_show (ERR_NOTE,"");
+			err_show ( ERR_WARN,_("\nInvalid polygon ring (inner) detected (ID %i, part %i). Overlap cleaning skipped."), B_poly_id, B_part_id);
+			if ( pA != NULL ) {
+				poly_Free (&pA);
+			}
+			if ( pB != NULL ) {
+				poly_Free (&pB);
+			}
+			return ( FALSE );
+		}
+	}
+
+	/* perform intersection test */
+	POLYAREA *area_intersect = NULL;
+	POLYAREA *area_subtract = NULL;
+	int code;
+	code = poly_Boolean(pB, pA, &area_intersect, PBO_ISECT);
+	if ( code == err_ok && area_intersect == NULL ) {
+		/* No error, but empty result: Check again with roles swapped. */
+		code = poly_Boolean(pA, pB, &area_intersect, PBO_ISECT);
+	}
+	if ( code != err_ok ) {
+		if ( DEBUG_MORE ) {
+			fprintf(stderr,"*** ERR CODE = %i\n", code);
+		}
+		err_show (ERR_NOTE,"");
+		err_show ( ERR_WARN,_("\nPolygon intersection test failed (ID %i, part %i & ID %i, part %i). Overlap cleaning skipped."), A_poly_id, A_part_id, B_poly_id, B_part_id);
+	}
+	if ( code == err_ok && area_intersect != NULL ) {
+		/* Got a valid intersection area! */
+		if ( DEBUG ) {
+			fprintf(stderr,"INTERSECT!\n");
+		}
+		if ( DEBUG ) {
+			fprintf(stderr,"AREA OF INTERSECT:\n");
+			int c = 0;
+			PLINE *cntr;
+			for ( cntr = area_intersect->contours; cntr != NULL; cntr = cntr->next ) {
+				fprintf(stderr,"  Contour %i:\n", c);
+				VNODE *cur;
+				cur = &cntr->head;
+				do
+				{
+					fprintf(stderr, "\t%lf %lf\n", cur->point[0], cur->point[1] );
+				} while ( ( cur = cur->next ) != &cntr->head );
+				c ++;
+			}
+		}
+
+		/* Subtract intersection area from polygon. */
+		code = poly_Boolean(pB, area_intersect, &area_subtract, PBO_SUB);
+		if ( code != err_ok ) {
+			err_show ( ERR_NOTE,"");
+			err_show ( ERR_WARN,_("\nPolygon intersection test failed (ID %i, part %i & ID %i, part %i). Overlap cleaning skipped."), A_poly_id, A_part_id, B_poly_id, B_part_id);
+		} else {
+			if ( area_subtract != NULL ) {
+				err_show ( ERR_NOTE,"");
+				err_show ( ERR_WARN,_("\nPolygon boundaries overlap (ID %i, part %i & ID %i, part %i):"),
+						A_poly_id, A_part_id, B_poly_id, B_part_id);
+
+				PLINE *cntr;
+				int c = 0;
+
+				/* copy/interpolate Z values at result polygon's vertices */
+				int num_new_v = 0;
+				geom_coords_3d *store = geom_topology_poly_check_z_interpolate ( B, area_subtract, B_poly_id, B_part_id, opts, &num_new_v );
+				if ( num_new_v > 0 ) {
+					err_show ( ERR_NOTE,_("Cleaned and added %d vertices at polygon boundary intersections."), num_new_v);
+				} else {
+					err_show ( ERR_NOTE,_("Could not clean automatically, please check."));
+				}
+
+				if ( DEBUG ) {
+					fprintf(stderr,"NEW VERTICES:\n");
+					int j;
+					for ( j=0; j < num_new_v; j++) {
+						fprintf(stderr,"\t%f %f %f\n", store[j].X, store[j].Y, store[j].Z);
+					}
+				}
+
+				if ( DEBUG ) {
+					/* This is the new polygon/part with new vertices and interpolated Z values. */
+					fprintf(stderr,"AREA AFTER SUBTRACTION:\n");
+					for ( cntr = area_subtract->contours; cntr != NULL; cntr = cntr->next ) {
+						fprintf(stderr,"  Contour %i:\n", c);
+						VNODE *cur;
+						cur = &cntr->head;
+						do
+						{
+							fprintf(stderr, "\t%lf %lf %lf\n", cur->point[0], cur->point[1], cur->point[2] );
+						} while ( ( cur = cur->next ) != &cntr->head );
+						c ++;
+					}
+				}
+
+				/* Now we need to check that the number of rings in the result
+				 * set is still the same as that of the unmodified original.
+				 * If that is not the case, then we cannot associated the original
+				 * rings with the modified ones 1:1 with complete certainty, and we
+				 * have to abort this operation! */
+				c = 0;
+				for ( cntr = area_subtract->contours; cntr != NULL; cntr = cntr->next ) {
+					c ++;
+				}
+				if ( DEBUG ) {
+					fprintf(stderr,"NUM ORG CONTOURS: %i\n", (1 + B->num_inner));
+					fprintf(stderr,"NUM NEW CONTOURS: %i\n", c);
+				}
+
+				if ( c != ( 1 + B->num_inner ) ) {
+					err_show ( ERR_NOTE,"");
+					err_show ( ERR_WARN,_("\nPolygon intersection test failed (ID %i, part %i & ID %i, part %i). Overlap cleaning skipped."),
+							A_poly_id, A_part_id, B_poly_id, B_part_id);
+				} else {
+					/* Count number of vertices in result set for inner and outer rings. */
+					int num_inner_rings = (c-1);
+					int num_vertices_outer = 0;
+					int *num_vertices_inner = NULL;
+					num_vertices_inner = malloc ( sizeof (int) * (num_inner_rings) );
+					c = 0;
+					for ( cntr = area_subtract->contours; cntr != NULL; cntr = cntr->next ) {
+						int v = 0;
+						VNODE *cur;
+						cur = &cntr->head;
+						do {
+							if ( c == 0 ) {
+								num_vertices_outer ++;
+							} else {
+								num_vertices_inner[c-1] ++;
+							}
+							v++;
+						} while ( ( cur = cur->next ) != &cntr->head );
+						c ++;
+					}
+					if ( DEBUG ) {
+						fprintf(stderr,"NUM VERTICES OUTER RING: %i\n", (num_vertices_outer));
+						int i;
+						for ( i = 0; i < num_inner_rings; i ++) {
+							fprintf(stderr,"NUM VERTICES INNER RING %i: %i\n", i, (num_vertices_inner[i]));
+						}
+					}
+
+					/* Release old vertex data and allocate space for new. */
+					t_free (B->outer->X);
+					t_free (B->outer->Y);
+					t_free (B->outer->Z);
+					B->outer->X = malloc (sizeof(double)*num_vertices_outer);
+					B->outer->Y = malloc (sizeof(double)*num_vertices_outer);
+					B->outer->Z = malloc (sizeof(double)*num_vertices_outer);
+					B->outer->num_vertices = num_vertices_outer;
+					for ( i = 0; i < num_inner_rings; i ++) {
+						t_free ( B->inner[i]->X );
+						t_free ( B->inner[i]->Y );
+						t_free ( B->inner[i]->Z );
+						B->inner[i]->X = malloc (sizeof(double)*num_vertices_inner[i]);
+						B->inner[i]->Y = malloc (sizeof(double)*num_vertices_inner[i]);
+						B->inner[i]->Z = malloc (sizeof(double)*num_vertices_inner[i]);
+						B->inner[i]->num_vertices = num_vertices_inner[i];
+					}
+
+					/* Copy result vertices into polygon B. */
+					c = 0;
+					for ( cntr = area_subtract->contours; cntr != NULL; cntr = cntr->next ) {
+						int v = 0;
+						VNODE *cur;
+						cur = &cntr->head;
+						do {
+							if ( c == 0 ) {
+								B->outer->X[v] = cur->point[0];
+								B->outer->Y[v] = cur->point[1];
+								B->outer->Z[v] = cur->point[2];
+							} else {
+								B->inner[c-1]->X[v] = cur->point[0];
+								B->inner[c-1]->Y[v] = cur->point[1];
+								B->inner[c-1]->Z[v] = cur->point[2];
+							}
+							v++;
+						} while ( ( cur = cur->next ) != &cntr->head );
+						c ++;
+					}
+
+					if ( num_new_v > 0 ) {
+						/* 	add new vertices to boundary of intersected polygon A, as well!
+						It's not enough to try and add vertices to 'A': Since we might be dealing with
+						Intersections of boundaries that are inner rings, we can have multiple boundary
+						intersections! SOLUTION: Do a bbox test against ALL polygon parts.
+						Since 'B' is already completely built, we can blindly check against every polygon
+						part in the geom store (filtered by bbox): Duplicate vertices (of B) will
+						just be skipped by geom_topology_poly_place_vertex().
+						 */
+						int num_added = 0;
+						geom_store_polygon *candidate = gs->polygons;
+						for ( i = 1; i < gs->num_polygons; i++ ) {
+							if (( gs->polygons[i].is_selected == TRUE ) && ( gs->polygons[i].is_empty == FALSE ) && i != B_poly_id ) {
+								if ( DEBUG ) {
+									fprintf (stderr, "CHECK: %i.\n", candidate->geom_id);
+								}
+								/* Check if candidate has bounding box intersection with intersecting polygon. */
+								if ( geom_tools_mpoly_bb_overlap_2D ( candidate, B ) == TRUE ) {
+									if ( DEBUG ) {
+										fprintf (stderr, "\tBBOX INTERSECT: %i and %i.\n", B_poly_id, candidate->geom_id);
+									}
+									int k;
+									geom_part *old_part = candidate->parts;
+									for ( k = 0; k < candidate->num_parts; k ++ ) {
+										int v;
+										for ( v=0; v < num_new_v; v++) {
+											geom_part *new_part = geom_topology_part_place_vertex ( old_part, store[v].X, store[v].Y, store[v].Z, GEOM_PREC_PLACE_P_SEG );
+											if ( new_part != NULL ) {
+												if ( DEBUG ) {
+													fprintf (stderr, "\t\tNUM VERTICES OLD: %i.\n", old_part->num_vertices);
+													fprintf (stderr, "\t\tNUM VERTICES NEW: %i.\n", new_part->num_vertices);
+												}
+												/* replace part with new version with added vertices */
+												/* free vertex memory */
+												geom_tools_part_destroy (old_part);
+												/* allocate memory for new vertices */
+												old_part->num_vertices = new_part->num_vertices;
+												old_part->X = malloc ( sizeof (double) * new_part->num_vertices );
+												old_part->Y = malloc ( sizeof (double) * new_part->num_vertices );
+												old_part->Z = malloc ( sizeof (double) * new_part->num_vertices );
+												/* copy vertices from new to old */
+												for ( i = 0; i < old_part->num_vertices; i ++ ) {
+													old_part->X[i] = new_part->X[i];
+													old_part->Y[i] = new_part->Y[i];
+													old_part->Z[i] = new_part->Z[i];
+												}
+												/* free vertex memory */
+												geom_tools_part_destroy (new_part);
+												num_added ++;
+											}
+										}
+										old_part++;
+									}
+								}
+							}
+							candidate++;
+						}
+						/* Warn if no additional vertices were placed. */
+						if ( num_added < 1 ) {
+							err_show ( ERR_NOTE,"");
+							err_show ( ERR_WARN,_("\nFailed to add intersection vertices to polygon(s) intersected by polygon ID %i.\n"),
+									B_poly_id );
+						}
+					}
+
+					/* clean up */
+					t_free (store);
+					t_free (num_vertices_inner);
+					result = TRUE;
+				}
+			}
+		}
+
+	}
+
+	/* clean up */
+	if ( area_intersect != NULL ) {
+		poly_Free(&area_intersect);
+	}
+	if ( area_subtract != NULL ) {
+		poly_Free(&area_subtract);
+	}
+	if ( pA != NULL ) {
+		poly_Free (&pA);
+	}
+	if ( pB != NULL ) {
+		poly_Free (&pB);
+	}
+
+	return ( result );
+}
+
+
+/**
+ * Computes the 3D bounding box for polygon 'A' (simplified representation
+ * for 'multclip', and stores the bbox's extreme coordinates in 'A'.
+ *
+ * This function _modifies_ its argument!
+ */
+void geom_topology_mpoly_compute_bbox_3d ( geom_multclip_poly *A )
+{
+	int i,r;
+
+	if ( A == NULL ) {
+		return;
+	}
+	
+	if ( A->outer == NULL ) {
+		return;
+	}	
+
+	/* check vertices on outer ring */
+	for ( i = 0; i < A->outer->num_vertices; i++) {
+		double Ax = A->outer->X[i];
+		double Ay = A->outer->Y[i];
+		double Az = A->outer->Z[i];
+		if ( i == 0 ) {
+			/* initial bbox */
+			A->bbox_x1 = Ax;
+			A->bbox_x2 = Ax;
+			A->bbox_y1 = Ay;
+			A->bbox_y2 = Ay;
+			A->bbox_z1 = Az;
+			A->bbox_z2 = Az;
+		} else {
+			/* update bbox */
+			if ( Ax < A->bbox_x1 ) {
+				A->bbox_x1 = Ax;
+			}
+			if ( Ax > A->bbox_x2 ) {
+				A->bbox_x2 = Ax;
+			}
+			if ( Ay < A->bbox_y1 ) {
+				A->bbox_y1 = Ay;
+			}
+			if ( Ay > A->bbox_y2 ) {
+				A->bbox_y2 = Ay;
+			}
+			if ( Az < A->bbox_z1 ) {
+				A->bbox_z1 = Az;
+			}
+			if ( Az > A->bbox_z2 ) {
+				A->bbox_z2 = Az;
+			}
+		}
+	}	
+
+	for ( r = 0; r < A->num_inner; r ++ ) {
+		/* check vertices on this inner ring */
+		for ( i = 0; i < A->inner[r]->num_vertices; i++) {
+			double Ax = A->inner[r]->X[i];
+			double Ay = A->inner[r]->Y[i];
+			double Az = A->inner[r]->Z[i];
+			if ( Ax < A->bbox_x1 ) {
+				A->bbox_x1 = Ax;
+			}
+			if ( Ax > A->bbox_x2 ) {
+				A->bbox_x2 = Ax;
+			}
+			if ( Ay < A->bbox_y1 ) {
+				A->bbox_y1 = Ay;
+			}
+			if ( Ay > A->bbox_y2 ) {
+				A->bbox_y2 = Ay;
+			}
+			if ( Az < A->bbox_z1 ) {
+				A->bbox_z1 = Az;
+			}
+			if ( Az > A->bbox_z2 ) {
+				A->bbox_z2 = Az;
+			}
+
+		}
+	}
+}
+
+
+/**
+ * Performs a geometric AND operation between all polygon pairs in a geometry
+ * store to detect and remove overlap areas.
+ * Overlap detection and removal is done in the order in which the polygons
+ * appear in the input data: Polygon A is checked against all other polygons B_i,
+ * and if B_i intersects with A, then the intersection area is removed from B_i,
+ * while A is _not_ modified.
+ *
+ * TODO: (2019-09-09, s2g 1.5.1)
+ *       This function is currently run before geom_topology_poly_overlay_2D() in main.c
+ *       What this means is that there are no inner rings/holes in the data at the time
+ *       of checking/removing overlaps. In _theory_ this should work fine: First all
+ *       overlapping boundaries (including those of potential holes) are adjusted, then
+ *       any remaining overlays are converted to holes. However, THIS NEEDS TESTING with
+ *       real data. The current sequence also means that we do not have to deal with
+ *       complex "outer+inner rings" polygon structures while cleaning overlaps. In any
+ *       case, this function (and the helper functions that it calls) are already prepared
+ *       for more complex polygons with holes, but again: NEEDS TESTING!
+ *
+ * TODO: Test with '-2D' option!
+ */
+unsigned int geom_topology_poly_remove_overlap_2D ( geom_store *gs, parser_desc *parser, options *opts )
+{
+	unsigned int i, j, k, l, m, r;
+	unsigned int overlaps_removed;
+	geom_store_polygon *A;
+	geom_store_polygon *B;
+	BOOL DEBUG = FALSE;
+	BOOL DEBUG_MORE = FALSE;
+
+	if ( DEBUG ) {
+		fprintf (stderr, "POLY INTERSECTION TEST...\n");
+	}
+
+	if ( gs->num_polygons < 2 ) {
+		return ( 0 );
+	}
+
+	/* Go through all (selected and non-empty) polygons in the geom store, check each polygon against all successive ones. */
+	overlaps_removed = 0; /* keep count of modified geometries */
+	/* Loop through all polygons, excluding the very last one (which has no successor). */
+	for ( i = 0; i < gs->num_polygons-1; i++ ) {
+		if ( ( gs->polygons[i].is_selected == TRUE ) && ( gs->polygons[i].is_empty == FALSE ) ) {
+			/* Loop through all successors of the current polygon. */
+			for ( j = i+1; j < gs->num_polygons; j++ ) {
+				if ( ( gs->polygons[j].is_selected == TRUE ) && ( gs->polygons[j].is_empty == FALSE ) ) {
+					A = &gs->polygons[i]; /* New vertices may be added to this polygon if B overlaps with it. */
+					B = &gs->polygons[j]; /* This polygon will be cut, if it overlaps with A. */
+					/* exact overlap check is only required if bounding boxes overlap */
+					if ( geom_tools_bb_overlap_2D ( A, B ) == TRUE ) {
+						if ( DEBUG ) {
+							fprintf (stderr,"\n  BBOX OVERLAP: %i & %i\n", (i+1), (j+1));
+						}
+						/* We have two polygons with _potential_ overlap! */
+						int num_outer_A = 0; /* number of non-hole parts */
+						int num_inner_A = 0; /* number of holes in polygon */
+						/* 1ST PASS: Count number of outer and inner rings in A and B. */
+						for ( k = 0; k < A->num_parts; k ++ ) {
+							if ( A->parts[k].is_empty == FALSE ) {
+								if ( A->parts[k].is_hole == FALSE ) {
+									num_outer_A++; /* counts as outer ring (part) */
+								} else {
+									num_inner_A++; /* counts as inner ring (hole) */
+								}
+							}
+						}
+						int num_outer_B = 0;
+						int num_inner_B = 0;
+						for ( k = 0; k< B->num_parts; k ++ ) {
+							if ( B->parts[k].is_empty == FALSE ) {
+								if ( B->parts[k].is_hole == FALSE ) {
+									num_outer_B++;
+								} else {
+									num_inner_B++;
+								}
+							}
+						}
+						/* 2ND PASS: Convert polygons to 'multclip' data format:
+						 * 'multclip' functions support a slightly less capable geometry
+						 * model. It can handle polygons with holes, but it cannot handle
+						 * polygons with more than one outer ring (parts). This means that
+						 * we have to run the check separately against every polygon part
+						 * that is not a hole/inner ring! */
+						for ( l = 0; l < num_outer_A; l ++ ) {
+							geom_multclip_poly poly_A; /* simplified 'multclip' polygon structure */
+							poly_A.inner = NULL;
+							poly_A.org_inner = NULL;
+							poly_A.outer = NULL;
+							poly_A.num_inner = 0;
+							/* get next outer ring */
+							int ring_no = 0;
+							for ( r = 0; r < A->num_parts; r ++ ) {
+								if ( A->parts[r].is_empty == FALSE ) {
+									if ( A->parts[r].is_hole == FALSE ) {
+										if ( ring_no == l ) {
+											/* we got the outer ring that we're looking for at this loop step */
+											poly_A.outer = geom_tools_part_duplicate( &A->parts[r]);
+											poly_A.org_outer = r; /* store original part ID */
+											/* put vertices into order required by 3rd party 'multclip' */
+											geom_tools_sort_part_reverse ( poly_A.outer );
+										}
+										ring_no ++;
+									}
+								}
+							}
+							/* now count all inner rings that lie in the current outer ring */
+							for ( r = 0; r < A->num_parts; r ++ ) {
+								if ( A->parts[r].is_empty == FALSE ) {
+									if ( A->parts[r].is_hole == TRUE ) {
+										if ( geom_tools_part_in_part_2D ( &A->parts[r], poly_A.outer ) == TRUE ) {
+											poly_A.num_inner ++;
+										}
+									}
+								}
+							}
+							/* add all inner rings to 'multclip' polygon representation */
+							poly_A.inner = malloc (sizeof(geom_part*)*poly_A.num_inner);
+							poly_A.org_inner = malloc (sizeof(unsigned int)*poly_A.num_inner);
+							int cur = 0;
+							for ( r = 0; r < A->num_parts; r ++ ) {
+								if ( A->parts[r].is_empty == FALSE ) {
+									if ( A->parts[r].is_hole == TRUE ) {
+										if ( geom_tools_part_in_part_2D ( &A->parts[r], poly_A.outer ) == TRUE ) {
+											poly_A.inner[cur] = geom_tools_part_duplicate( &A->parts[r]);
+											poly_A.org_inner[cur] = r; /* store original part ID */
+											geom_tools_sort_part_reverse ( poly_A.inner[cur] );
+											cur++;
+										}
+									}
+								}
+							}
+
+							/* DEBUG: Print vertex lists for A. */
+							if ( DEBUG_MORE ) {
+								/* dump A for debug purposes */
+								fprintf (stderr,"    A (%i of %i):\n", (l+1), num_outer_A);
+								fprintf (stderr,"      OUTER RING (CCW): %i\n", poly_A.outer->num_vertices);
+								int v;
+								int r;
+								for ( v = 0; v < poly_A.outer->num_vertices; v ++ ) {
+									fprintf (stderr, "[%.3f|%.3f] ", poly_A.outer->X[v], poly_A.outer->Y[v]);
+								}
+								fprintf (stderr, "\n");
+								if ( poly_A.num_inner > 0 ) {
+									for ( r = 0; r < poly_A.num_inner; r ++ ) {
+										fprintf (stderr,"      INNER RING (CW): %i\n", poly_A.inner[r]->num_vertices);
+										for ( v = 0; v < poly_A.inner[r]->num_vertices; v ++ ) {
+											fprintf (stderr, "[%.3f|%.3f] ", poly_A.inner[r]->X[v], poly_A.inner[r]->Y[v]);
+										}
+										fprintf (stderr, "\n");
+									}
+								}
+							}
+
+							/* inner loop: through all outer rings of B */
+							for ( m = 0; m < num_outer_B; m ++ ) {
+								/* Build B using same pattern as for A. */
+								geom_multclip_poly poly_B;
+								poly_B.inner = NULL;
+								poly_B.outer = NULL;
+								poly_B.org_inner = NULL;
+								poly_B.num_inner = 0;
+								int ring_no = 0;
+								for ( r = 0; r < B->num_parts; r ++ ) {
+									if ( B->parts[r].is_empty == FALSE ) {
+										if ( B->parts[r].is_hole == FALSE ) {
+											if ( ring_no == m ) {
+												poly_B.outer = geom_tools_part_duplicate( &B->parts[r]);
+												poly_B.org_outer = r; /* store original part ID */
+												geom_tools_sort_part_reverse ( poly_B.outer );
+											}
+											ring_no ++;
+										}
+									}
+								}
+								for ( r = 0; r < B->num_parts; r ++ ) {
+									if ( B->parts[r].is_empty == FALSE ) {
+										if ( B->parts[r].is_hole == TRUE ) {
+											if ( geom_tools_part_in_part_2D ( &B->parts[r], poly_B.outer ) == TRUE ) {
+												poly_B.num_inner ++;
+											}
+										}
+									}
+								}
+								poly_B.inner = malloc (sizeof(geom_part*)*poly_B.num_inner);
+								poly_B.org_inner = malloc (sizeof(unsigned int)*poly_B.num_inner);
+								int cur = 0;
+								for ( r = 0; r < B->num_parts; r ++ ) {
+									if ( B->parts[r].is_empty == FALSE ) {
+										if ( B->parts[r].is_hole == TRUE ) {
+											if ( geom_tools_part_in_part_2D ( &B->parts[r], poly_B.outer ) == TRUE ) {
+												poly_B.inner[cur] = geom_tools_part_duplicate( &B->parts[r]);
+												poly_B.org_inner[cur] = r; /* store original part ID */
+												geom_tools_sort_part_reverse ( poly_B.inner[cur] );
+												cur++;
+											}
+										}
+									}
+								}
+
+								/* Compute bounding boxes for simplified polygons. */
+								geom_topology_mpoly_compute_bbox_3d ( &poly_A );
+								geom_topology_mpoly_compute_bbox_3d ( &poly_B );
+
+								/* DEBUG: Print vertex lists for B. */
+								if ( DEBUG_MORE ) {
+									/* dump A for debug purposes */
+									fprintf (stderr,"    B (%i of %i):\n", (l+1), num_outer_B);
+									fprintf (stderr,"      OUTER RING (CCW): %i\n", poly_B.outer->num_vertices);
+									int v;
+									int r;
+									for ( v = 0; v < poly_B.outer->num_vertices; v ++ ) {
+										fprintf (stderr, "[%.3f|%.3f] ", poly_B.outer->X[v], poly_B.outer->Y[v]);
+									}
+									fprintf (stderr, "\n");
+									if ( poly_B.num_inner > 0 ) {
+										for ( r = 0; r < poly_B.num_inner; r ++ ) {
+											fprintf (stderr,"      INNER RING (CW): %i\n", poly_B.inner[r]->num_vertices);
+											for ( v = 0; v < poly_B.inner[r]->num_vertices; v ++ ) {
+												fprintf (stderr, "[%.3f|%.3f] ", poly_B.inner[r]->X[v], poly_B.inner[r]->Y[v]);
+											}
+											fprintf (stderr, "\n");
+										}
+									}
+								}
+
+								/* TEST A & B for PRECISE OVERLAP inside this loop HERE! */
+								//DEBUG:
+								if ( geom_topology_poly_intersect (&poly_A, &poly_B, i, l, j, m, gs, opts ) == TRUE )
+								{
+									if ( DEBUG ) {
+											fprintf (stderr,"\n  OVERLAP (ACCURATE) DETECTED.\n");
+									}
+
+									/* Replace all parts in ORIGINAL B with parts from 'multclip' representation! */
+									/* OUTER RING */
+									geom_part* cur_part = &B->parts[poly_B.org_outer]; /* link with original outer ring in B */
+									if ( DEBUG ) {
+										fprintf(stderr,"ORIGINAL AREA (OUTER RING):\n");
+										int v;
+										for ( v = 0; v < cur_part->num_vertices; v ++ ) {
+											fprintf(stderr, "\t%lf %lf %lf\n", cur_part->X[v], cur_part->Y[v], cur_part->Z[v] );
+										}
+									}
+									//Reverse vertex order & set first = last vertex
+									t_free (cur_part->X);
+									t_free (cur_part->Y);
+									t_free (cur_part->Z);
+									cur_part->X = malloc ( sizeof(double)*(poly_B.outer->num_vertices+1));
+									cur_part->Y = malloc ( sizeof(double)*(poly_B.outer->num_vertices+1));
+									cur_part->Z = malloc ( sizeof(double)*(poly_B.outer->num_vertices+1));
+									cur_part->num_vertices = (poly_B.outer->num_vertices+1);
+									int v = 0;
+									int w = 0;
+									for ( v = poly_B.outer->num_vertices-1; v > -1; v -- ) {
+										cur_part->X[w] = poly_B.outer->X[v];
+										cur_part->Y[w] = poly_B.outer->Y[v];
+										cur_part->Z[w] = poly_B.outer->Z[v];
+										w++;
+									}
+									if ( DEBUG_MORE ) {
+										fprintf(stderr,"LAST VERTEX = %i\n", w);
+										fprintf(stderr,"NUM VERTICES = %i\n", cur_part->num_vertices);
+									}
+									cur_part->X[w] = cur_part->X[0];
+									cur_part->Y[w] = cur_part->Y[0];
+									cur_part->Z[w] = cur_part->Z[0];
+									if ( DEBUG ) {
+										fprintf(stderr,"REPLACED AREA (OUTER RING):\n");
+										int v;
+										for ( v = 0; v < cur_part->num_vertices; v ++ ) {
+											fprintf(stderr, "\t%lf %lf %lf\n", cur_part->X[v], cur_part->Y[v], cur_part->Z[v] );
+										}
+									}
+									/* INNER RING(S) */
+									for ( r = 0; r < poly_B.num_inner; r ++ ) {
+										geom_part* cur_part = &B->parts[poly_B.org_inner[r]]; /* link with original inner ring in B */
+										if ( DEBUG ) {
+											fprintf(stderr,"ORIGINAL AREA (INNER RING %i/%i):\n", (r+1), poly_B.num_inner);
+											int v;
+											for ( v = 0; v < cur_part->num_vertices; v ++ ) {
+												fprintf(stderr, "\t%lf %lf %lf\n", cur_part->X[v], cur_part->Y[v], cur_part->Z[v] );
+											}
+										}
+										//Reverse vertex order & set first = last vertex
+										t_free (cur_part->X);
+										t_free (cur_part->Y);
+										t_free (cur_part->Z);
+										cur_part->X = malloc ( sizeof(double)*(poly_B.inner[r]->num_vertices+1));
+										cur_part->Y = malloc ( sizeof(double)*(poly_B.inner[r]->num_vertices+1));
+										cur_part->Z = malloc ( sizeof(double)*(poly_B.inner[r]->num_vertices+1));
+										cur_part->num_vertices = (poly_B.inner[r]->num_vertices+1);
+										int v = 0;
+										int w = 0;
+										for ( v = poly_B.inner[r]->num_vertices-1; v > -1; v -- ) {
+											cur_part->X[w] = poly_B.inner[r]->X[v];
+											cur_part->Y[w] = poly_B.inner[r]->Y[v];
+											cur_part->Z[w] = poly_B.inner[r]->Z[v];
+											w++;
+										}
+										if ( DEBUG_MORE ) {
+											fprintf(stderr,"LAST VERTEX = %i\n", w);
+											fprintf(stderr,"NUM VERTICES = %i\n", cur_part->num_vertices);
+										}
+										cur_part->X[w] = cur_part->X[0];
+										cur_part->Y[w] = cur_part->Y[0];
+										cur_part->Z[w] = cur_part->Z[0];
+										if ( DEBUG ) {
+											fprintf(stderr,"REPLACED AREA (INNER RING %i/%i):\n", (r+1), poly_B.num_inner);
+											int v;
+											for ( v = 0; v < cur_part->num_vertices; v ++ ) {
+												fprintf(stderr, "\t%lf %lf %lf\n", cur_part->X[v], cur_part->Y[v], cur_part->Z[v] );
+											}
+										}
+									}
+									/* Keep count of removed overlap areas. */
+									overlaps_removed ++;
+								} else {
+									if ( DEBUG ) {
+										fprintf (stderr,"* NO OVERLAP (ACCURATE) *\n");
+									}
+								}
+								/* Clean up B! */
+								geom_tools_part_destroy (poly_B.outer);
+								for ( r = 0; r < poly_B.num_inner; r ++ ) {
+									geom_tools_part_destroy (poly_B.inner[r]);
+								}
+								t_free (poly_B.inner);
+								t_free (poly_B.org_inner);
+							}
+							/* Clean up A! */
+							geom_tools_part_destroy (poly_A.outer);
+							for ( r = 0; r < poly_A.num_inner; r ++ ) {
+								geom_tools_part_destroy (poly_A.inner[r]);
+							}
+							t_free (poly_A.inner);
+							t_free (poly_A.org_inner);
+						} /* done with current polygon (part) of A */
+					} /* Done checking A against B: on to next polygon pair! */
+				}
+			}
+		}
+	}
+	return ( overlaps_removed );
+}
+
+
 /*
  * Snaps polygon boundary vertices by moving any vertex
- * of polygon B that is not part of an inner ring (hole)
+ * of a polygon in "gs" that is not part of an inner ring (hole)
  * and that is closer than the user-defined snapping distance
- * to a vertex of A to that vertex of A.
+ * to a vertex of another polygon in "gs" to that vertex on the other
+ * polygon.
  *
  * If snapping distance is 0.0, then no snapping will be
  * performed.
@@ -4149,50 +6299,48 @@ unsigned int geom_topology_snap_boundaries_2D ( geom_store *gs, options *opts )
 	for ( i = 1; i < gs->num_polygons; i++ ) {
 		if ( gs->polygons[i].is_selected == TRUE ) {
 			for ( j = 0; j < gs->num_polygons-1; j++ ) {
-				A = &gs->polygons[i];
-				B = &gs->polygons[j];
-				/* need to snap only if bounding boxes are no more than
-    		   the snapping distance from each other */
-				if ( geom_tools_bb_overlap_2D ( A, B, opts->snapping ) == TRUE ) {
-					for ( k = 0; k< A->num_parts; k ++ ) {
-						if ( A->parts[k].is_hole == FALSE ) {
-							VA = &A->parts[k];
-							for ( l = 0; l< B->num_parts; l ++ ) {
-								if ( B->parts[l].is_hole == FALSE ) {
-									/* found two outer boundaries in A and B that are close
-    							   enough for snapping */
-									VB = &B->parts[l];
-									/* fprintf (stderr, "*** TOUCH: %i and %i\n", A->geom_id, B->geom_id); */
-									/* fprintf ( stderr, "\tVA = %i vertices; VB = %i vertices\n", VA->num_vertices, VB->num_vertices ); */
-									for ( m = 0; m < A->parts[l].num_vertices; m ++ ) {
-										candidate = 0;
-										closest = -1.0;
-										for ( n = 0; n < B->parts[k].num_vertices; n ++ ) {
-											/* check distance between all vertices */
-											dist = (sqrt(pow((VA->X[m] - VB->X[n]), 2) + pow((VA->Y[m] - VB->Y[n]), 2) ));
-											/* fprintf ( stderr, "\tDIST = %.4f\n", dist ); */
-											if ( dist <= opts->snapping ) {
-												if ( closest < 0.0 ) {
-													/* first candidate for snapping to */
-													candidate = n;
-													closest = dist;
-												} else {
-													/* closer candidate? */
-													if ( dist < closest ) {
+				if ( i != j ) { /* Do not snap to vertices on the same polygon! */
+					A = &gs->polygons[i];
+					B = &gs->polygons[j];
+					if ( ( A->parts != NULL ) && ( B->parts != NULL ) ) {
+						for ( k = 0; k < A->num_parts; k ++ ) {
+							if ( A->parts[k].is_hole == FALSE ) {
+								VA = &A->parts[k];
+								for ( l = 0; l < B->num_parts; l ++ ) {
+									if ( B->parts[l].is_hole == FALSE ) {
+										/* found two outer boundaries in A and B that need to be check for snapping */
+										VB = &B->parts[l];
+										/* fprintf (stderr, "*** TOUCH: %i and %i\n", A->geom_id, B->geom_id); */
+										/* fprintf ( stderr, "\tVA = %i vertices; VB = %i vertices\n", VA->num_vertices, VB->num_vertices ); */
+										for ( m = 0; m < A->parts[k].num_vertices; m ++ ) { //l
+											candidate = 0;
+											closest = -1.0;
+											for ( n = 0; n < B->parts[l].num_vertices; n ++ ) { //k
+												/* check distance between all vertices */
+												dist = (sqrt(pow((VA->X[m] - VB->X[n]), 2) + pow((VA->Y[m] - VB->Y[n]), 2) ));
+												/* fprintf ( stderr, "\tDIST = %.4f\n", dist ); */
+												if ( dist <= opts->snapping ) {
+													if ( closest < 0.0 ) {
+														/* first candidate for snapping to */
 														candidate = n;
 														closest = dist;
+													} else {
+														/* closer candidate? */
+														if ( dist < closest ) {
+															candidate = n;
+															closest = dist;
+														}
 													}
 												}
 											}
-										}
-										if ( closest >= 0.0 ) {
-											/* need to snap? */
-											VA->X[m] = VB->X[candidate];
-											VA->Y[m] = VB->Y[candidate];
-											/* fprintf ( stderr, "\tSNAPPING {%.3f|{%.3f} to {%.3f|{%.3f}.\n",
-    												VA->X[m], VA->Y[m], VB->X[candidate], VB->Y[candidate] ); */
-											snaps ++;
-											/* TODO: Test if we now have a duplicate vertex! */
+											if ( closest >= 0.0 ) {
+												/* need to snap? */
+												VA->X[m] = VB->X[candidate];
+												VA->Y[m] = VB->Y[candidate];
+												/* fprintf ( stderr,		 "\tSNAPPING {%.3f|{%.3f} to {%.3f|{%.3f}.\n",
+															VA->X[m], VA->Y[m], VB->X[candidate], VB->Y[candidate] ); */
+												snaps ++;												
+											}
 										}
 									}
 								}
@@ -4203,6 +6351,42 @@ unsigned int geom_topology_snap_boundaries_2D ( geom_store *gs, options *opts )
 			}
 		}
 	}
+
+	/* too large values for snapping distance can degenerate polygons */	
+	for ( i = 1; i < gs->num_polygons; i++ ) {
+		A = &gs->polygons[i];
+		for ( j = 0; j< A->num_parts; j ++ ) {
+			int duplicates = 0;				
+			/* check for duplicate vertices in every part and warn */
+			VA = &A->parts[j];
+			//fprintf (stderr, "***\n");
+			//fprintf (stderr, "\t %i\n", VA->num_vertices);
+			for ( k = 1; k < VA->num_vertices; k ++ ) {
+				//fprintf (stderr, "\t\t %.3f/%.3f\n", VA->X[k], VA->Y[k]);				
+				int l;				
+				for ( l = 1; l < VA->num_vertices; l ++ ) {
+					if ( l != k ) {
+						if ( ( VA->X[k] == VA->X[l] ) && ( VA->Y[k] == VA->Y[l] ) ) {
+							duplicates ++;							
+						}
+					}
+				}
+			}
+			if ( duplicates > 0 ) {
+				err_show (ERR_NOTE, "");
+				err_show (ERR_WARN, _("\nDuplicate vertices detected in polygon %i, part %i."), i, j);
+				err_show (ERR_WARN, _("\nSnapping distance might be too large (%.f)."), opts->snapping);
+				duplicates = 0;
+			}
+		}
+	}
+	
+	/* TODO: Duplicate vertices are actually a topological error and should be resolved.
+	 * Removing them can potentially "collapse" a polygon. If less than three different
+	 * vertices remain after deduplication, the polygon is a splinter and should be
+	 * removed entirely.
+	 * NOTE: First and last vertex are always duplicate, so start at vertex 1, not 0!
+	 * */
 
 	return ( snaps );
 }
@@ -4228,15 +6412,7 @@ unsigned int geom_topology_snap_boundaries_2D ( geom_store *gs, options *opts )
  *   GEOM_INTERSECT_LINE_POLY
  *   GEOM_INTERSECT_POLY_POLY
  *
- * Note that geom_topology_intersections_2D_add() _must_ be called
- * immediately after this function to actually add the intersection
- * vertices at detected points and clean the intersection lists!
- *
  * Returns number of intersections detected, "-1" on error.
- * In addition, if "dangles" is passed as a non-null pointer, it will
- * contain the total number of detected "dangles", i.e. line nodes that
- * will be snapped to the nearest line/boundary segment during overshoot
- * and undershoot correction.
  */
 unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *opts, int mode,
 		unsigned int*num_added, unsigned int *topo_errors )
@@ -4379,9 +6555,22 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 										}
 									}
 								}
-								/* register intersections (if any) */
-								num_vertices_detected += geom_tools_parts_intersection_2D ( A, B, gs,
-										GEOM_TYPE_LINE, gs->lines[i].geom_id, k, FALSE );
+								/* We need to run the intersection test as often as we need, until
+								 * no more new intersections are detected. */
+								do {						
+									num_vertices_added = geom_tools_parts_intersection_2D ( A, B, gs,
+											GEOM_TYPE_LINE, gs->lines[i].geom_id, k, FALSE );
+									if ( num_vertices_added > 0 ) {
+										num_vertices_detected += num_vertices_added;
+										/* Keep total count of intersection vertices added. */
+										if ( num_added != NULL ) {
+											*num_added += num_vertices_added;
+										}
+									} else {
+										num_vertices_added = 0;
+									}
+								} while ( num_vertices_added > 0 );	
+										
 							}
 							if ( opts->dangling > 0.0 ) {
 								/* release mem for extended A */
@@ -4395,11 +6584,6 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 									free ( A_extended_last );
 									A_extended_last = NULL;
 								}
-							}
-							/* add intersection vertices immediately after part is done! */
-							num_vertices_added = geom_topology_intersections_2D_add ( gs, opts );
-							if ( num_added != NULL ) {
-								*num_added += num_vertices_added;
 							}
 						}
 					}
@@ -4507,9 +6691,21 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 										}
 									}
 								}
-								/* register intersections (if any) */
-								num_vertices_detected += geom_tools_parts_intersection_2D ( A, B, gs,
-										GEOM_TYPE_LINE, gs->lines[i].geom_id, k, FALSE );
+								/* We need to run the intersection test as often as we need, until
+								 * no more new intersections are detected. */
+								do {						
+									num_vertices_added = geom_tools_parts_intersection_2D ( A, B, gs,
+											GEOM_TYPE_LINE, gs->lines[i].geom_id, k, FALSE );
+									if ( num_vertices_added > 0 ) {
+										num_vertices_detected += num_vertices_added;
+										/* Keep total count of intersection vertices added. */
+										if ( num_added != NULL ) {
+											*num_added += num_vertices_added;
+										}
+									} else {
+										num_vertices_added = 0;
+									}
+								} while ( num_vertices_added > 0 );
 							}
 							if ( opts->dangling > 0.0 ) {
 								/* release mem for extended A */
@@ -4524,11 +6720,6 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 									A_extended_last = NULL;
 								}
 							}
-							/* add intersection vertices immediately after part is done! */
-							num_vertices_added = geom_topology_intersections_2D_add ( gs, opts );
-							if ( num_added != NULL ) {
-								*num_added += num_vertices_added;
-							}
 						}
 					}
 				}
@@ -4538,7 +6729,7 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 
 	/* 3. POLYGON-POLYGON INTERSECTIONS */
 	if ( mode == GEOM_INTERSECT_POLY_POLY ) {
-		/* DEBUG */
+	//if ( mode == 10000 ) { //DEBUG: SKIP THIS
 		if ( DEBUG == TRUE ) {
 			fprintf ( stderr, "\n\t*****************************\n" );
 			fprintf ( stderr, "\t*** Checking %u polygons. ***\n", gs->num_polygons );
@@ -4548,10 +6739,9 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 			if ( gs->polygons[i].is_selected == TRUE && gs->polygons[i].is_empty == FALSE ) {
 				for ( j = 0; j < gs->num_polygons; j++ ) {
 					if ( gs->polygons[j].is_selected == TRUE && gs->polygons[j].is_empty == FALSE ) {
-						if ( i != j ) { /* skip part intersection with itself */
-							/* DEBUG */
+						if ( i != j ) { /* skip polygon intersection with itself */
 							if ( DEBUG == TRUE ) {
-								/* fprintf ( stderr, "\n\t\t %i-%i\n", i, j); */
+								fprintf ( stderr, "\n\t\t %i-%i\n", i, j);
 							}
 							/* step through all parts of A and check against all parts of B */
 							for ( k = 0; k < gs->polygons[i].num_parts; k++ ) {
@@ -4560,8 +6750,21 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 									B = &gs->polygons[j].parts[l];
 									/* register intersections (if any) */
 									unsigned int num_vertices_before = num_vertices_detected;
-									num_vertices_detected += geom_tools_parts_intersection_2D ( A, B, gs,
-											GEOM_TYPE_POLY, gs->polygons[i].geom_id, k, FALSE );
+									/* We need to run the intersection test as often as we need, until
+									 * no more new intersections are detected. */
+									do {
+										num_vertices_added = geom_tools_parts_intersection_2D ( A, B, gs,
+												GEOM_TYPE_POLY, gs->polygons[i].geom_id, k, FALSE );
+										if ( num_vertices_added > 0 ) {
+											num_vertices_detected += num_vertices_added;
+											/* Keep total count of intersection vertices added. */
+											if ( num_added != NULL ) {
+												*num_added += num_vertices_added;
+											}
+										} else {
+											num_vertices_added = 0;
+										}
+									} while ( num_vertices_added > 0 );
 									if ( num_vertices_detected > num_vertices_before ) {
 										err_show (ERR_NOTE,"");
 										err_show ( ERR_WARN,_("\nBoundary intersection detected in polygons (IDs %i & %i), part nos %i & %i."),
@@ -4570,14 +6773,10 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
 											*topo_errors = *topo_errors + ( num_vertices_detected - num_vertices_before ) / 2;
 										}
 									}
-								}
-								/* add intersection vertices immediately after part is done! */
-								num_vertices_added = geom_topology_intersections_2D_add ( gs, opts );
-								if ( num_added != NULL ) {
-									*num_added += num_vertices_added;
-								}
+								}								
 							}
 						} else {
+							/* If there are still intersetions left, then we have a self-intersection. */
 							if ( geom_tools_parts_intersection_2D ( A, B, gs, GEOM_TYPE_POLY, gs->polygons[i].geom_id, k, TRUE ) > 0 ) {
 								err_show (ERR_NOTE,"");
 								err_show ( ERR_WARN,_("\nSelf-intersection in polygon (ID %i), part no. %i."),
@@ -4605,18 +6804,16 @@ unsigned int geom_topology_intersections_2D_detect ( geom_store *gs, options *op
  * lines and polygon boundaries.
  *
  * It adds intersections that were previously detected by the stage 1
- * function to the geometries in 'gs'.
+ * function to the geometries in 'gs', and put on the intersection list
+ * by calls to 'geom_tools_new_intersection()'.
  *
  * When done, this function will delete all intersection points from the
  * intersection lists and reset both lists to their default capacities,
  * allocating new default sizes of memory.
  *
  * Returns number of intersections added, "-1" on error.
- * In addition, if "dangles" is passed as a non-null pointer, it will
- * contain the total number of detected "dangles", i.e. line nodes that
- * were snapped to the nearest line/boundary segment during overshoot
- * and undershoot correction.
- */
+  */
+//TODO: *opts not used in this function: REMOVE parameter
 unsigned int geom_topology_intersections_2D_add ( geom_store *gs, options *opts )
 {
 	unsigned int num_vertices_added = 0;
@@ -4775,14 +6972,12 @@ unsigned int geom_topology_clean_dangles_2D ( geom_store *gs, options *opts, uns
 	for ( i = 0; i < gs->num_lines; i++ ) {
 		if ( gs->lines[i].is_selected == TRUE && gs->lines[i].is_empty == FALSE ) {
 			for ( j = 0; j < gs->lines[i].num_parts; j ++ ) {
-
 				/*
 				if ( DEBUG == TRUE ) {
 					fprintf (stderr, "\nCLEAN OVERSHOOT: GEOM#%i, PART #%i\n", i, j);
 					fprintf (stderr, "\tvertices before: %u\n", gs->lines[i].parts[j].num_vertices);
 				}
 				*/
-
 				remove_first = FALSE;
 				remove_last = FALSE;
 				min_vertices_required = 3;
@@ -4975,17 +7170,26 @@ unsigned int geom_topology_clean_dangles_2D ( geom_store *gs, options *opts, uns
 						A = &gs->lines[i].parts[k];
 						for ( l = 0; l < gs->lines[j].num_parts; l++ ) {
 							B = &gs->lines[j].parts[l];
-							/* register intersections (if any) */
-							num_vertices_detected = geom_tools_parts_intersection_2D ( A, B, gs,
-									GEOM_TYPE_LINE, gs->lines[i].geom_id, k, FALSE );
-							if ( num_detected != NULL ) {
-								*num_detected += num_vertices_detected;
-							}
-						}
-						/* add intersection vertices immediately after part is done! */
-						num_vertices_added = geom_topology_intersections_2D_add ( gs, opts );
-						if ( num_added != NULL ) {
-							*num_added += num_vertices_added;
+							/* Register intersections (if any). */							
+							/* We need to run the intersection test as often as we need, until
+							 * no more new intersections are detected. */
+							do {						
+								num_vertices_added = geom_tools_parts_intersection_2D ( A, B, gs,
+										GEOM_TYPE_LINE, gs->lines[i].geom_id, k, FALSE );
+								if ( num_vertices_added > 0 ) {
+									num_vertices_detected += num_vertices_added;
+									/* Keep total count of intersection vertices detected. */
+									if ( num_detected != NULL ) {
+										*num_detected += num_vertices_detected;
+									}
+									/* Keep total count of intersection vertices added. */
+									if ( num_added != NULL ) {
+										*num_added += num_vertices_added;
+									}
+								} else {
+									num_vertices_added = 0;
+								}
+							} while ( num_vertices_added > 0 );
 						}
 					}
 				}
@@ -4995,6 +7199,8 @@ unsigned int geom_topology_clean_dangles_2D ( geom_store *gs, options *opts, uns
 
 	return ( num_dangles_cleaned );
 }
+
+
 
 
 /*
@@ -5007,12 +7213,12 @@ unsigned int geom_topology_clean_dangles_2D ( geom_store *gs, options *opts, uns
  * of vertices).
  *
  * Returns:
- * 	0 = vertices are in clockwise order
- *  1 = vertices are in counter clockwise order
- * -1 = error/unable to determine order
+ * 	GEOM_WINDING_CW = vertices are in clockwise order
+ *  GEOM_WINDING_CCW = vertices are in counter clockwise order
+ *  GEOM_WINDING_UNKNOWN = error/unable to determine order
  */
 int geom_get_vertex_order ( geom_part *poly ) {
-	int result = -1; /* indeterminable by default */
+	int result = GEOM_WINDING_UNKNOWN; /* indeterminable by default */
 
 	if ( poly != NULL && poly->is_empty == FALSE ) {
 		double sum = 0.0;
@@ -5023,14 +7229,58 @@ int geom_get_vertex_order ( geom_part *poly ) {
 		}
 		if ( sum < 0 ) {
 			/* counter clockwise */
-			result = 1;
+			result = GEOM_WINDING_CCW;
 		} else {
 			/* clockwise */
-			result = 0;
+			result = GEOM_WINDING_CW;
 		}
 	}
 
 	return ( result );
+}
+
+
+/**
+ * Helper function for use by any function that uses 3rd party
+ * 'multclip' operations: This library requires that vertices
+ * on all outer polygon boundaries are sorted in CCW order, and
+ * vice versa for inner boundaries ('holes'). This function will
+ * _modify_(!) the polygon geometry part passed to it so that the
+ * above winding rule is enforced.
+ */
+void geom_tools_sort_part_reverse ( geom_part *poly_part )
+{
+	int i;
+
+	if ( poly_part == NULL ) {
+		return;
+	}
+
+	int result = geom_get_vertex_order ( poly_part );
+
+	if ( ( 	poly_part->is_hole == FALSE && result == GEOM_WINDING_CW ) ||
+		(	poly_part->is_hole == TRUE && result == GEOM_WINDING_CCW ) ) {
+		/* Vertices need reordering! */
+		int first = 0;
+		int last = poly_part->num_vertices-1;
+		for ( i = 0; i < (int)(poly_part->num_vertices/2); i ++) {
+			/* swap X */
+			double copy = poly_part->X[first];
+			poly_part->X[first] = poly_part->X[last];
+			poly_part->X[last] = copy;
+			/* swap Y */
+			copy = poly_part->Y[first];
+			poly_part->Y[first] = poly_part->Y[last];
+			poly_part->Y[last] = copy;
+			/* swap Z */
+			copy = poly_part->Z[first];
+			poly_part->Z[first] = poly_part->Z[last];
+			poly_part->Z[last] = copy;
+			/* update index counters */
+			first ++;
+			last --;
+		}
+	}
 }
 
 
@@ -5286,6 +7536,8 @@ unsigned int geom_topology_sort_vertices ( geom_store *gs, int mode ) {
 }
 
 
+
+
 /*
  * For topologically correct data, we must make sure that all
  * vertices of one polygon lie in the same plane. Planarization
@@ -5312,6 +7564,8 @@ unsigned int geom_topology_sort_vertices ( geom_store *gs, int mode ) {
 void geom_topology_planarize() {
 	/* TODO */
 }
+
+
 
 
 /*
@@ -5489,6 +7743,8 @@ void geom_reorient_local_xz(parser_data_store *storage) {
 }
 
 
+
+
 /*
  * Checks if the stored coordinates in the provided
  * geometry store have an actual extent on the Z axis.
@@ -5513,6 +7769,3 @@ BOOLEAN geom_ds_has_z(parser_data_store *storage) {
 	}
 	return ( (max - min) > 0.0 );
 }
-
-
-
