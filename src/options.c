@@ -54,7 +54,7 @@ void options_help ( void )
 
 	/* TODO: in GUI mode, this should be displayed in a text window (?) */
 
-	fprintf (stdout, _("Usage: %s -p FILE -o DIR -n NAME [OPTION]... [FILE]... \n"), t_str_to_lower((char*)t_get_prg_name()));
+	fprintf (stdout, _("Usage: %s -p FILE -o DIR -n NAME [OPTION]... [FILE]... \n"), t_get_cmd_name ());
 	fprintf (stdout, _("Read geometry and attribute descriptions from a survey protocol file\n\
 in ASCII format and convert them to common GIS and CAD output formats.\n"));
 
@@ -81,12 +81,18 @@ in ASCII format and convert them to common GIS and CAD output formats.\n"));
 		fprintf (stdout, _("  \t\t\t\"%s\" (%s)\n"), OPTIONS_LABEL_MODE_NAMES[i], gettext(OPTIONS_LABEL_MODE_DESC[i]) );
 		i ++;
 	}
-	fprintf (stdout, _("  -O, --orientation=\tchoose output orientation (default: \"%s\")\n"), OPTIONS_ORIENT_MODE_NAMES[0]);
+	fprintf (stdout, _("  -O, --orientation=\tchoose output orientation (default: \"%s\")\n"), OPTIONS_ORIENT_MODE_NAMES[OPTIONS_ORIENT_MODE_WORLD_XYZ]);
 	i = 0;
 	while ( strcmp ( OPTIONS_ORIENT_MODE_NAMES[i],"" ) != 0 ) {
 		fprintf (stdout, _("  \t\t\t\"%s\" (%s)\n"), OPTIONS_ORIENT_MODE_NAMES[i], gettext(OPTIONS_ORIENT_MODE_DESC[i]) );
 		i ++;
-	}
+	}	
+	fprintf (stdout, _("  -T, --topology=\ttopological processing level (default: \"%s\")\n"), OPTIONS_TOPO_LEVEL_NAMES[OPTIONS_TOPO_LEVEL_FULL]);
+	i = 0;
+	while ( strcmp ( OPTIONS_TOPO_LEVEL_NAMES[i],"" ) != 0 ) {
+		fprintf (stdout, _("  \t\t\t\"%s\" (%s)\n"), OPTIONS_TOPO_LEVEL_NAMES[i], gettext(OPTIONS_TOPO_LEVEL_DESC[i]) );
+		i ++;
+	}	
 	fprintf (stdout, _("  -S, --selection=\tselect data by field content (see manual for details)\n"));
 	fprintf (stdout, _("  -l, --log=\t\toutput name for error log file (default: none)\n"));
 	fprintf (stdout, _("  -t, --tolerance=\tdistance threshold for coordinates (default: %.1f)\n"), OPTIONS_DEFAULT_TOLERANCE);
@@ -158,6 +164,7 @@ options *options_create (int argc, char *argv[])
 	newOpts->label_mode_line = OPTIONS_DEFAULT_LABEL_MODE_LINE;
 	newOpts->label_mode_poly = OPTIONS_DEFAULT_LABEL_MODE_POLY;
 	newOpts->orient_mode = OPTIONS_DEFAULT_ORIENT_MODE;
+	newOpts->topo_level = OPTIONS_TOPO_LEVEL_FULL;
 	newOpts->log = NULL;
 	newOpts->tolerance = OPTIONS_DEFAULT_TOLERANCE;
 	newOpts->tolerance_str = malloc ( len );
@@ -186,6 +193,7 @@ options *options_create (int argc, char *argv[])
 	newOpts->decimal_group[1] = '\0';
 	newOpts->proj_in = NULL;
 	newOpts->proj_out = NULL;
+	newOpts->proj4_data_dir = NULL;
 	newOpts->proj4_in = NULL;
 	newOpts->proj4_out = NULL;
 	newOpts->wgs84_trans_dx = OPTIONS_DEFAULT_WGS84_TRANS_DX;
@@ -272,6 +280,9 @@ void options_destroy ( options *opts )
 		}
 		if ( opts->proj_out != NULL ) {
 			free (opts->proj_out);
+		}
+		if ( opts->proj4_data_dir != NULL ) {
+			free (opts->proj4_data_dir);
 		}
 		if ( opts->proj4_in != NULL ) {
 			pj_free (opts->proj4_in);
@@ -376,6 +387,7 @@ int options_parse ( options *opts )
 			{ "label-mode-line", required_argument, NULL, ARG_ID_LABEL_MODE_LINE },
 			{ "label-mode-poly", required_argument, NULL, ARG_ID_LABEL_MODE_POLY },
 			{ "orientation", required_argument, NULL, 'O' },
+			{ "topology", required_argument, NULL, 'T' },
 			{ "selection", required_argument, NULL, 'S' },
 			{ "log", required_argument, NULL, 'l' },
 			{ "tolerance", required_argument, NULL, 't' },
@@ -421,6 +433,7 @@ int options_parse ( options *opts )
 	char *v_label_mode_line=NULL;
 	char *v_label_mode_poly=NULL;
 	char *v_orient_mode=NULL;
+	char *v_topo_level=NULL;
 	char *v_selection=NULL;
 	char *v_tolerance=NULL;
 	char *v_snapping=NULL;
@@ -480,7 +493,7 @@ int options_parse ( options *opts )
 	/* process all other options in the regular way */
 	if ( opts->just_dump_help == FALSE ) {
 
-		static const char *optString = "p:o:n:f:L:O:S:l:t:s:D:y:z:d:i:g:2rcvehu";
+		static const char *optString = "p:o:n:f:L:O:T:S:l:t:s:D:y:z:d:i:g:2rcvehu";
 		int option = getopt_long ( opts->argc, opts->argv, optString, long_options, &option_index );
 
 		while ( option  != -1 ) {
@@ -517,10 +530,6 @@ int options_parse ( options *opts )
 					v_label_field = NULL;
 					err_show ( ERR_EXIT, _("No label field specified (option '-L')."));
 				}
-				if (optopt == 'O') {
-					v_label_field = NULL;
-					err_show ( ERR_EXIT, _("No orientation mode specified (option '-O')."));
-				}
 				if (optopt == ARG_ID_LABEL_MODE_POINT) {
 					v_label_mode_point = NULL;
 					err_show ( ERR_EXIT, _("No label mode for points specified (option '--label-mode-point')."));
@@ -532,6 +541,14 @@ int options_parse ( options *opts )
 				if (optopt == ARG_ID_LABEL_MODE_POLY) {
 					v_label_mode_poly = NULL;
 					err_show ( ERR_EXIT, _("No label mode for polygons specified (option '--label-mode-poly')."));
+				}
+				if (optopt == 'O') {
+					v_orient_mode = NULL;
+					err_show ( ERR_EXIT, _("No orientation mode specified (option '-O')."));
+				}
+				if (optopt == 'T') {
+					v_topo_level = NULL;
+					err_show ( ERR_EXIT, _("No topology level specified (option '-T')."));
 				}
 				if (optopt == 'S') {
 					v_selection = NULL;
@@ -716,6 +733,17 @@ int options_parse ( options *opts )
 					num_valid_opts ++;
 				} else {
 					err_show ( ERR_EXIT, _("Missing option value (option '%s')."), "-O/--orientation=");
+					num_errors ++;
+				}
+			}
+			
+			/* topology level */
+			if ( option == 'T' ) {
+				if ( optarg != NULL && strlen ( optarg ) > 0 ) {
+					v_topo_level = t_str_pack (t_str_to_lower(options_get_optarg (optarg)));
+					num_valid_opts ++;
+				} else {
+					err_show ( ERR_EXIT, _("Missing option value (option '%s')."), "-T/--topology=");
 					num_errors ++;
 				}
 			}
@@ -980,11 +1008,11 @@ int options_parse ( options *opts )
 
 #ifndef GUI
 	if ( num_valid_opts == 0 ) {
-		err_show ( ERR_EXIT, _("Invalid command line given. Use \"%s -h\" for help."), t_get_prg_name() );
+		err_show ( ERR_EXIT, _("Invalid command line given. Use \"%s -h\" for help."), t_get_cmd_name() );
 	}
 #else
 	if ( num_valid_opts == 0 && opts->show_gui == FALSE ) {
-		err_show ( ERR_EXIT, _("Invalid command line given. Use \"%s -h\" for help."), t_get_prg_name() );
+		err_show ( ERR_EXIT, _("Invalid command line given. Use \"%s -h\" for help."), t_get_cmd_name() );
 	}
 #endif
 
@@ -1158,6 +1186,25 @@ int options_parse ( options *opts )
 		free ( v_orient_mode );
 		v_orient_mode = NULL;
 	}
+	
+	if ( v_topo_level != NULL ) {
+		BOOLEAN valid = FALSE;
+		int i = 0;
+		while ( strlen (OPTIONS_TOPO_LEVEL_NAMES[i]) > 0 ) {
+			if ( !strcasecmp ( OPTIONS_TOPO_LEVEL_NAMES[i], v_topo_level ) ) {
+				opts->topo_level = i;
+				valid = TRUE;
+				break;
+			}
+			i ++;
+		}
+		if ( valid == FALSE ) {
+			err_show ( ERR_EXIT, _("Invalid topology level ('%s')."), v_topo_level );
+			num_errors ++;
+		}
+		free ( v_topo_level );
+		v_topo_level = NULL;
+	}
 
 	if ( v_format != NULL ) {
 		BOOLEAN found = FALSE;
@@ -1202,13 +1249,19 @@ int options_parse ( options *opts )
 			opts->snapping = OPTIONS_DEFAULT_SNAPPING;
 			t_dbl_to_str (opts->snapping, opts->snapping_str);
 		}
+		/* snapping setting ignored in mode "topology=none" */		
+		if ( opts->topo_level == OPTIONS_TOPO_LEVEL_NONE ) {
+			err_show ( ERR_NOTE, "");
+			err_show ( ERR_WARN, _("Setting for 'snapping' ignored when running with 'topology=%s'."), OPTIONS_TOPO_LEVEL_NAMES[OPTIONS_TOPO_LEVEL_NONE]);
+		}
 	}
 	if ( opts->snapping < 0.0 ) {
 		err_show ( ERR_EXIT, _("Snapping setting must be 0 or a positive number."));
 		num_errors ++;
 		opts->snapping = OPTIONS_DEFAULT_SNAPPING;
-		t_dbl_to_str (opts->snapping, opts->snapping_str);
-	}
+		t_dbl_to_str (opts->snapping, opts->snapping_str);		
+	}	
+	
 	if ( v_dangling != NULL ) {
 		opts->dangling = t_str_to_dbl (v_dangling, 0, 0, &error, NULL );
 		snprintf ( opts->dangling_str, PRG_MAX_STR_LEN, "%s", v_dangling );
@@ -1218,6 +1271,11 @@ int options_parse ( options *opts )
 			num_errors ++;
 			opts->dangling = OPTIONS_DEFAULT_DANGLING;
 			t_dbl_to_str (opts->dangling, opts->dangling_str);
+		}
+		/* dangling setting ignored in mode "topology=none" */		
+		if ( opts->topo_level == OPTIONS_TOPO_LEVEL_NONE ) {
+			err_show ( ERR_NOTE, "");
+			err_show ( ERR_WARN, _("Setting for 'dangling' ignored when running with 'topology=%s'."), OPTIONS_TOPO_LEVEL_NAMES[OPTIONS_TOPO_LEVEL_NONE]);
 		}
 	}
 	if ( opts->dangling < 0.0 ) {
