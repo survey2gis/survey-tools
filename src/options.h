@@ -32,6 +32,11 @@
 #define OPTIONS_ORIENT_MODE_WORLD_XYZ	0
 #define OPTIONS_ORIENT_MODE_LOCAL_XZ	1
 
+/* levels of topological corrections */
+#define OPTIONS_TOPO_LEVEL_NONE			0
+#define OPTIONS_TOPO_LEVEL_BASIC		1
+#define OPTIONS_TOPO_LEVEL_FULL			2
+
 /* Default option values */
 #define OPTIONS_DEFAULT_TOLERANCE 			0.0
 #define OPTIONS_DEFAULT_SNAPPING 			0.0
@@ -51,11 +56,12 @@
 #define OPTIONS_DEFAULT_LABEL_MODE_LINE		OPTIONS_LABEL_MODE_CENTER
 #define OPTIONS_DEFAULT_LABEL_MODE_POLY		OPTIONS_LABEL_MODE_CENTER
 #define OPTIONS_DEFAULT_ORIENT_MODE			OPTIONS_ORIENT_MODE_WORLD_XYZ
+#define OPTIONS_DEFAULT_TOPO_LEVEL			OPTIONS_TOPO_LEVEL_FULL
 
 /*
  * GETTEXT NOTES:
  *
- * We translated only the longer option descriptions, not the short option names!
+ * We translate only the longer option descriptions, not the short option names!
  *
  * The keyword "gettext_noop", defined below, has to be passed to xgettext:
  *
@@ -79,7 +85,7 @@ static const char OPTIONS_LABEL_MODE_NAMES[][10] = {
 		""
 };
 
-static const char OPTIONS_LABEL_MODE_DESC[][30] = {
+static const char OPTIONS_LABEL_MODE_DESC[][100] = {
 		gettext_noop ("Place at center of geometry"),
 		gettext_noop ("Place on first vertex"),
 		gettext_noop ("Place on last vertex"),
@@ -95,12 +101,26 @@ static const char OPTIONS_ORIENT_MODE_NAMES[][10] = {
 };
 
 /* orientation mode descriptions */
-static const char OPTIONS_ORIENT_MODE_DESC[][30] = {
+static const char OPTIONS_ORIENT_MODE_DESC[][100] = {
 		gettext_noop ("World: original X/Y/(Z)"),
 		gettext_noop ("Local: X-Z cross section"),
 		""
 };
 
+/* topology level names (not case sensitive) */
+static const char OPTIONS_TOPO_LEVEL_NAMES[][10] = {
+		"none",
+		"basic",
+		"full",
+		""
+};
+
+static const char OPTIONS_TOPO_LEVEL_DESC[][100] = {
+		gettext_noop ("No topological operations"),
+		gettext_noop ("Essential topological operations"),
+		gettext_noop ("Full topological cleaning"),
+		""
+};
 
 
 #ifdef MAIN
@@ -132,6 +152,7 @@ struct options
 	int label_mode_line; /* mode for label placement (lines) */
 	int label_mode_poly; /* mode for label placement (polygons) */
 	int orient_mode; /* orientation mode (optional re-mapping of X/Y/Z axes) */
+	int topo_level; /* topological corrections level */
 	char *log; /* path and file name for log file or NULL */
 	double tolerance; /* cluster tolerance for coordinate values */
 	char *tolerance_str; /* copy of the original (string) option value */
@@ -161,6 +182,7 @@ struct options
 	char *proj_out; /* output CRS string, as provided by user */
 	projPJ proj4_in; /* input CRS in PROJ.4 format (or NULL) */
 	projPJ proj4_out; /* output CRS in PROJ.4 format (or NULL) */
+	char *proj4_data_dir; /* path to PROJ.4 data folder (or NULL) */
 	double wgs84_trans_dx; /* datum transformation from WGS84 (X shift) */
 	char *wgs84_trans_dx_str; /* copy of the original (string) option value */
 	double wgs84_trans_dy; /* datum transformation from WGS84 (Y shift) */
