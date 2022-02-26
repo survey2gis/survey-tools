@@ -21,9 +21,11 @@
  * [List of open issues moved to TODO]
  */
 
+
 #define MAIN
 
 #include <errno.h>
+#include <libgen.h>
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
@@ -45,6 +47,11 @@
 #include "parser.h"
 #include "tools.h"
 
+/* these are defined 'extern' in global.h */
+char *PRG_NAME_CLI;
+char *PRG_PATH_CLI;
+char *PRG_DIR_CLI;
+
 #ifdef GUI
 #include "logo.xpm"
 #include <gtk/gtk.h>
@@ -61,6 +68,7 @@ gui_field *f_label_mode_point;
 gui_field *f_label_mode_line;
 gui_field *f_label_mode_poly;
 gui_field *f_orient_mode;
+gui_field *f_topo_level;
 gui_field *f_parser;
 gui_field *f_output;
 gui_field *f_name;
@@ -161,6 +169,7 @@ void show_init_msg ( options *opts )
 	free(srs_in);
 	free(srs_out);
 	err_show (ERR_NOTE, _("Output orientation: %s"), OPTIONS_ORIENT_MODE_NAMES[opts->orient_mode]);
+	err_show (ERR_NOTE, _("Topological processing: %s"), OPTIONS_TOPO_LEVEL_NAMES[opts->topo_level]);
 	if ( selections_get_count(opts) > 0 ) {
 		err_show (ERR_NOTE, _("Selection commands:"));
 		for ( i=0; i < selections_get_count(opts); i++ ) {
@@ -226,6 +235,7 @@ void clean_label_atts ( options *opts, parser_desc* parser, geom_store *gs ) {
 	if (opts->label_field != NULL ) {
 		{
 			int i = 0;
+			int j = 0;
 			int label_field_idx = -1;
 			char **atts = NULL;
 			while ( parser->fields[i] != NULL ) {
@@ -236,8 +246,10 @@ void clean_label_atts ( options *opts, parser_desc* parser, geom_store *gs ) {
 				i ++;
 			}
 			if ( label_field_idx >= 0 ) {
-				if ( parser->geom_tag_point != NULL ) {
-					char *geom_tag = parser->geom_tag_point;
+				for ( j = 0; j < parser_get_num_tags ( parser, GEOM_TYPE_POINT ); j ++ ) {
+				//if ( parser->geom_tag_point != NULL ) { DELETE ME
+					//char *geom_tag = parser->geom_tag_point; DELETE ME
+					const char *geom_tag = parser_get_tag ( parser, GEOM_TYPE_POINT, j );
 					int geom_tag_len = strlen(geom_tag);
 					for ( i = 0; i < gs->num_points; i ++ ) {
 						if ( gs->points[i].is_selected == TRUE ) {
@@ -286,8 +298,10 @@ void clean_label_atts ( options *opts, parser_desc* parser, geom_store *gs ) {
 						}
 					}
 				}
-				if ( parser->geom_tag_line != NULL ) {
-					char *geom_tag = parser->geom_tag_line;
+				for ( j = 0; j < parser_get_num_tags ( parser, GEOM_TYPE_LINE ); j ++ ) {
+				//if ( parser->geom_tag_line != NULL ) { DELETE ME
+					//char *geom_tag = parser->geom_tag_line; DELETE ME
+					const char *geom_tag = parser_get_tag ( parser, GEOM_TYPE_LINE, j );
 					int geom_tag_len = strlen(geom_tag);
 					for ( i = 0; i < gs->num_lines; i ++ ) {
 						if ( gs->lines[i].is_selected == TRUE ) {
@@ -339,8 +353,10 @@ void clean_label_atts ( options *opts, parser_desc* parser, geom_store *gs ) {
 						}
 					}
 				}
-				if ( parser->geom_tag_poly != NULL ) {
-					char *geom_tag = parser->geom_tag_poly;
+				for ( j = 0; j < parser_get_num_tags ( parser, GEOM_TYPE_POLY ); j ++ ) {
+				//if ( parser->geom_tag_poly != NULL ) { DELETE ME
+					//char *geom_tag = parser->geom_tag_poly; DELETE ME
+					const char *geom_tag = parser_get_tag ( parser, GEOM_TYPE_POLY, j );
 					int geom_tag_len = strlen(geom_tag);
 					for ( i = 0; i < gs->num_polygons; i ++ ) {
 						if ( gs->polygons[i].is_selected == TRUE ) {
@@ -506,11 +522,14 @@ void run_once ( options *opts )
 	unsigned int duplicate_records;
 	unsigned int build_errors;
 	unsigned int fused_records;
-	unsigned int overlaps = 0;
+	unsigned int overlays = 0;
+	unsigned int removed_overlaps = 0;
 	unsigned int snaps_poly = 0;
 	unsigned int detected_intersections_ll = 0;
 	unsigned int detected_intersections_lp = 0;
 	unsigned int detected_intersections_pp = 0;
+	unsigned int self_intersects_lines = 0;
+	unsigned int self_intersects_polygons = 0;
 	unsigned int added_intersections_ll = 0;
 	unsigned int added_intersections_lp = 0;
 	unsigned int added_intersections_pp = 0;
@@ -579,6 +598,12 @@ void run_once ( options *opts )
 	/* read parser schema from file provided */
 	parser = parser_desc_create ();
 	parser_desc_set ( parser, opts );
+
+	/* if parser is empty at this point, then we have an error */
+	if ( parser->empty == TRUE ) {
+		parser_desc_destroy (parser);
+		return;
+	}
 
 	/* just dump parser description? */
 	if ( opts->just_dump_parser == TRUE ) {
@@ -720,6 +745,7 @@ void run_once ( options *opts )
 	}
 	topo_errors = malloc ( sizeof ( unsigned int ) * opts->num_input );
 	for ( i=0; i < opts->num_input ; i ++ ) {
+		/* LEVEL: ALL */
 		topo_errors[i] = 0;
 		/* multiplex geometries into points, lines and polygons */
 		geom_multiplex ( storage[i], parser );
@@ -764,15 +790,43 @@ void run_once ( options *opts )
 	}
 
 	if ( geom_store_make_paths ( gs, opts, &error_msg[0] ) == 0 ) {
-		if ( reproj_srs_in_latlon(opts) == TRUE ) {
+
+		/* self-intersections can be present in lat/lon and X/Y data */
+		for ( i = 0; i < gs->num_lines; i ++ ) {
+			int j;
+			for ( j = 0; j < gs->lines[i].num_parts; j ++ ) {
+				self_intersects_lines += gs->lines[i].parts[j].err_self_intersects;
+			}
+		}
+		for ( i = 0; i < gs->num_polygons; i ++ ) {
+			int j;
+			for ( j = 0; j < gs->polygons[i].num_parts; j ++ ) {
+				self_intersects_polygons += gs->polygons[i].parts[j].err_self_intersects;
+			}
+		}
+
+		/* Most topo operations are untested for lat/lon data: WARN. */
+		if ( opts->topo_level > OPTIONS_TOPO_LEVEL_NONE && reproj_srs_in_latlon(opts) == TRUE ) {
 			err_show (ERR_WARN, _("\nHigh-level topological cleaning of lat/lon data not implemented."));
 			err_show (ERR_WARN, _("Output data may suffer from topological defects."));
-		} else {
+		}
+		
+		/* Run the following only if topological cleaning is enabled. */
+		if ( opts->topo_level > OPTIONS_TOPO_LEVEL_NONE ) {
+			/* LEVEL: BASIC AND ABOVE */
 			/* Snap polygon boundaries */
 			snaps_poly = geom_topology_snap_boundaries_2D ( gs, opts );
+			geom_tools_update_bboxes (gs); /* update bounding boxes */
+			
+			/* Perform geometric AND operation to subtract polygon overlap areas */
+			if ( opts->topo_level > OPTIONS_TOPO_LEVEL_BASIC ) {
+				/* LEVEL: FULL */
+				removed_overlaps = geom_topology_poly_remove_overlap_2D ( gs, parser, opts );
+				geom_tools_update_bboxes (gs); /* update bounding boxes */
+			}
 
-			/* Stamp holes into overlapping polygons. */
-			overlaps = geom_topology_poly_overlap_2D ( gs, parser );
+			/* Stamp holes into overlaid polygons. */
+			overlays = geom_topology_poly_overlay_2D ( gs, parser );
 
 			/* Add intersection vertices at line/line intersections. */
 			detected_intersections_ll = geom_topology_intersections_2D_detect ( gs, opts, GEOM_INTERSECT_LINE_LINE,
@@ -787,8 +841,12 @@ void run_once ( options *opts )
 					&added_intersections_pp, &topo_errors_after_fusion );
 
 			/* Clean dangling line nodes. */
-			snapped_line_dangles += geom_topology_clean_dangles_2D ( gs, opts, &topo_errors_after_fusion,
-					&detected_intersections_ll, &added_intersections_ll );
+			if ( opts->topo_level > OPTIONS_TOPO_LEVEL_BASIC ) {
+				/* LEVEL: FULL */
+				snapped_line_dangles += geom_topology_clean_dangles_2D ( gs, opts, &topo_errors_after_fusion,
+						&detected_intersections_ll, &added_intersections_ll );
+				geom_tools_update_bboxes (gs); /* update bounding boxes */
+			}
 		}
 		/* Unify vertex orders for polyons. */
 		if ( opts->format == PRG_OUTPUT_KML	) {
@@ -940,7 +998,13 @@ void run_once ( options *opts )
 	if ( bad_attributes > 0 )
 		err_show (ERR_NOTE, _("\nAttribute write errors: %i"), bad_attributes );
 
-	err_show (ERR_NOTE, _("\nDetected polygon overlays: %i"), overlaps );
+	err_show (ERR_NOTE, _("\nDetected line self-intersections: %i"), self_intersects_lines );
+
+	err_show (ERR_NOTE, _("\nDetected polygon self-intersections: %i"), self_intersects_polygons );
+
+	err_show (ERR_NOTE, _("\nDetected polygon overlays: %i"), overlays );
+
+	err_show (ERR_NOTE, _("\nRemoved polygon overlap areas: %i"), removed_overlaps );
 
 	err_show (ERR_NOTE, _("\nSnapped polygon boundary vertices: %i"), snaps_poly );
 
@@ -1067,10 +1131,12 @@ gui_form* make_gui_form (options *opts )
 	char **lookup_format;
 	char **lookup_label_mode;
 	char **lookup_orient_mode;
+	char **lookup_topo_level;
 	int i;
 	int lookup_format_n;
 	int lookup_label_mode_n;
 	int lookup_orient_mode_n;
+	int lookup_topo_level_n;
 	GtkTextIter iter;
 	gui_form *gform;
 
@@ -1176,8 +1242,20 @@ gui_form* make_gui_form (options *opts )
 			FALSE, opts->wgs84_trans_grid );
 
 	/* advanced settings (snapping tolerance, etc. */
+	lookup_topo_level_n = 0; /* level of topological cleaning */
+	while ( strlen ( OPTIONS_TOPO_LEVEL_NAMES [lookup_topo_level_n] ) > 0 ) {
+		lookup_topo_level_n ++;
+	}
+	lookup_topo_level = malloc ( sizeof ( char*) * ( lookup_topo_level_n + 1 ) );
+	for ( i = 0; i < lookup_topo_level_n; i++ ) {
+		lookup_topo_level[i] = strdup ( OPTIONS_TOPO_LEVEL_NAMES[i] );
+	}
+	lookup_topo_level[lookup_topo_level_n] = NULL;
+	f_topo_level = gui_field_create_string ( 	"topo-level", (_("Topology level:")), (_("Topological processing level.")),
+			(_("Advanced")), FALSE, OPTIONS_TOPO_LEVEL_NAMES[opts->topo_level], 0, NULL,
+			GUI_FIELD_CONVERT_TO_NONE, (const char**) lookup_topo_level);
 	f_tolerance = gui_field_create_double ( "tolerance", (_("Coord. tolerance:")), (_("Distance threshold for coordinates.")), (_("Advanced")),
-			FALSE, opts->tolerance_str, FALSE );
+			FALSE, opts->tolerance_str, TRUE );
 	f_snapping = gui_field_create_double ( "snapping", (_("Boundary snap dist.:")), (_("Snapping threshold for polygon boundary vertices.")), (_("Advanced")),
 			FALSE, opts->snapping_str, FALSE );
 	f_dangling = gui_field_create_double ( "dangling", (_("Dangle snap dist.:")), (_("Snapping threshold for dangling line nodes.")), (_("Advanced")),
@@ -1228,6 +1306,7 @@ gui_form* make_gui_form (options *opts )
 	gui_form_add_field ( gform, f_label_mode_line );
 	gui_form_add_field ( gform, f_label_mode_poly );
 	gui_form_add_field ( gform, f_orient_mode );
+	gui_form_add_field ( gform, f_topo_level );
 	gui_form_add_field ( gform, f_select );
 	gui_form_add_field ( gform, f_log );
 	gui_form_add_field ( gform, f_proj_in );
@@ -1459,6 +1538,13 @@ int process_gui_options ( options *opts )
 			gtk_combo_box_get_active(GTK_COMBO_BOX(f_orient_mode->combo_box));
 	if ( (int) orient_mode_choice > -1 ) {
 		opts->orient_mode = (int) orient_mode_choice;
+	}
+	
+	/* TOPOLOGY LEVEL */
+	gint topo_level_choice =
+			gtk_combo_box_get_active(GTK_COMBO_BOX(f_topo_level->combo_box));
+	if ( (int) topo_level_choice > -1 ) {
+		opts->topo_level = (int) topo_level_choice;
 	}
 
 	/* SELECTION COMMANDS */
@@ -1938,6 +2024,17 @@ int main(int argc, char *argv[])
 #endif
 
 
+	/* store program name and path as called */
+	if ( argv[0] != NULL && strlen(argv[0]) > 0 ) {
+		PRG_NAME_CLI = strdup(basename(argv[0]));
+		PRG_PATH_CLI = realpath(argv[0],NULL);
+		PRG_DIR_CLI = realpath(dirname(argv[0]),NULL);
+	} else {
+		PRG_NAME_CLI = strdup(PRG_NAME_DEFAULT);
+		PRG_PATH_CLI = strdup("");
+		PRG_DIR_CLI = strdup("");
+	}
+
 	/* default to "no GUI" */
 	OPTIONS_GUI_MODE = FALSE;
 
@@ -2052,5 +2149,5 @@ int main(int argc, char *argv[])
 	/* release mem for i18n */
 	i18n_free ();
 
-	return (PRG_EXIT_OK); /* TODO: use standard EXIT_SUCCESS/EXIT_FAILURE instead ! */
+	return (PRG_EXIT_OK); /* = EXIT_SUCCESS */
 }
