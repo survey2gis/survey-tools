@@ -21,7 +21,7 @@ one that matches your OS. There is another "README" file in
 that folder that has specific instructions for your OS.
 Make sure to read it, as it may list some important 3rd
 party software that you need to install before being able
-to run survey2gis.
+to run Survey2GIS.
 
 Also note that there are two versions of Survey2GIS for each OS.
 The version in the OS folder itself contains a graphical user
