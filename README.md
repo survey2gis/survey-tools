@@ -23,7 +23,7 @@ Make sure to read it, as it may list some important 3rd
 party software that you need to install before being able
 to run survey2gis.
 
-Also note that there are two versions of survey2gis for each OS.
+Also note that there are two versions of Survey2GIS for each OS.
 The version in the OS folder itself contains a graphical user
 interface (GUI. The subfolder "cli-only" contains a version
 without a GUI that is more light-weight and suitable for use
@@ -58,11 +58,9 @@ This is free and open source software. For details, see the file
 LICENSE that came with this software. If LICENSE is missing or
 you would like to read a translation in another language, please
 go to http://www.gnu.org/licenses/gpl.html.
-Please note that survey2gis also includes shapelib, which it comes
-with its own license agreement that you can find in the file
-LICENSE.LGPL within the "shapelib-1.3.0" directory. Should
-this file or directory be missing, then you can review the shapelib
-license terms at http://www.gnu.org/licenses/lgpl.html.
+Please note that Survey2GIS includes 3rd party software, which comes
+with its own license agreement that you can find in corresponding
+subdirectories.
 
 
 ## Who made this software?
