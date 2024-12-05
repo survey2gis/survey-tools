@@ -1,0 +1,21 @@
+Format of WLR files:
+
+Vertex is described by 2 floats, e.g.
+1.234567 0.000000
+
+Contour (PLINE) is described by 1 integer - number of vertices in it
+and then list of vertices, e.g. triangle:
+3
+1.000000 1.000000
+2.000000 1.000000
+1.000000 2.000000
+
+Polygon (POLYAREA) is described by 1 integer - number of contours in
+it and then list of contours. Note that 1st contour in list must be
+counter clockwise oriented ( the outer contour of polygon ),
+and next contours must be clockwise oriented ( the holes ).
+
+Set of polygons is described by 1 integer - number of polygons in it
+and then list of polygons.
+
+Thus, WLR files describe sets of polygons.
