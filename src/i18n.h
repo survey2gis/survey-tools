@@ -49,10 +49,6 @@ extern char *I18N_WIN_CODEPAGE_FILES;
 
 void i18n_init ();
 
-char *i18n_get_locale_decp ();
-
-char *i18n_get_locale_tsep ();
-
 void i18n_set_locale_en_EN ();
 
 void i18n_set_locale_de_DE ();
@@ -72,6 +68,10 @@ void i18n_set_thousands_separator ( const char* );
 char *i18n_get_decimal_point ();
 
 char *i18n_get_thousands_separator ();
+
+char *i18n_get_locale_decp ();
+
+char *i18n_get_locale_tsep ();
 
 const char *i18n_get_lc_numeric ( const char*, const char* );
 

@@ -1,12 +1,12 @@
 #############################################################################
 #
 # PROGRAM:		survey2gis
-# FILE:			Makefile
+# FILE:			Makefile.MacOSX
 # AUTHOR(S):	Benjamin Ducke for Regierungspraesidium Stuttgart,
 #				Landesamt fuer Denkmalpflege
 # 				http://www.denkmalpflege-bw.de/
 #
-# PURPOSE:	 	This is the Makefile for Mac OS X systems. Nothing surprising here. 
+# PURPOSE:	 	This is the Makefile for Mac OS X (macOS) systems. Nothing surprising here. 
 #
 # COPYRIGHT:	(C) 2011-2018 by the gvSIG Community Edition team
 #
@@ -70,6 +70,9 @@ PROJ4_PREFIX=$(shell pwd)/${PROJ4_DIR}
 # Bundled version of SLRE
 SLRE_DIR=slre
 
+# Bundled copy of MULTCLIP polygon clipper
+MULTCLIP_DIR=multclip
+
 # set ARCH_FLAG to -m32 to force a 32 bit build
 # set ARCH_FLAG to -m64 to force a 64 bit build
 ARCH_FLAG=
@@ -111,7 +114,7 @@ export GCC
 export GCC_EXTRA_FLAGS
 export MAKE
 
-all: slre shapelib proj4 ${PRG}
+all: multclip slre shapelib proj4 ${PRG}
 tests: test-platform
 
 
@@ -153,11 +156,29 @@ ${SLRE_DIR}/slre.o: ${SLRE_DIR}/slre.c ${SLRE_DIR}/slre.h
 	
 #############################################################################
 
+#############################################################################
+
+multclip: ${MULTCLIP_DIR}/polygon0.o ${MULTCLIP_DIR}/polygon1.o ${MULTCLIP_DIR}/vectmatr.o ${MULTCLIP_DIR}/polyio.o
+
+${MULTCLIP_DIR}/polygon0.o: ${MULTCLIP_DIR}/polygon0.c ${MULTCLIP_DIR}/polyarea.h ${MULTCLIP_DIR}/vectmatr.h
+	${GCC} -c ${MULTCLIP_DIR}/polygon0.c -I${MULTCLIP_DIR} -o ${MULTCLIP_DIR}/polygon0.o -lm
+
+${MULTCLIP_DIR}/polygon1.o: ${MULTCLIP_DIR}/polygon1.c ${MULTCLIP_DIR}/polyarea.h ${MULTCLIP_DIR}/vectmatr.h
+	${GCC} -c ${MULTCLIP_DIR}/polygon1.c -I${MULTCLIP_DIR} -o ${MULTCLIP_DIR}/polygon1.o -lm
+
+${MULTCLIP_DIR}/vectmatr.o: ${MULTCLIP_DIR}/vectmatr.c ${MULTCLIP_DIR}/vectmatr.h
+	${GCC} -c ${MULTCLIP_DIR}/vectmatr.c -I${MULTCLIP_DIR} -o ${MULTCLIP_DIR}/vectmatr.o -lm
+	
+${MULTCLIP_DIR}/polyio.o: ${MULTCLIP_DIR}/polyio.c ${MULTCLIP_DIR}/polyio.h
+	${GCC} -c ${MULTCLIP_DIR}/polyio.c -I${MULTCLIP_DIR} -o ${MULTCLIP_DIR}/polyio.o -lm
+
+#############################################################################
+
 
 #############################################################################
 
 survey2gis: ${TRANSLATIONS} config.h errors.o export.o geom.o gui_conf.o gui_field.o gui_form.o i18n.o main.o options.o parser.o reproj.o selections.o tools.o
-	${GCC} errors.o export.o geom.o gui_conf.o gui_field.o gui_form.o i18n.o main.o options.o parser.o reproj.o selections.o tools.o ${SLRE_DIR}/slre.o ${SHAPELIB_DIR}/dbfopen.o ${SHAPELIB_DIR}/shpopen.o ${SHAPELIB_DIR}/libshp.a ${PROJ4_DIR}/lib/libproj.a -o ${PRG} ${LD_EXTRA_FLAGS} ${GUI_LIB} ${GCC_EXTRA_FLAGS}
+	${GCC} errors.o export.o geom.o gui_conf.o gui_field.o gui_form.o i18n.o main.o options.o parser.o reproj.o selections.o tools.o ${MULTCLIP_DIR}/polygon0.o ${MULTCLIP_DIR}/polygon1.o ${MULTCLIP_DIR}/vectmatr.o ${SLRE_DIR}/slre.o ${SHAPELIB_DIR}/dbfopen.o ${SHAPELIB_DIR}/shpopen.o ${SHAPELIB_DIR}/libshp.a ${PROJ4_DIR}/lib/libproj.a -o ${PRG} ${LD_EXTRA_FLAGS} ${GUI_LIB} ${GCC_EXTRA_FLAGS}
 
 #############################################################################
 
@@ -238,7 +259,7 @@ translations:
 	@ echo "********************************************************************************"
 	@ echo "* Check if ''Content-Type: text/plain; charset=UTF-8'' in the .po files.       *"
 	@ echo "********************************************************************************"
-	@ echo "\nCompiling source code..."
+	@ echo "Compiling source code..."
 	
 
 #############################################################################
@@ -248,6 +269,7 @@ clean:
 	rm -f *.h.gch
 	rm -f test-platform
 	rm -f ${SLRE_DIR}/slre.o
+	rm -f ${MULTCLIP_DIR}/*.o
 	rm -f ${SHAPELIB_DIR}/*.o ${SHAPELIB_DIR}/libshp.a ${SHAPELIB_DIR}/shptest ${SHAPELIB_DIR}/shpcreate
 	rm -f ${SHAPELIB_DIR}/shpadd ${SHAPELIB_DIR}/shpdump ${SHAPELIB_DIR}/shprewind ${SHAPELIB_DIR}/dbfcreate
 	rm -f ${SHAPELIB_DIR}/dbfadd ${SHAPELIB_DIR}/dbfdump ${SHAPELIB_DIR}/sptreedump

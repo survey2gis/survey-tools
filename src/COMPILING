@@ -9,7 +9,7 @@ Written by the survey-tools.org development team
 This file contains information on how to compile Survey2GIS
 from source code.
 
-Survey2gGIS is written in ANSI C, is highly portable and
+Survey2GIS is written in ANSI C, is highly portable and
 has minimal dependencies on 3rd party libraries.
 
 The graphical user interface (GUI) requires GTK+ to be installed

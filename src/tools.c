@@ -767,12 +767,10 @@ void t_dbl_to_str ( double value, char *dst ) {
  *
  * 'env'    - Name of environment variable that contains the path to
  *            the data directory.
- * 'local'  - Relative path (with respect to the current working directory)
- *            of a local data directory.
- * 'global' - Absolute path of a global data directory.
- *
- * The returned result will be the _first_ directory passed by
- * the caller (i.e. non-NULL) in the order: env -> local -> global.
+ * 'local'  - RELATIVE path (with respect the directory that contains
+ * 			  the current instance of this program's binary) of a local
+ * 			  ("bundled") data directory.
+ * 'global' - ABSOLUTE path of a global data directory.
  *
  * Note that each one of 'env', 'local' and 'global' can be passed
  * as 'NULL', in which case the corresponding location will not be
@@ -780,11 +778,21 @@ void t_dbl_to_str ( double value, char *dst ) {
  *
  * The returned value is either NULL (on error, see below) or a newly
  * allocated string (on success) that must be free'd by the caller.
+ * If the returned value is non-NULL, then it will represent
+ * the _first_ directory passed by the caller (i.e. non-NULL) in the
+ * order: env -> local -> global, cast to an absolute, canonical form.
  *
- * This function does _not_ check whether any of the provided directory
- * paths actually exist and are accessible!
+ * This function does not explicitly check whether any of the provided
+ * paths actually exists and is accessible. However, the function "realpath()",
+ * that is used for conversion to absolute paths, will traverse the file
+ * system to follow symbolic links, and will fail if there are any problems.
  *
  * This function will return 'NULL' if all three locations are undefined.
+ *
+ * Note that 'NULL' will also be returned if the resolution to an absolute
+ * path fails for the first defined location! Therefore, a result of 'NULL'
+ * should always be treated as an error condition by the caller, and 'errno'
+ * should be reported.
  */
 char *t_set_data_dir ( const char *env, const char *local, const char *global )
 {
@@ -797,22 +805,22 @@ char *t_set_data_dir ( const char *env, const char *local, const char *global )
 	if( env != NULL && strlen(env) > 0 ) {
 		char *p = getenv(env);
 		if ( p!= NULL ) {
-			return ( strdup (p) );
+			return (realpath(p, NULL)); // Return new buffer with absolute path.
 		}
 	}
 
 	/* check local path */
 	if ( local != NULL && strlen (local) > 0 ) {
 		char buf[PRG_MAX_PATH_LENGTH];
-		getcwd(buf, PRG_MAX_PATH_LENGTH);
+		snprintf(buf, PRG_MAX_PATH_LENGTH-1, PRG_DIR_CLI);
 		strncat(buf, PRG_FILE_SEPARATOR_STR, PRG_MAX_PATH_LENGTH-1);
-		strncat(buf, local, PRG_MAX_PATH_LENGTH);
-		return ( strdup(buf) );
+		strncat(buf, local, PRG_MAX_PATH_LENGTH-1);
+		return ( realpath(buf, NULL) );
 	}
 
 	/* check global path */
 	if ( global != NULL && strlen (global) > 0 ) {
-		return ( strdup(global) );
+		return (realpath(global, NULL)); // Return new buffer with absolute path.
 	}
 
 	return ( (char*) NULL );
@@ -1057,6 +1065,17 @@ char *realpath(const char *path, char resolved_path[PATH_MAX])
 const char *t_get_prg_name () {
 	return ((const char*)PRG_NAME);
 }
+
+
+/*
+ * Returns a string that contains the name of the command used to run "survey2gis".
+ *
+ * The returned string is a pointer to a string constant defined in 'global.h'.
+ */
+const char *t_get_cmd_name () {
+	return ((const char*)PRG_CMD_NAME);
+}
+
 
 /*
  * Returns a string that contains the current program version as defined in 'global.h'.

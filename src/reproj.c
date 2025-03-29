@@ -65,7 +65,7 @@ void reproj_init( options *opts ) {
 	}
 
 	/* 3. Set PROJ.4 data directory (this may fail) */
-	char *proj4_data_dir = t_set_data_dir ( REPROJ_PROJ4_ENVVAR, REPROJ_PROJ4_DATA_DIR, NULL );
+	char *proj4_data_dir = t_set_data_dir ( REPROJ_PROJ4_ENVVAR, REPROJ_PROJ4_DATA_DIR, opts->proj4_data_dir );
 
 	if ( proj4_data_dir != NULL ) {
 		/* Check that the "epsg" database actually exists in the given path! */
@@ -90,7 +90,7 @@ void reproj_init( options *opts ) {
 		search_path = malloc ( sizeof(char*) );
 		search_path[0] = proj4_data_dir;
 		pj_set_searchpath(1,(const char**)search_path);
-		err_show ( ERR_NOTE, _("PROJ.4 data path is: '%s'"), search_path[0]);
+		err_show ( ERR_NOTE, _("PROJ.4 data path is: '%s'\n"), search_path[0]);
 	} else {
 		err_show ( ERR_WARN, _("\nFailed to set PROJ.4 data path. EPSG conversions might not be available."));
 	}
@@ -378,9 +378,13 @@ int reproj_parse_opts( options *opts ) {
 		char *current = NULL;
 		for ( i = 0; i < 2; i ++ ) {
 			if ( i == 0 ) {
-				current = strdup(opts->proj_in);
+				if ( opts->proj_in != NULL ) {
+					current = strdup(opts->proj_in);
+				}
 			} else {
-				current = strdup(opts->proj_out);
+				if ( opts->proj_out != NULL ) {
+					current = strdup(opts->proj_out);
+				}
 			}
 			if ( current == NULL ) {
 				break; /* this can happen, because one of the SRS may be missing */

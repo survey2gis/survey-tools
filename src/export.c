@@ -246,7 +246,7 @@ int export_SHP_write_atts ( 	DBFHandle dbf, geom_store *gs, int GEOM_TYPE,
 			/* INT field */
 			if ( parser->fields[field_num]->type == PARSER_FIELD_TYPE_INT ) {
 				/*** INTEGER ***/
-				i_value = t_str_to_int ( atts[field_num], &c_error, &c_overflow );
+				i_value = parser_str_to_int_field ( parser, parser->fields[field_num]->name, atts[field_num], &c_error, &c_overflow );
 				fits = export_SHP_DBF_field_width_OK ( atts[field_num], PARSER_FIELD_TYPE_INT, opts );
 				store_null = FALSE;
 				/* check for all conditions under which NULL data will be written */
@@ -349,7 +349,7 @@ int export_SHP_write_atts ( 	DBFHandle dbf, geom_store *gs, int GEOM_TYPE,
 #endif
 
 				/*** DOUBLE ***/
-				d_value = t_str_to_dbl ( atts[field_num], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
+				d_value = parser_str_to_dbl_field ( parser, parser->fields[field_num]->name, atts[field_num], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
 				fits = export_SHP_DBF_field_width_OK ( atts[field_num], PARSER_FIELD_TYPE_DOUBLE, opts );
 				store_null = FALSE;
 				/* check for all conditions under which NULL data will be written */
@@ -1089,7 +1089,7 @@ int export_GeoJSON_write_properties ( FILE *ft, geom_store *gs, int GEOM_TYPE,
 				}
 				if ( parser->fields[i]->type == PARSER_FIELD_TYPE_INT ) {
 					/*** INTEGER ***/
-					int i_value = t_str_to_int ( atts[i], &c_error, &c_overflow );
+					int i_value = parser_str_to_int_field ( parser, parser->fields[i]->name, atts[i], &c_error, &c_overflow );
 					store_null = FALSE;
 					/* check for all conditions under which NULL data will be written */
 					if ( c_error == TRUE && c_overflow == FALSE ) {
@@ -1128,7 +1128,7 @@ int export_GeoJSON_write_properties ( FILE *ft, geom_store *gs, int GEOM_TYPE,
 
 				if ( parser->fields[i]->type == PARSER_FIELD_TYPE_DOUBLE ) {
 					/*** DOUBLE ***/
-					double d_value = t_str_to_dbl ( atts[i], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
+					double d_value = parser_str_to_dbl_field ( parser, parser->fields[i]->name, atts[i], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
 					store_null = FALSE;
 					/* check for all conditions under which NULL data will be written */
 					if ( c_error == TRUE && c_overflow == FALSE ) {
@@ -1795,7 +1795,7 @@ int export_KML_write_data ( FILE *ft, geom_store *gs, int GEOM_TYPE,
 				}
 				if ( parser->fields[i]->type == PARSER_FIELD_TYPE_INT ) {
 					/*** INTEGER ***/
-					int i_value = t_str_to_int ( atts[i], &c_error, &c_overflow );
+					int i_value = parser_str_to_int_field ( parser, parser->fields[i]->name, atts[i], &c_error, &c_overflow );
 					BOOLEAN store_null = FALSE;
 					/* check for all conditions under which NULL data will be written */
 					if ( c_error == TRUE && c_overflow == FALSE ) {
@@ -1834,7 +1834,7 @@ int export_KML_write_data ( FILE *ft, geom_store *gs, int GEOM_TYPE,
 
 				if ( parser->fields[i]->type == PARSER_FIELD_TYPE_DOUBLE ) {
 					/*** DOUBLE ***/
-					double d_value = t_str_to_dbl ( atts[i], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
+					double d_value = parser_str_to_dbl_field ( parser, parser->fields[i]->name, atts[i], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
 					BOOLEAN store_null = FALSE;
 					/* check for all conditions under which NULL data will be written */
 					if ( c_error == TRUE && c_overflow == FALSE ) {
@@ -2782,6 +2782,7 @@ int export_SHP ( geom_store *gs, parser_desc *parser, options *opts )
 
 	/* Points */
 	int obj = -1; /* Separate, unbroken DBF/SHP index. */
+
 	for (i = 0; i < gs->num_points; i ++ ) {
 		if ( gs->points[i].is_selected == TRUE ) {
 			obj ++;
@@ -3261,7 +3262,7 @@ int export_DXF_write_atts ( 	FILE *ft, geom_store *gs, int GEOM_TYPE,
 
 			if ( parser->fields[field_num]->type == PARSER_FIELD_TYPE_INT ) {
 				/*** INTEGER ***/
-				i_value = t_str_to_int ( atts[field_num], &c_error, &c_overflow );
+				i_value = parser_str_to_int_field ( parser, parser->fields[field_num]->name, atts[field_num], &c_error, &c_overflow );
 				store_null = FALSE;
 				/* check for all conditions under which NULL data will be written */
 				if ( c_error == TRUE && c_overflow == FALSE ) {
@@ -3300,7 +3301,7 @@ int export_DXF_write_atts ( 	FILE *ft, geom_store *gs, int GEOM_TYPE,
 
 			if ( parser->fields[field_num]->type == PARSER_FIELD_TYPE_DOUBLE ) {
 				/*** DOUBLE ***/
-				d_value = t_str_to_dbl ( atts[field_num], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
+				d_value = parser_str_to_dbl_field ( parser, parser->fields[field_num]->name, atts[field_num], opts->decimal_point[0], opts->decimal_group[0], &c_error, &c_overflow );
 				store_null = FALSE;
 				/* check for all conditions under which NULL data will be written */
 				if ( c_error == TRUE && c_overflow == FALSE ) {

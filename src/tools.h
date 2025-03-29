@@ -42,7 +42,7 @@ char * t_str_to_upper ( char *str );
 /* convert a string to all lowercase */
 char * t_str_to_lower ( char *str );
 
-/* convert a string to a an int if possible */
+/* convert a string to an int if possible */
 int t_str_to_int ( const char *str, BOOLEAN *error, BOOLEAN *overflow );
 
 /* removes leading and trailing white space */
@@ -83,6 +83,9 @@ char *t_set_data_dir ( const char *env, const char *local, const char *global );
 
 /* return program name string */
 const char *t_get_prg_name ();
+
+/* return executable command name string */
+const char *t_get_cmd_name ();
 
 /* return program version string */
 char *t_get_prg_version ();

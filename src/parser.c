@@ -585,7 +585,7 @@ int parser_record_validate_store_coords ( 	unsigned int slot, int num_fields_rea
 					continue;
 				}
 				if ( parser->fields[i]->type == PARSER_FIELD_TYPE_DOUBLE ) {
-					dvalue = t_str_to_dbl ( ds->records[slot].contents[i], opts->decimal_point[0], opts->decimal_group[0],
+					dvalue = parser_str_to_dbl_field ( parser, parser->fields[i]->name, ds->records[slot].contents[i], opts->decimal_point[0], opts->decimal_group[0],
 							&error, &overflow );
 					if ( error == TRUE && overflow == FALSE) {
 						err_show ( ERR_NOTE, "" );
@@ -604,7 +604,8 @@ int parser_record_validate_store_coords ( 	unsigned int slot, int num_fields_rea
 					}
 				}
 				if ( parser->fields[i]->type == PARSER_FIELD_TYPE_INT ) {
-					int ivalue = t_str_to_int ( ds->records[slot].contents[i], &error, &overflow );
+					int ivalue = 0;
+					ivalue = parser_str_to_int_field ( parser, parser->fields[i]->name, ds->records[slot].contents[i], &error, &overflow );
 					if ( ivalue == 0) ivalue = 0; /* this is just so that the compiler won't complain */
 					if ( error == TRUE && overflow == FALSE) {
 						err_show ( ERR_NOTE, "" );
@@ -631,24 +632,40 @@ int parser_record_validate_store_coords ( 	unsigned int slot, int num_fields_rea
 		for ( i = 0; i < ds->num_fields; i ++ ) {
 			if ( ds->records[slot].skip[i] == FALSE ) {
 				if ( !strcasecmp ( parser->tag_field, parser->fields[i]->name ) ) {
-					/* point tag? */
+					const char* tag = NULL;
+					/* Point, line or polygon tag? Try all! */
+					tag = parser_find_tag ( parser, GEOM_TYPE_POINT, (const char*) ds->records[slot].contents[i] );
+					if ( tag == NULL ) { /* check for line tag next */
+						tag = parser_find_tag ( parser, GEOM_TYPE_LINE, (const char*) ds->records[slot].contents[i] );
+					}
+					if ( tag == NULL ) { /* check for polygon tag next */
+						tag = parser_find_tag ( parser, GEOM_TYPE_POLY, (const char*) ds->records[slot].contents[i] );
+					}
+					if ( tag != NULL ) { /* non-null at this point: store */
+						ds->records[slot].tag = strdup ( tag );
+					}
+					// DELETE ME
+					/*
 					if ( 	parser->geom_tag_point != NULL &&
 							strlen ( parser->geom_tag_point ) > 0 &&
 							strstr ( ds->records[slot].contents[i], parser->geom_tag_point ) != NULL ) {
 						ds->records[slot].tag = strdup ( parser->geom_tag_point );
 					}
-					/* line tag? */
+					tag = parser_find_tag ( parser, GEOM_TYPE_LINE, (const char*) ds->records[slot].contents[i] );
+					if ( tag != NULL ) {
+						ds->records[slot].tag = strdup ( tag );
+					}
 					if ( 	parser->geom_tag_line != NULL &&
 							strlen ( parser->geom_tag_line ) > 0 &&
 							strstr ( ds->records[slot].contents[i], parser->geom_tag_line ) != NULL ) {
 						ds->records[slot].tag = strdup ( parser->geom_tag_line );
 					}
-					/* polygon tag? */
 					if ( 	parser->geom_tag_poly != NULL &&
 							strlen ( parser->geom_tag_poly ) > 0 &&
 							strstr ( ds->records[slot].contents[i], parser->geom_tag_poly ) != NULL ) {
 						ds->records[slot].tag = strdup ( parser->geom_tag_poly );
 					}
+					*/
 				}
 			}
 		}
@@ -823,6 +840,11 @@ parser_desc *parser_desc_create ()
 	for ( i = 0; i < PRG_MAX_FIELDS; i++ ) {
 		new_parser->fields[i] = NULL;
 	}
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i++ ) {
+		new_parser->tags_geom_point[i] = NULL;
+		new_parser->tags_geom_line[i] = NULL;
+		new_parser->tags_geom_poly[i] = NULL;
+	}
 	new_parser->tag_field = NULL;
 	new_parser->key_field = NULL;
 	new_parser->key_unique = FALSE;
@@ -837,9 +859,6 @@ parser_desc *parser_desc_create ()
 	new_parser->coor_x = NULL;
 	new_parser->coor_y = NULL;
 	new_parser->coor_z = NULL;
-	new_parser->geom_tag_point = NULL;
-	new_parser->geom_tag_line = NULL;
-	new_parser->geom_tag_poly = NULL;
 
 	return ( new_parser );
 }
@@ -866,15 +885,6 @@ void parser_desc_destroy ( parser_desc *parser )
 		if ( parser->key_field != NULL )
 			free ( parser->key_field );
 
-		if ( parser->geom_tag_point != NULL )
-			free ( parser->geom_tag_point );
-
-		if ( parser->geom_tag_line != NULL )
-			free ( parser->geom_tag_line );
-
-		if ( parser->geom_tag_poly != NULL )
-			free ( parser->geom_tag_poly );
-
 		if ( parser->comment_marks != NULL  ) {
 			int i;
 			for ( i = 0; i < PARSER_MAX_COMMENTS; i++ ) {
@@ -892,6 +902,14 @@ void parser_desc_destroy ( parser_desc *parser )
 				}
 			}
 			free ( parser->fields );
+		}
+		{
+			int i;
+			for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i++ ) {
+					t_free (parser->tags_geom_point[i]);
+					t_free (parser->tags_geom_line[i]);
+					t_free (parser->tags_geom_poly[i]);
+			}
 		}
 		if ( parser->coor_x != NULL )
 			free ( parser->coor_x);
@@ -978,6 +996,358 @@ void parser_field_destroy ( parser_field *field )
 				free ( field->lookup_new[i] );
 		}
 	}
+}
+
+
+/*
+ * Adds a new geometry tag to the list of known tags.
+ *
+ * Possible values for 'type' (parser.h):
+ *
+ * PARSER_GEOM_TAG_POINT	0
+ * PARSER_GEOM_TAG_LINE 	1
+ * PARSER_GEOM_TAG_POLY 	2
+ *
+ * Returns index number of tags array slot where tag was stored
+ * or '-1' on error.
+ *
+ * This method is quite robust:
+ * - Passing invalid or NULL parameter values will return '-1'.
+ * - A tag with length = 0 will not be stored.
+ * - Attempting to store a tag that is already stored will return
+ *   the index number of the existing tag.
+ * - Attempting to store a tag that is already stored for a
+ *   different geometry type will return '-1'.
+ * - Attempting to store a tag that is a substring of another
+ *   tag, or contains another tag as a substring, will return '-1'.
+ */
+int parser_tags_add ( parser_desc *parser, int type, const char *tag )
+{
+	int i;
+	char **store = NULL;
+
+	if ( tag == NULL || parser == NULL ) {
+		return (-1);
+	}
+
+	if ( strlen(tag) < 1 ) {
+		return (-1);
+	}
+
+	/* check that the tag does not already exist for another geometry */
+	if ( type == PARSER_GEOM_TAG_POINT || type == PARSER_GEOM_TAG_LINE || type == PARSER_GEOM_TAG_POLY ) {
+		for ( i = PARSER_GEOM_TAG_POINT; i <= PARSER_GEOM_TAG_POLY; i++ ) {
+			if ( i != type ) {
+				if ( parser_is_tag ( parser, i, tag ) == TRUE ) {
+					return (-1);
+				}
+			}
+		}
+	}
+
+	if ( parser_tags_overlap ( parser, tag, FALSE ) ) {
+		/* parser tag overlap (PARTIAL EQUALITY ONLY) is an error */
+		return(-1);
+	}
+
+	/* store the tag */
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i ++ ) {
+		if ( type == PARSER_GEOM_TAG_POINT ) {
+			store = parser->tags_geom_point;
+		}
+		else if ( type == PARSER_GEOM_TAG_LINE ) {
+			store = parser->tags_geom_line;
+		}
+		else if ( type == PARSER_GEOM_TAG_POLY ) {
+			store = parser->tags_geom_poly;
+		}
+		if ( store[i] == NULL ) {
+			/* store new tag */
+			store[i] = strdup (tag);
+			return(i);
+		} else {
+			/* if tag already exist: skip & job done */
+			if ( !strcmp((const char*)store[i], tag) ) {
+				return(i);
+			}
+		}
+		i ++;
+	}
+
+	return (-1);
+}
+
+
+/*
+ * Removes all geometry tags for given geometry type from
+ * parser definition. This function does _not_ free all
+ * memory allocated for storing parser tags. It simply
+ * sets all tag slots for the given geometry to NULL.
+ * The purpose of this function is to clear all parser
+ * tags for a given geometry, so that parser_get_num_tags()
+ * will return '0' for that geometry. Releasing all memory
+ * for the involved data structure is exclusively done
+ * in parser_data_store_destroy().
+ *
+ * Possible values for 'type' (parser.h):
+ *
+ * PARSER_GEOM_TAG_POINT	0
+ * PARSER_GEOM_TAG_LINE 	1
+ * PARSER_GEOM_TAG_POLY 	2
+ *
+ */
+void parser_tags_clear ( parser_desc *parser, int type )
+{
+	int t;
+
+	if ( parser == NULL ) {
+		return;
+	}
+
+	if ( type == PARSER_GEOM_TAG_POINT ) {
+		for ( t = 0; t < PARSER_MAX_GEOM_TAGS; t++ ) {
+			t_free (parser->tags_geom_point[t]);
+		}
+	}
+
+	if ( type == PARSER_GEOM_TAG_LINE ) {
+		for ( t = 0; t < PARSER_MAX_GEOM_TAGS; t++ ) {
+			t_free (parser->tags_geom_line[t]);
+		}
+	}
+
+	if ( type == PARSER_GEOM_TAG_POLY ) {
+		for ( t = 0; t < PARSER_MAX_GEOM_TAGS; t++ ) {
+			t_free (parser->tags_geom_poly[t]);
+		}
+	}
+
+}
+
+
+/* Checks whether 'str' is a geometry tag for geometry 'type'.
+ * Testing is case-sensitive. It is safe to use this method,
+ * even if no geometry tag for the given type has been defined
+ * as part of the parser description.
+ *
+ * Possible values for 'type' (parser.h):
+ *
+ * PARSER_GEOM_TAG_POINT	0
+ * PARSER_GEOM_TAG_LINE 	1
+ * PARSER_GEOM_TAG_POLY 	2
+ *
+ */
+BOOLEAN parser_is_tag ( parser_desc *parser, int type, const char *str )
+{
+	int i;
+	char **store = NULL;
+
+	if ( str == NULL || parser == NULL ) {
+		return (FALSE);
+	}
+
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i ++ ) {
+		if ( type == PARSER_GEOM_TAG_POINT ) {
+			store = parser->tags_geom_point;
+		}
+		else if ( type == PARSER_GEOM_TAG_LINE ) {
+			store = parser->tags_geom_line;
+		}
+		else if ( type == PARSER_GEOM_TAG_POLY ) {
+			store = parser->tags_geom_poly;
+		}
+		if ( store[i] != NULL ) {
+			if ( 0 == strcmp (str,(const char*)store[i]) ) {
+				return (TRUE);
+			}
+		}
+		i ++;
+	}
+	return (FALSE);
+}
+
+
+/*
+ * Checks if 'str' overlaps with any of the tags already defined
+ * for any geometry type.
+ *
+ * Overlaps means:
+ *  1 matches an existing tag
+ *  2 is a substring of an existing tag
+ *  3 contains an existing string as substring
+ *
+ *  Condition 1 is only checked if 'equal' is true.
+ *
+ *  All tests are case-sensitive.
+ */
+BOOLEAN parser_tags_overlap ( parser_desc *parser, const char *str, BOOLEAN equal )
+{
+	int i;
+	char **store = NULL;
+
+	if ( parser == NULL || str == NULL ) {
+		return ( FALSE );
+	}
+
+	/* test for equality depends on 'equal' */
+	if ( equal == TRUE ) {
+		/* check if 'str' exactly matches a tag registered for any geometry type */
+		if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POINT, str ) ) {
+			return ( TRUE );
+		}
+		if ( parser_is_tag ( parser, PARSER_GEOM_TAG_LINE, str ) ) {
+			return ( TRUE );
+		}
+		if ( parser_is_tag ( parser, PARSER_GEOM_TAG_POLY, str ) ) {
+			return ( TRUE );
+		}
+	}
+
+	/* tests for partial equality are always performed */
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i ++ ) {
+		store = parser->tags_geom_point;
+		if ( store[i] != NULL ) {
+			if ( strstr( store[i],str ) != NULL  || strstr( str,store[i] ) != NULL ) {
+				if ( strcmp (store[i],str) != 0 ) { /* we don't handle complete equality here */
+					return (TRUE);
+				}
+			}
+		}
+		store = parser->tags_geom_line;
+		if ( store[i] != NULL ) {
+			if ( strstr( store[i],str ) != NULL  || strstr( str,store[i] ) != NULL ) {
+				if ( strcmp (store[i],str) != 0 ) { /* we don't handle complete equality here */
+					return (TRUE);
+				}
+			}
+		}
+		store = parser->tags_geom_poly;
+		if ( store[i] != NULL ) {
+			if ( strstr( store[i],str ) != NULL  || strstr( str,store[i] ) != NULL ) {
+				if ( strcmp (store[i],str) != 0 ) { /* we don't handle complete equality here */
+					return (TRUE);
+				}
+			}
+		}
+		i ++;
+	}
+
+	return (FALSE);
+}
+
+
+/*
+ * Returns number of tag definitions for geometry 'type' in parser.
+ */
+int parser_get_num_tags ( parser_desc *parser, int type )
+{
+	int i;
+	int count=0;
+	char **store = NULL;
+
+	if ( parser == NULL ) {
+		return (FALSE);
+	}
+
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i ++ ) {
+		if ( type == PARSER_GEOM_TAG_POINT ) {
+			store = parser->tags_geom_point;
+		}
+		else if ( type == PARSER_GEOM_TAG_LINE ) {
+			store = parser->tags_geom_line;
+		}
+		else if ( type == PARSER_GEOM_TAG_POLY ) {
+			store = parser->tags_geom_poly;
+		}
+		if ( store[i] != NULL ) {
+			count ++;
+		}
+		i ++;
+	}
+
+	return (count);
+}
+
+
+/*
+ * Returns the tag definition for 'type' at 'pos' in the
+ * array of tag definitions for the given parser.
+ *
+ * Returns NULL if there is no tag definition or the given
+ * parameter values are out-of-range.
+ *
+ */
+const char *parser_get_tag ( parser_desc *parser, int type, int pos )
+{
+	int i;
+	char **store = NULL;
+
+	if ( pos < 0 || pos > PARSER_MAX_GEOM_TAGS ) {
+		return NULL;
+	}
+
+	if ( parser == NULL ) {
+		return (FALSE);
+	}
+
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i ++ ) {
+		if ( type == PARSER_GEOM_TAG_POINT ) {
+			store = parser->tags_geom_point;
+		}
+		else if ( type == PARSER_GEOM_TAG_LINE ) {
+			store = parser->tags_geom_line;
+		}
+		else if ( type == PARSER_GEOM_TAG_POLY ) {
+			store = parser->tags_geom_poly;
+		}
+		if ( store[i] != NULL ) {
+			return (const char*)store[i];
+		}
+		i ++;
+	}
+
+	return NULL;
+}
+
+
+/*
+ * Searches string 'str' for any of the geometry tags for 'type' defined
+ * in parser.
+ *
+ * Return values:
+ * - The tag (char*) itself, if found in 'str' or
+ * - NULL if the tag is not found 'str'.
+ *
+ * An non-NULL result will be a pointer into the parser's internal
+ * array of tag strings and must not be altered or free'd by the caller!
+ */
+const char *parser_find_tag ( parser_desc *parser, int type, const char* str )
+{
+	int i;
+	char **store = NULL;
+
+	if ( parser == NULL || str == NULL ) {
+		return (NULL);
+	}
+
+	for ( i = 0; i < PARSER_MAX_GEOM_TAGS; i ++ ) {
+		if ( type == PARSER_GEOM_TAG_POINT ) {
+			store = parser->tags_geom_point;
+		}
+		else if ( type == PARSER_GEOM_TAG_LINE ) {
+			store = parser->tags_geom_line;
+		}
+		else if ( type == PARSER_GEOM_TAG_POLY ) {
+			store = parser->tags_geom_poly;
+		}
+		if ( store[i] != NULL ) {
+			if ( strstr(str, (const char*) store[i]) != NULL ) {
+				return ((const char*)store[i]);
+			}
+		}
+		i ++;
+	}
+	return NULL;
 }
 
 
@@ -1095,7 +1465,7 @@ int parser_conversion_option ( const char *token, const char *file, int line_no,
  * the matching setting in the "opts" object.
  * Returns TRUE on success, FALSE on failure.
  */
-void parser_process_option ( const char *option_name, const char *option_val,
+BOOLEAN parser_process_option ( const char *option_name, const char *option_val,
 		int section_type, unsigned int line_no, int field_num,
 		parser_desc *parser, options *opts )
 {
@@ -1103,11 +1473,14 @@ void parser_process_option ( const char *option_name, const char *option_val,
 	BOOLEAN error;
 	char *name, *value;
 
+	name = NULL;
+	value = NULL;
+
 	if ( 	option_name == NULL || option_val == NULL ||
 			strlen ( option_name ) < 1 || strlen ( option_val ) < 1 ) {
 		err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Empty option name or value."),
 				opts->schema_file, line_no );
-		return;
+		t_free (name); t_free (value); return (FALSE);
 	}
 
 	valid = FALSE;
@@ -1117,13 +1490,13 @@ void parser_process_option ( const char *option_name, const char *option_val,
 	if ( strlen ( value ) < 1 ) {
 		err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Option \"%s\" has an empty value."),
 				opts->schema_file, line_no, name );
-		return;
+		t_free (name); t_free (value); return (FALSE);
 	}
 
 	if ( strlen ( value ) > PRG_MAX_STR_LEN ) {
 		err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Option values cannot be longer than %i characters."),
 				opts->schema_file, line_no, PRG_MAX_STR_LEN );
-		return;
+		t_free (name); t_free (value); return (FALSE);
 	}
 
 	if ( section_type == PARSER_SECTION_PARSER ) {
@@ -1131,7 +1504,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->name != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->name = strdup ( value );
 			valid = TRUE;
@@ -1140,7 +1513,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->info != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->info = strdup ( value );
 			valid = TRUE;
@@ -1149,7 +1522,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->tag_mode_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			int i = 0;
 			while ( strcmp (PARSER_MODE_NAMES[i],"") != 0 ) {
@@ -1164,7 +1537,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( valid == FALSE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid geometry tagging mode."),
 						opts->schema_file, line_no, value );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 		}
 		if ( !strcasecmp (name, "comment_mark")) {
@@ -1183,19 +1556,19 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( i == PARSER_MAX_COMMENTS ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Limit of %i distinct comment marks exceeded."),
 						opts->schema_file, line_no, PARSER_MAX_COMMENTS );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 		}
 		if ( !strcasecmp (name, "coor_x")) {
 			if ( parser->coor_x != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			if ( parser_is_valid_field_name (value) == FALSE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid field name."),
 						opts->schema_file, line_no, value );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->coor_x = strdup (value);
 			valid = TRUE;
@@ -1204,12 +1577,12 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->coor_y != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			if ( parser_is_valid_field_name (value) == FALSE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid field name."),
 						opts->schema_file, line_no, value );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->coor_y = strdup (value);
 			valid = TRUE;
@@ -1218,12 +1591,12 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->coor_z != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			if ( parser_is_valid_field_name (value) == FALSE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid field name."),
 						opts->schema_file, line_no, value );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->coor_z = strdup (value);
 			valid = TRUE;
@@ -1232,7 +1605,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->tag_field != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->tag_field = strdup (value);
 			valid = TRUE;
@@ -1241,7 +1614,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->key_field != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->key_field = strdup (value);
 			valid = TRUE;
@@ -1250,7 +1623,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->tag_strict_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->tag_strict = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->tag_strict_set = TRUE;
@@ -1260,7 +1633,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->key_unique_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->key_unique = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->key_unique_set = TRUE;
@@ -1270,42 +1643,66 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->empty_val_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->empty_val = t_str_to_int ( value, &error, NULL );
 			if ( error == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Value for \"%s\" is not a valid integer number."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->empty_val_set = TRUE;
 			valid = TRUE;
 		}
 		if ( !strcasecmp (name, "geom_tag_point")) {
+			//
+			/*
 			if ( parser->geom_tag_point != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
 				return;
 			}
 			parser->geom_tag_point = strdup (value);
+			*/
+			if ( parser_tags_add ( parser, PARSER_GEOM_TAG_POINT, strdup(value) ) < 0 ) {
+				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Tag \"%s\" is non-unique or exceeds storage."),
+						opts->schema_file, line_no, name );
+				t_free (name); t_free (value); return (FALSE);
+			}
 			valid = TRUE;
 		}
 		if ( !strcasecmp (name, "geom_tag_line")) {
+			//
+			/*
 			if ( parser->geom_tag_line != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->geom_tag_line = strdup (value);
+			*/
+			if ( parser_tags_add ( parser, PARSER_GEOM_TAG_LINE, strdup(value) ) < 0 ) {
+				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Tag \"%s\" is non-unique or exceeds storage."),
+						opts->schema_file, line_no, name );
+				t_free (name); t_free (value); return (FALSE);
+			}
 			valid = TRUE;
 		}
 		if ( !strcasecmp (name, "geom_tag_poly")) {
+			//
+			/*
 			if ( parser->geom_tag_poly != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->geom_tag_poly = strdup (value);
+			*/
+			if ( parser_tags_add ( parser, PARSER_GEOM_TAG_POLY, strdup(value) ) < 0 ) {
+				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Tag \"%s\" is non-unique or exceeds storage."),
+						opts->schema_file, line_no, name );
+				t_free (name); t_free (value); return (FALSE);
+			}
 			valid = TRUE;
 		}
 	}
@@ -1322,12 +1719,12 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->name != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			if ( parser_is_valid_field_name (value) == FALSE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid field name."),
 						opts->schema_file, line_no, value );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			i = 0;
 			while ( parser->fields[i] != NULL ) {
@@ -1335,7 +1732,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 					if ( !strcasecmp ( parser->fields[i]->name, value ) && i != field_num ) {
 						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: A field with name \"%s\" was already defined."),
 								opts->schema_file, line_no, value );
-						return;
+						t_free (name); t_free (value); return (FALSE);
 					}
 				i++;
 			}
@@ -1345,7 +1742,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 				if ( !strcasecmp ( PRG_RESERVED_FIELD_NAMES[i], value ) ) {
 					err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is a reserved field name."),
 							opts->schema_file, line_no, value );
-					return;
+					t_free (name); t_free (value); return (FALSE);
 				}
 				i ++;
 			}
@@ -1360,11 +1757,11 @@ void parser_process_option ( const char *option_name, const char *option_val,
 				if ( parser->fields[field_num]->value != NULL ) {
 					err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 							opts->schema_file, line_no, value );
-					return;
+					t_free (name); t_free (value); return (FALSE);
 				}
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: field value not defined."),
 						opts->schema_file, line_no );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			/* we will do a type compatibility check for the value later */
 			parser->fields[field_num]->value = strdup ( value );
@@ -1374,7 +1771,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->info != NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->info = strdup ( value );
 			valid = TRUE;
@@ -1383,7 +1780,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->type != PARSER_FIELD_TYPE_UNDEFINED ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			i = 0;
 			while ( strcmp ( PARSER_FIELD_TYPE_NAMES[i], "" ) != 0 ) {
@@ -1397,14 +1794,14 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( valid == FALSE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid field type."),
 						opts->schema_file, line_no, value );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 		}
 		if ( !strcasecmp (name, "empty_allowed")) {
 			if ( parser->fields[field_num]->empty_allowed_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->empty_allowed = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->fields[field_num]->empty_allowed_set = TRUE;
@@ -1414,7 +1811,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->unique_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->unique = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->fields[field_num]->unique_set = TRUE;
@@ -1424,7 +1821,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->persistent_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->persistent = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->fields[field_num]->persistent_set = TRUE;
@@ -1434,7 +1831,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->skip_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->skip = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->fields[field_num]->skip_set = TRUE;
@@ -1444,7 +1841,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->conversion_mode_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->conversion_mode = parser_conversion_option ( value, opts->schema_file, line_no, name );
 			parser->fields[field_num]->conversion_mode_set = TRUE;
@@ -1457,7 +1854,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( !strcmp ( value, "\n") ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Line break is not a valid field separator."),
 						opts->schema_file, line_no );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			i = 0;
 			while ( i < PARSER_MAX_SEPARATORS ) {
@@ -1480,14 +1877,14 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( i == PARSER_MAX_SEPARATORS ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Limit of %i distinct field separators exceeded."),
 						opts->schema_file, line_no, PARSER_MAX_SEPARATORS );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 		}
 		if ( !strcasecmp (name, "merge_separators")) {
 			if ( parser->fields[field_num]->merge_separators_set == TRUE ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->merge_separators = parser_is_enabled_option ( value, opts->schema_file, line_no, name );
 			parser->fields[field_num]->merge_separators_set = TRUE;
@@ -1497,12 +1894,12 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( parser->fields[field_num]->quote != 0 ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" has already been set in this context."),
 						opts->schema_file, line_no, name );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			if ( strlen (value) != 1 ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Quotation mark must be a single character."),
 						opts->schema_file, line_no );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			parser->fields[field_num]->quote = *value;
 			valid = TRUE;
@@ -1512,7 +1909,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( value == NULL ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: No string specified for content replacement."),
 						opts->schema_file, line_no, PRG_MAX_STR_LEN );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 			int j;
 			for ( j = 0; j < PARSER_LOOKUP_MAX; j ++ ) {
@@ -1522,12 +1919,12 @@ void parser_process_option ( const char *option_name, const char *option_val,
 					if ( strlen (p) > PRG_MAX_STR_LEN ) {
 						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: String to be replaced exceeds %i characters."),
 								opts->schema_file, line_no, PRG_MAX_STR_LEN );
-						return;
+						t_free (name); t_free (value); return (FALSE);
 					}
 					if ( strlen (value) > PRG_MAX_STR_LEN ) {
 						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: String to replace with exceeds %i characters."),
 								opts->schema_file, line_no, PRG_MAX_STR_LEN );
-						return;
+						t_free (name); t_free (value); return (FALSE);
 					}
 					parser->fields[field_num]->lookup_old[j] = strdup (p);
 					parser->fields[field_num]->lookup_new[j] = strdup (value);
@@ -1539,7 +1936,7 @@ void parser_process_option ( const char *option_name, const char *option_val,
 			if ( j == PARSER_LOOKUP_MAX ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: Maximum number of lookup pairs (%i) exceeded."),
 						opts->schema_file, line_no, PARSER_LOOKUP_MAX );
-				return;
+				t_free (name); t_free (value); return (FALSE);
 			}
 		}
 	}
@@ -1547,11 +1944,13 @@ void parser_process_option ( const char *option_name, const char *option_val,
 	if ( valid == FALSE ) {
 		err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: \"%s\" is not a valid option in this context."),
 				opts->schema_file, line_no, name );
-		return;
+		t_free (name); t_free (value); return (FALSE);
 	}
 
-	free (name);
-	free (value);
+	t_free (name);
+	t_free (value);
+
+	return (TRUE);
 }
 
 
@@ -1559,16 +1958,18 @@ void parser_process_option ( const char *option_name, const char *option_val,
 void parser_desc_set ( parser_desc *parser, options *opts )
 {
 	FILE *fp;
-	char* line;
-	char *buffer;
+	char* line = NULL;
+	char *buffer = NULL;
 	unsigned int line_no;
 	BOOLEAN valid;
-	char *start, *end;
-	char *tmp, *option_name, *option_val;
+	char *start = NULL;
+	char *end = NULL;
+	char *tmp = NULL;
+	char *option_name = NULL;
+	char *option_val = NULL;
 	int section_type;
 	char *p;
 	int field_num;
-
 
 	if ( parser == NULL ) {
 		err_show ( ERR_EXIT, _("No parser file given."));
@@ -1611,7 +2012,8 @@ void parser_desc_set ( parser_desc *parser, options *opts )
 					ERR_EXIT,
 					_("Line too long in parser schema file (line no.: %i).\nThe maximum line length allowed is: %i characters."),
 					line_no, PARSER_MAX_FILE_LINE_LENGTH);
-			free ( line );
+			t_free ( line );
+			fclose ( fp );
 			return;
 		}
 
@@ -1635,7 +2037,8 @@ void parser_desc_set ( parser_desc *parser, options *opts )
 					if (  end == NULL ) {
 						err_show ( ERR_EXIT, _("Syntax error in parser schema (%s).\nLine #%i: Missing ']'."),
 								opts->schema_file, line_no );
-						free ( line );
+						t_free ( line );
+						fclose ( fp );
 						return;
 					}
 					/* we have a section: check if name is valid */
@@ -1665,11 +2068,12 @@ void parser_desc_set ( parser_desc *parser, options *opts )
 					if ( valid == FALSE ) {
 						err_show ( ERR_EXIT, _("Syntax error in parser schema (%s).\nLine #%i: \"%s\" is not a valid section identifier.\n"),
 								opts->schema_file, line_no, tmp );
-						free ( line );
-						free ( tmp );
+						t_free ( line );
+						t_free ( tmp );
+						fclose ( fp );
 						return;
 					}
-					free ( tmp );
+					t_free ( tmp );
 				} else {
 					/* assume that we have an "option = value" line */
 					start = buffer;
@@ -1677,13 +2081,15 @@ void parser_desc_set ( parser_desc *parser, options *opts )
 					if ( end == NULL ) {
 						err_show ( ERR_EXIT, _("Syntax error in parser schema (%s).\nLine #%i: Missing '=' (expected 'option=value' line)."),
 								opts->schema_file, line_no );
-						free ( line );
+						t_free ( line );
+						fclose ( fp );
 						return;
 					}
 					if ( section_type == PARSER_SECTION_NONE ) {
 						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine #%i: option/value out of context."),
 								opts->schema_file, line_no );
-						free ( line );
+						t_free ( line );
+						fclose ( fp );
 						return;
 					}
 
@@ -1691,7 +2097,7 @@ void parser_desc_set ( parser_desc *parser, options *opts )
 					*end = '\0';
 					tmp = t_str_pack (start);
 					option_name = t_str_del_quotes (tmp, '"');
-					free (tmp);
+					t_free (tmp);
 
 					/* extract option value */
 					*end = '=';
@@ -1699,23 +2105,29 @@ void parser_desc_set ( parser_desc *parser, options *opts )
 					start += sizeof (char);
 					tmp = t_str_pack (start);
 					option_val = t_str_del_quotes (tmp, '"');
-					free (tmp);
+					t_free (tmp);
 
 					/* process option */
-					parser_process_option ( option_name, option_val, section_type,
-							line_no, field_num,
-							parser, opts );
+					if ( parser_process_option ( option_name, option_val, section_type,
+							line_no, field_num, parser, opts ) == FALSE ) {
+						t_free (option_name);
+						t_free (option_val);
+						t_free ( buffer );
+						t_free (line);
+						fclose ( fp );
+						return;
+					}
 
-					free (option_name);
-					free (option_val);
+					t_free (option_name);
+					t_free (option_val);
 				}
 			}
 		}
-		free ( buffer );
+		t_free ( buffer );
 		line_no ++;
 	}
 
-	free (line);
+	t_free (line);
 	fclose ( fp );
 
 	parser->empty = FALSE;
@@ -1772,6 +2184,9 @@ void parser_dump ( parser_desc *parser, options *opts )
 		fprintf ( stderr, _("EMPTY FLD VAL:\t%i\n"), parser->empty_val );
 	else
 		fprintf ( stderr, _("EMPTY FLD VAL:\tNULL (default)\n"));
+
+	// DELETE ME
+	/*
 	if ( parser->geom_tag_point != NULL )
 		fprintf ( stderr, _("GEOM TAG POINT:\t%s\n"), parser->geom_tag_point );
 	else
@@ -1784,6 +2199,28 @@ void parser_dump ( parser_desc *parser, options *opts )
 		fprintf ( stderr, _("GEOM TAG POLY:\t%s\n"), parser->geom_tag_poly );
 	else
 		fprintf ( stderr, _("GEOM TAG POLY:\tNone.\n"));
+	*/
+	if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ) > 0 ) {
+		for ( i = 0; i < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ); i ++ ) {
+			fprintf ( stderr, _("GEOM TAG POINT (%i):\t%s\n"), (i+1), parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, i ) );
+		}
+	} else {
+		fprintf ( stderr, _("GEOM TAG POINT:\tNone.\n"));
+	}
+	if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ) > 0 ) {
+		for ( i = 0; i < parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ); i ++ ) {
+			fprintf ( stderr, _("GEOM TAG LINE (%i):\t%s\n"), (i+1), parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, i ) );
+		}
+	} else {
+		fprintf ( stderr, _("GEOM TAG LINE:\tNone.\n"));
+	}
+	if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ) > 0 ) {
+		for ( i = 0; i < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ); i ++ ) {
+			fprintf ( stderr, _("GEOM TAG POLY (%i):\t%s\n"), (i+1), parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, i ) );
+		}
+	} else {
+		fprintf ( stderr, _("GEOM TAG POLY:\tNone.\n"));
+	}
 	if ( parser->coor_x != NULL )
 		fprintf ( stderr, _("X COORD FIELD:\t%s\n"), parser->coor_x );
 	else
@@ -1982,6 +2419,9 @@ void parser_dump_gui ( parser_desc *parser, options *opts )
 		print ( _("EMPTY FLD VAL:\t%i\n"), parser->empty_val );
 	else
 		print ( _("EMPTY FLD VAL:\tNULL (default)\n"));
+
+	// DELETE ME
+	/*
 	if ( parser->geom_tag_point != NULL )
 		print ( _("GEOM TAG POINT:\t%s\n"), parser->geom_tag_point );
 	else
@@ -1994,6 +2434,29 @@ void parser_dump_gui ( parser_desc *parser, options *opts )
 		print ( _("GEOM TAG POLY:\t%s\n"), parser->geom_tag_poly );
 	else
 		print ( _("GEOM TAG POLY:\tNone.\n"));
+	*/
+	if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ) > 0 ) {
+		for ( i = 0; i < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ); i ++ ) {
+			print ( _("GEOM TAG POINT (%i):\t%s\n"), (i+1), parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, i ) );
+		}
+	} else {
+		print ( _("GEOM TAG POINT:\tNone.\n"));
+	}
+	if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ) > 0 ) {
+		for ( i = 0; i < parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ); i ++ ) {
+			print ( _("GEOM TAG LINE (%i):\t%s\n"), (i+1), parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, i ) );
+		}
+	} else {
+		print ( _("GEOM TAG LINE:\tNone.\n"));
+	}
+	if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ) > 0 ) {
+		for ( i = 0; i < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ); i ++ ) {
+			print ( _("GEOM TAG POLY (%i):\t%s\n"), (i+1), parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, i ) );
+		}
+	} else {
+		print ( _("GEOM TAG POLY:\tNone.\n"));
+	}
+
 	if ( parser->coor_x != NULL )
 		print ( _("X COORD FIELD:\t%s\n"), parser->coor_x );
 	else
@@ -2103,8 +2566,71 @@ void parser_dump_gui ( parser_desc *parser, options *opts )
 
 
 /*
+ * Helper function for geometry tag field validation:
+ * Returns TRUE" if "str" contains a number or +/- character.
+ * If "is_double" is set to true, then the string is also
+ * checked for the presence of the currently set decimal point
+ * and thousands separator characters.
+ */
+BOOLEAN parser_check_numeric ( const char *str, BOOLEAN is_double, options *opts )
+{
+	int i;
+
+	if ( str == NULL ) return FALSE;
+
+	for ( i=0; i < strlen(str); i ++) {
+		if ( str[i] == '0' ) return TRUE;
+		if ( str[i] == '1' ) return TRUE;
+		if ( str[i] == '2' ) return TRUE;
+		if ( str[i] == '3' ) return TRUE;
+		if ( str[i] == '4' ) return TRUE;
+		if ( str[i] == '5' ) return TRUE;
+		if ( str[i] == '6' ) return TRUE;
+		if ( str[i] == '7' ) return TRUE;
+		if ( str[i] == '8' ) return TRUE;
+		if ( str[i] == '9' ) return TRUE;
+		if ( str[i] == '+' ) return TRUE;
+		if ( str[i] == '-' ) return TRUE;
+		if ( is_double == TRUE ) {
+			/* check for decimal point/group char: this can be set via an option or i18n default */
+			if ( opts != NULL ) {
+				if ( strlen (opts->decimal_point) > 0 ) {
+					/* compare with option setting */
+					if ( str[i] == opts->decimal_point[0] ) return TRUE;
+				} else {
+					/* compare with i18n default */
+					char *check = i18n_get_decimal_point ();
+					if ( check != NULL ) {
+						if ( str[i] == check[0] ) {
+							t_free ( check );
+							return TRUE;
+						}
+						t_free ( check );
+					}
+				}
+				if ( strlen (opts->decimal_group) > 0 ) {
+					if ( str[i] == opts->decimal_group[0] ) return TRUE;
+				} else {
+					char *check = i18n_get_thousands_separator ();
+					if ( check != NULL ) {
+						if ( str[i] == check[0] ) {
+							t_free ( check );
+							return TRUE;
+						}
+						t_free ( check );
+					}
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+
+/*
  * Validates current parser settings.
- * Aborts in CLI mode if, program if an error was found.
+ * Aborts in CLI mode, if an error was found.
  * In GUI mode, check the return value. Anything other than "0" is an error.
  */
 int parser_desc_validate ( parser_desc *parser, options *opts )
@@ -2117,7 +2643,7 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 	BOOLEAN found;
 
 
-	/* check for valid field descriptions */
+	/* check for at least one field definition */
 	num_fields = 0;
 	while ( parser->fields[num_fields] != NULL ) {
 		num_fields ++;
@@ -2128,6 +2654,7 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 		return (1);
 	}
 
+	/* check for validity of field descriptions */
 	i = 0;
 	while ( parser->fields[i]!=NULL ) {
 		field = parser->fields[i];
@@ -2160,7 +2687,7 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 			if ( field->type == PARSER_FIELD_TYPE_DOUBLE ) {
 				BOOLEAN error;
 				BOOLEAN overflow;
-				t_str_to_dbl ( field->value, opts->decimal_point[0], opts->decimal_group[0],
+				parser_str_to_dbl_field ( parser, field->name, field->value, opts->decimal_point[0], opts->decimal_group[0],
 						&error, &overflow );
 				if ( error == TRUE ) {
 					err_show ( ERR_EXIT, _("Error in parser schema (%s).\nValue of field \"%s\" is not a valid number."),
@@ -2181,7 +2708,7 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 			if ( field->type == PARSER_FIELD_TYPE_INT ) {
 				BOOLEAN error;
 				BOOLEAN overflow;
-				t_str_to_int ( field->value, &error, &overflow );
+				parser_str_to_int_field ( parser, field->name, field->value, &error, &overflow );
 				if ( error == TRUE ) {
 					err_show ( ERR_EXIT, _("Error in parser schema (%s).\nValue of field \"%s\" is not a valid integer number."),
 							opts->schema_file, field->name);
@@ -2225,7 +2752,7 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 	/* Comment marks, quotation marks and field separators may not have characters in common */
 	for ( i=0; i < num_fields; i ++ ) {
 		field = parser->fields[i];
-		/* check for quotation vs. separators */
+		/* check for quotation mark (single char) vs. separators */
 		j = 0;
 		while ( j < PARSER_MAX_SEPARATORS && parser->fields[i]->separators[j] != NULL ) {
 			if ( parser->fields[i]->quote != 0 ) {
@@ -2241,7 +2768,7 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 			}
 			j ++;
 		}
-		/* check for comment chars vs. separators */
+		/* check for comment chars vs. separator chars */
 		j = 0;
 		while ( j < PARSER_MAX_SEPARATORS && parser->fields[i]->separators[j] != NULL ) {
 			k = 0;
@@ -2467,39 +2994,48 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 
 	/* in most tag modes, tags for lines and polygons are required */
 	if ( parser->tag_mode != PARSER_TAG_MODE_NONE ) {
-		if ( parser->geom_tag_line == NULL ) {
-			err_show ( ERR_EXIT, _("Error in parser schema (%s).\nNo tag string for line type geometries given."),
-					opts->schema_file );
-			return (1);
-		}
-		if ( parser->geom_tag_poly == NULL ) {
-			err_show ( ERR_EXIT, _("Error in parser schema (%s).\nNo tag string for polygon type geometries given."),
-					opts->schema_file );
-			return (1);
-		}
-		if ( parser->geom_tag_point == NULL ) {
+		if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ) < 1 ) {
+			// if ( parser->geom_tag_point == NULL ) { DELETE_ME
 			if ( parser->tag_strict == TRUE || parser->tag_mode == PARSER_TAG_MODE_MAX ) {
 				err_show ( ERR_EXIT, _("Error in parser schema (%s).\nNo tag string for point type geometries given."),
 						opts->schema_file );
 				return (1);
 			}
 		}
+		if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ) < 1 ) {
+			//if ( parser->geom_tag_line == NULL ) { DELETE ME
+			err_show ( ERR_EXIT, _("Error in parser schema (%s).\nNo tag string for line type geometries given."),
+					opts->schema_file );
+			return (1);
+		}
+		if ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ) < 1 ) {
+			// if ( parser->geom_tag_poly == NULL ) { DELETE_ME
+			err_show ( ERR_EXIT, _("Error in parser schema (%s).\nNo tag string for polygon type geometries given."),
+					opts->schema_file );
+			return (1);
+		}
 	}
 
-	if ( parser->geom_tag_point == NULL && parser->tag_mode != PARSER_TAG_MODE_NONE ) {
-		parser->geom_tag_point = strdup (""); /* empty point tag means that it is not defined */
+	/* clear point tags if the corresponding parser option is not set */
+	if ( ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ) < 1 ) && parser->tag_mode != PARSER_TAG_MODE_NONE ) {
+	// if ( parser->geom_tag_point == NULL && parser->tag_mode != PARSER_TAG_MODE_NONE ) { DELETE ME
+		// parser->geom_tag_point = strdup (""); /* empty point tag means that it is not defined */ DELETE ME
+		parser_tags_clear ( parser, PARSER_GEOM_TAG_POINT );
 	}
 
 	if ( parser->tag_mode != PARSER_TAG_MODE_NONE ) {
-		if ( parser->geom_tag_line == NULL || parser->geom_tag_poly == NULL ) {
+		// if ( parser->geom_tag_line == NULL || parser->geom_tag_poly == NULL ) { DELETE ME
+		if ( ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ) < 1 ) || ( parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ) < 1 ) ) {
 			err_show ( ERR_EXIT, _("Error in parser schema (%s).\nGeometry tags must be provided for both lines and polygons.\nSet both \"geom_tag_line\" and \"geom_tag_poly\""),
 					opts->schema_file );
 			return (1);
 		}
 	}
 
+	// DELETE ME: This is now checked after a call to parser_tags_add().
 	/* Tagging strings for points, lines and polygons must be unique,
 	    and they cannot be the same as any quote, comment or separator char for the same field.	*/
+	/*
 	if ( parser->tag_mode != PARSER_TAG_MODE_NONE ) {
 		if (	!strcasecmp (parser->geom_tag_point, parser->geom_tag_line ) ||
 				!strcasecmp (parser->geom_tag_point, parser->geom_tag_poly ) ||
@@ -2509,7 +3045,11 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 			return (1);
 		}
 	}
-	/* check for geom tags vs. separators */
+	*/
+
+	/* Check for geom tags vs. separators:
+	 * No geometry tag or character that is part of one(!) is allowed to match a separator char!
+	 */
 	if ( parser->tag_mode != PARSER_TAG_MODE_NONE ) {
 		for ( i=0; i < num_fields; i ++ ) {
 			field = parser->fields[i];
@@ -2517,35 +3057,45 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 			while ( j < PARSER_MAX_SEPARATORS && parser->fields[i]->separators[j] != NULL ) {
 				p1 = parser->fields[i]->separators[j];
 				while ( *p1 != '\0' ) {
+					int t;
 					/* points */
-					p2 = parser->geom_tag_point;
-					while ( *p2 != '\0' ) {
-						if ( *p2 == *p1 ) {
-							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": separator matches point geom tag (after line %i)."),
-									opts->schema_file, field->name, field->definition );
-							return (1);
+					for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ); t ++ ) {
+						// p2 = parser->geom_tag_point; DELETE ME
+						p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, t );
+						while ( *p2 != '\0' ) {
+							if ( *p2 == *p1 ) {
+								err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": separator matches point geom tag (after line %i)."),
+										opts->schema_file, field->name, field->definition );
+								return (1);
+							}
+							p2 += sizeof (char);
 						}
-						p2 += sizeof (char);
 					}
 					/* lines */
-					p2 = parser->geom_tag_line;
-					while ( *p2!= '\0' ) {
-						if ( *p2 == *p1 ) {
-							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": separator matches line geom tag (after line %i)."),
-									opts->schema_file, field->name, field->definition );
-							return (1);
+					for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ); t ++ ) {
+						// p2 = parser->geom_tag_line; DELETE ME
+						p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, t );
+						while ( *p2!= '\0' ) {
+							if ( *p2 == *p1 ) {
+								err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": separator matches line geom tag (after line %i)."),
+										opts->schema_file, field->name, field->definition );
+								return (1);
+							}
+							p2 += sizeof (char);
 						}
-						p2 += sizeof (char);
 					}
 					/* polygons */
-					p2 = parser->geom_tag_poly;
-					while ( *p2!= '\0' ) {
-						if ( *p2 == *p1 ) {
-							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": separator matches poly geom tag (after line %i)."),
-									opts->schema_file, field->name, field->definition );
-							return (1);
+					for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ); t ++ ) {
+						// p2 = parser->geom_tag_poly; DELETE ME
+						p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, t );
+						while ( *p2!= '\0' ) {
+							if ( *p2 == *p1 ) {
+								err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": separator matches poly geom tag (after line %i)."),
+										opts->schema_file, field->name, field->definition );
+								return (1);
+							}
+							p2 += sizeof (char);
 						}
-						p2 += sizeof (char);
 					}
 					p1 += sizeof (char);
 				}
@@ -2557,48 +3107,59 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 		while ( j < PARSER_MAX_COMMENTS  && parser->comment_marks[j] != NULL ) {
 			p1 = parser->comment_marks[j];
 			while ( *p1 != '\0' ) {
+				int t;
 				/* points */
-				p2 = parser->geom_tag_point;
-				while ( *p2!= '\0' ) {
-					if ( *p2 == *p1 ) {
-						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nComment mark matches point geom tag."),
-								opts->schema_file );
-						return (1);
+				for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ); t ++ ) {
+					// p2 = parser->geom_tag_point; DELETE ME
+					p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, t );
+					while ( *p2!= '\0' ) {
+						if ( *p2 == *p1 ) {
+							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nComment mark matches point geom tag."),
+									opts->schema_file );
+							return (1);
+						}
+						p2 += sizeof (char);
 					}
-					p2 += sizeof (char);
 				}
 				/* lines */
-				p2 = parser->geom_tag_line;
-				while ( *p2!= '\0' ) {
-					if ( *p2 == *p1 ) {
-						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nComment mark matches line geom tag."),
-								opts->schema_file );
-						return (1);
+				for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ); t ++ ) {
+					// p2 = parser->geom_tag_line; DELETE ME
+					p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, t );
+					while ( *p2!= '\0' ) {
+						if ( *p2 == *p1 ) {
+							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nComment mark matches line geom tag."),
+									opts->schema_file );
+							return (1);
+						}
+						p2 += sizeof (char);
 					}
-					p2 += sizeof (char);
 				}
 				/* polygons */
-				p2 = parser->geom_tag_poly;
-				while ( *p2!= '\0' ) {
-					if ( *p2 == *p1 ) {
-						err_show ( ERR_EXIT, _("Error in parser schema (%s).\nComment mark matches poly geom tag."),
-								opts->schema_file );
-						return (1);
+				for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ); t ++ ) {
+					// p2 = parser->geom_tag_poly; DELETE ME
+					p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, t );
+					while ( *p2!= '\0' ) {
+						if ( *p2 == *p1 ) {
+							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nComment mark matches poly geom tag."),
+									opts->schema_file );
+							return (1);
+						}
+						p2 += sizeof (char);
 					}
-					p2 += sizeof (char);
 				}
 				p1 += sizeof (char);
 			}
 			j ++;
 		}
-		/* check for geom tags vs. quotation char */
+		/* check for geom tags vs. quotation char (defined PER FIELD!) */
 		for ( i=0; i < num_fields; i ++ ) {
-			field = parser->fields[i];
-			j = 0;
-			while ( j < PARSER_MAX_SEPARATORS && parser->fields[i]->separators[j] != NULL ) {
-				if ( parser->fields[i]->quote != 0 ) {
-					/* points */
-					p2 = parser->geom_tag_point;
+			field = parser->fields[i]; /* need to check every field's definition */
+			if ( parser->fields[i]->quote != 0 ) { /* 'quote' can only be a single character */
+				int t;
+				/* points */
+				for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT ); t ++ ) {
+					// p2 = parser->geom_tag_point; DELETE ME
+					p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, t );
 					while ( *p2!= '\0' ) {
 						if ( *p2 == parser->fields[i]->quote ) {
 							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": quoting char matches point geom tag (after line %i)."),
@@ -2607,8 +3168,11 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 						}
 						p2 += sizeof (char);
 					}
-					/* lines */
-					p2 = parser->geom_tag_line;
+				}
+				/* lines */
+				for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE ); t ++ ) {
+					// p2 = parser->geom_tag_line; DELETE ME
+					p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, t );
 					while ( *p2!= '\0' ) {
 						if ( *p2 == parser->fields[i]->quote ) {
 							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": quoting char matches line geom tag (after line %i)."),
@@ -2617,8 +3181,11 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 						}
 						p2 += sizeof (char);
 					}
-					/* polygons */
-					p2 = parser->geom_tag_poly;
+				}
+				/* polygons */
+				for ( t=0; t < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY ); t ++ ) {
+					// p2 = parser->geom_tag_poly; DELETE ME
+					p2 = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, t );
 					while ( *p2!= '\0' ) {
 						if ( *p2 == parser->fields[i]->quote ) {
 							err_show ( ERR_EXIT, _("Error in parser schema (%s).\nField \"%s\": quoting char matches poly geom tag (after line %i)."),
@@ -2628,7 +3195,47 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 						p2 += sizeof (char);
 					}
 				}
-				j++;
+			}
+		}
+	}
+
+	/* if the tag is stored in a numeric field (not recommended) then we need some extra strictness */
+	if ( parser->tag_mode != PARSER_TAG_MODE_NONE ) {
+		int i;
+		for ( i=0; i < PRG_MAX_FIELDS; i ++ ) {
+			if ( parser->fields[i] != NULL ) {
+				if ( !strcasecmp ( parser->tag_field, parser->fields[i]->name ) ) {
+					int ftype = parser->fields[i]->type;
+					/* apply some extra checks only if we have a numeric field */
+					if ( ( ftype == PARSER_FIELD_TYPE_INT ) || ( ftype == PARSER_FIELD_TYPE_DOUBLE) ) {
+						int j;
+						BOOLEAN is_double = ( parser->fields[i]->type == PARSER_FIELD_TYPE_DOUBLE ); /* even more checks needed for double type fields */
+						/* POINT TAGS */
+						for ( j=0; j < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT); j++ ) {
+							if ( parser_check_numeric ( parser_get_tag( parser, PARSER_GEOM_TAG_POINT, j), is_double, opts ) == TRUE ) {
+								err_show ( ERR_EXIT, _("Error in parser schema (%s).\nPoint geometry tag ('%s') with numeric characters cannot be stored in numeric field."),
+													opts->schema_file, parser_get_tag( parser, PARSER_GEOM_TAG_POINT, j) );
+								return (1);
+							}
+						}
+						/* LINE TAGS */
+						for ( j=0; j < parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE); j++ ) {
+							if ( parser_check_numeric ( parser_get_tag( parser, PARSER_GEOM_TAG_LINE, j), is_double, opts ) == TRUE ) {
+								err_show ( ERR_EXIT, _("Error in parser schema (%s).\nLine geometry tag ('%s') with numeric characters cannot be stored in numeric field."),
+										opts->schema_file, parser_get_tag( parser, PARSER_GEOM_TAG_LINE, j) );
+								return (1);
+							}
+						}
+						/* POLYGON TAGS */
+						for ( j=0; j < parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY); j++ ) {
+							if ( parser_check_numeric ( parser_get_tag( parser, PARSER_GEOM_TAG_POLY, j), is_double, opts ) == TRUE ) {
+								err_show ( ERR_EXIT, _("Error in parser schema (%s).\nPolygon geometry tag ('%s') with numeric characters cannot be stored in numeric field."),
+										opts->schema_file, parser_get_tag( parser, PARSER_GEOM_TAG_POLY, j) );
+								return (1);
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -2765,7 +3372,9 @@ int parser_desc_validate ( parser_desc *parser, options *opts )
 			err_show ( ERR_WARN, _("Unneeded setting in parser schema (%s).\nSetting for \"key_unique\" will be ignored."),
 					opts->schema_file );
 		}
-		if ( parser->geom_tag_point != NULL || parser->geom_tag_line != NULL || parser->geom_tag_poly != NULL ) {
+		// if ( parser->geom_tag_point != NULL || parser->geom_tag_line != NULL || parser->geom_tag_poly != NULL ) { DELETE ME
+		if ( parser_get_num_tags(parser,PARSER_GEOM_TAG_POINT) + parser_get_num_tags(parser,PARSER_GEOM_TAG_LINE) +
+						parser_get_num_tags(parser,PARSER_GEOM_TAG_POLY) > 0 ) {
 			err_show ( ERR_WARN, _("Unneeded setting(s) in parser schema (%s).\nSetting(s) for geometry tags will be ignored."),
 					opts->schema_file );
 		}
@@ -3088,4 +3697,235 @@ void parser_consume_input ( parser_desc *parser, options *opts, parser_data_stor
 			fclose ( in );
 	} /* END (loop through all input files) */
 	free ( contents );
+}
+
+
+/* Converts a string stored in a parser field to an integer if possible.
+ * USE THIS FUNCTION WHENEVER AN INT VALUE MUST BE READ FROM A FIELD'S
+ * CONTENTS!
+ * This function works just like 't_str_to_int()', except for one
+ * critical detail: characters that represent geometry tags are removed from
+ * the input string before trying to convert it into a number.
+ * This function is meant to cover the rare case where a numeric field
+ * also serves as a geometry tag field. In a valid input dataset, geometry
+ * tags may precede or succeed the numeric data in the field content.
+ * This function requires a parser definition and a field name as
+ * arguments, in addition to the arguments that must be passed to
+ * 't_str_to_int()'.
+ */
+int parser_str_to_int_field ( parser_desc *parser, const char *field, const char *str, BOOLEAN *error, BOOLEAN *overflow )
+{
+	char* copy;
+	char* cleaned;
+	int result;
+
+	/* reset error states */
+	if ( error != NULL ) *error = FALSE;
+	if ( overflow != NULL ) *overflow = FALSE;
+	errno = 0;
+
+	/* basic error handling */
+	if ( parser == NULL || field == NULL || strlen (field ) < 1 ||
+			str == NULL || strlen ( str ) < 1 )
+	{
+		if ( error != NULL ) *error = TRUE;
+		return ( 0 );
+	}
+
+	/* check if field is a tagging field and needs special treatment */
+	if ( parser->tag_field == NULL ) {
+		/* no tags defined in parser */
+		return ( t_str_to_int (str, error, overflow) );
+	}
+	if ( strcasecmp ( parser->tag_field, field ) != 0 ) {
+		/* not a tag field */
+		return ( t_str_to_int (str, error, overflow) );
+	}
+
+	/* duplicate input string */
+	copy = strdup (str);
+
+	/* clean input string from any geometry tag (replace with spaces and trim result) */
+	{
+		int num;
+		int i;
+		char *tag = NULL;
+		char *token = NULL;
+		/* POINTS */
+		num = parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT );
+		for ( i=0; i < num; i ++ ) {
+			tag = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, i );
+			token = strstr ( (const char*) copy, (const char*) tag );
+			if ( token != NULL ) {
+				int j = 0;
+				while ( j < strlen (tag) ) {
+					*token = ' ';
+					token++;
+					j++;
+				}
+			}
+		}
+		/* LINES */
+		num = parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE );
+		for ( i=0; i < num; i ++ ) {
+			tag = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, i );
+			token = strstr ( (const char*) copy, (const char*) tag );
+			if ( token != NULL ) {
+				int j = 0;
+				while ( j < strlen (tag) ) {
+					*token = ' ';
+					token++;
+					j++;
+				}
+			}
+		}
+		/* POLYGONS */
+		num = parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY );
+		for ( i=0; i < num; i ++ ) {
+			tag = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, i );
+			token = strstr ( (const char*) copy, (const char*) tag );
+			if ( token != NULL ) {
+				int j = 0;
+				while ( j < strlen (tag) ) {
+					*token = ' ';
+					token++;
+					j++;
+				}
+			}
+		}
+	}
+	/* pack string and release mem for copy */
+	cleaned = t_str_pack(copy);
+	t_free ( copy );
+
+	/* basic error handling */
+	if ( cleaned == NULL || strlen ( cleaned ) < 1 ) {
+		if ( error != NULL ) *error = TRUE;
+		t_free ( cleaned );
+		return ( 0 );
+	}
+
+	/* call t_str_to_int to get conversion result */
+	result = t_str_to_int ( (const char*) cleaned, error, overflow );
+
+	/* clean up and return result */
+	t_free ( cleaned );
+
+	return ( result );
+}
+
+/* Converts a string stored in a parser field to a double if possible.
+ * USE THIS FUNCTION WHENEVER A DOUBLE VALUE MUST BE READ FROM A FIELD'S
+ * CONTENTS!
+ * This function works just like 't_str_to_dbl()', except for one
+ * critical detail: characters that represent geometry tags are removed from
+ * the input string before trying to convert it into a number.
+ * This function is meant to cover the rare case where a numeric field
+ * also serves as a geometry tag field. In a valid input dataset, geometry
+ * tags may precede or succeed the numeric data in the field content.
+ * This function requires a parser definition and a field name as
+ * arguments, in addition to the arguments that must be passed to
+ * 't_str_to_dbl()'.
+ */
+double parser_str_to_dbl_field ( parser_desc *parser, const char *field, const char *str,
+		const char decp, const char tsep,
+		BOOLEAN *error, BOOLEAN *overflow )
+{
+	char* copy;
+	char* cleaned;
+	int result;
+
+	/* reset error states */
+	if ( error != NULL ) *error = FALSE;
+	if ( overflow != NULL ) *overflow = FALSE;
+	errno = 0;
+
+	/* basic error handling */
+	if ( parser == NULL || field == NULL || strlen (field ) < 1 ||
+			str == NULL || strlen ( str ) < 1 )
+	{
+		if ( error != NULL ) *error = TRUE;
+		return ( 0 );
+	}
+
+	/* check if field is a tagging field and needs special treatment */
+	if ( parser->tag_field == NULL ) {
+		/* no tags defined in parser */
+		return ( t_str_to_dbl (str, decp, tsep, error, overflow) );
+	}
+	if ( strcasecmp ( parser->tag_field, field ) != 0 ) {
+		/* not a tag field */
+		return ( t_str_to_dbl (str, decp, tsep, error, overflow) );
+	}
+
+	/* duplicate input string */
+	copy = strdup (str);
+
+	/* clean input string from any geometry tag (replace with spaces and trim result) */
+	{
+		int num;
+		int i;
+		char *tag = NULL;
+		char *token = NULL;
+		/* POINTS */
+		num = parser_get_num_tags ( parser, PARSER_GEOM_TAG_POINT );
+		for ( i=0; i < num; i ++ ) {
+			tag = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POINT, i );
+			token = strstr ( (const char*) copy, (const char*) tag );
+			if ( token != NULL ) {
+				int j = 0;
+				while ( j < strlen (tag) ) {
+					*token = ' ';
+					token++;
+					j++;
+				}
+			}
+		}
+		/* LINES */
+		num = parser_get_num_tags ( parser, PARSER_GEOM_TAG_LINE );
+		for ( i=0; i < num; i ++ ) {
+			tag = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_LINE, i );
+			token = strstr ( (const char*) copy, (const char*) tag );
+			if ( token != NULL ) {
+				int j = 0;
+				while ( j < strlen (tag) ) {
+					*token = ' ';
+					token++;
+					j++;
+				}
+			}
+		}
+		/* POLYGONS */
+		num = parser_get_num_tags ( parser, PARSER_GEOM_TAG_POLY );
+		for ( i=0; i < num; i ++ ) {
+			tag = (char*) parser_get_tag ( parser, PARSER_GEOM_TAG_POLY, i );
+			token = strstr ( (const char*) copy, (const char*) tag );
+			if ( token != NULL ) {
+				int j = 0;
+				while ( j < strlen (tag) ) {
+					*token = ' ';
+					token++;
+					j++;
+				}
+			}
+		}
+	}
+	/* pack string and release mem for copy */
+	cleaned = t_str_pack(copy);
+	t_free ( copy );
+
+	/* basic error handling */
+	if ( cleaned == NULL || strlen ( cleaned ) < 1 ) {
+		if ( error != NULL ) *error = TRUE;
+		t_free ( cleaned );
+		return ( 0 );
+	}
+
+	/* call t_str_to_double to get conversion result */
+	result = t_str_to_dbl ( (const char*) cleaned, decp, tsep, error, overflow );
+
+	/* clean up and return result */
+	t_free ( cleaned );
+
+	return ( result );
 }

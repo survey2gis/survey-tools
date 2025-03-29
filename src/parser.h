@@ -55,6 +55,14 @@
 #define PARSER_FIELD_TYPE_INT 			1
 #define PARSER_FIELD_TYPE_DOUBLE 		2
 
+/* types of geometry tags */
+#define PARSER_GEOM_TAG_POINT	0
+#define PARSER_GEOM_TAG_LINE 	1
+#define PARSER_GEOM_TAG_POLY 	2
+
+/* maximum number of tags (per geometry tag) that can be defined in a parser */
+#define PARSER_MAX_GEOM_TAGS	32
+
 /* field types as they appear in the parser schema file */
 static const char PARSER_FIELD_TYPE_NAMES[][10] =
 { "text", "integer", "double", "" };
@@ -181,9 +189,13 @@ static const char PARSER_MODE_NAMES[][5] =
 { "min", "max", "end", "none", "" };
 
 /* default geometry tags */
+/*
+ * BD: These are never used. There are no useful application
+ * defaults. All tags are set to 'null' (undefined) initially.
 #define PARSER_GEOM_TAG_POINT	"."
 #define PARSER_GEOM_TAG_LINE	"-"
 #define PARSER_GEOM_TAG_POLY	"+"
+*/
 
 /* default data store memory chunk size */
 #define PARSER_DATA_STORE_CHUNK	100
@@ -255,6 +267,9 @@ struct parser_desc
 	BOOLEAN key_unique; /* TRUE if every geometry has a unique value in its key field (enabling multi-parts) */
 	BOOLEAN key_unique_set;
 	char **comment_marks; /* array of PARSER_MAX_COMMENTS strings that indicate commented lines */
+	char *tags_geom_point[PARSER_MAX_GEOM_TAGS]; /* array of PARSER_MAX_GEOM_TAGS strings that represent point geometry tags */
+	char *tags_geom_line[PARSER_MAX_GEOM_TAGS]; /* array of PARSER_MAX_GEOM_TAGS strings that represent line geometry tags */
+	char *tags_geom_poly[PARSER_MAX_GEOM_TAGS]; /* array of PARSER_MAX_GEOM_TAGS strings that represent polygon geometry tags */
 	parser_field **fields; /* array of PRG_MAX_FIELDS field descriptions in parser, unused slots are NULL */
 	char *tag_field; /* name of the one field that contains the geometry tags;
 						may be identical with "key_field";
@@ -267,11 +282,6 @@ struct parser_desc
 	char *coor_x;
 	char *coor_y;
 	char *coor_z;
-	/* the following are the geometry tags for points, lines and polygons 
-           they default to ".", "-" and "+" */
-	char *geom_tag_point;
-	char *geom_tag_line;
-	char *geom_tag_poly;
 	BOOLEAN empty; /* set to "TRUE" if this is an empty parser */
 };
 
@@ -361,5 +371,32 @@ void parser_data_store_destroy ( parser_data_store *ds );
 /* main function that reads the input files and parses them,
  * storing the data in a data store for each input data source */
 void parser_consume_input ( parser_desc *parser, options *opts, parser_data_store **storage );
+
+/* adds a new geometry tag to the list of known tags */
+int parser_tags_add ( parser_desc *parser, int type, const char *tag );
+
+/* checks whether 'str' overlaps with a geometry tag for geometry 'type' */
+BOOLEAN parser_tags_overlap ( parser_desc *parser, const char *str, BOOLEAN equal );
+
+/* checks whether 'str' is a geometry tag for geometry 'type' */
+BOOLEAN parser_is_tag ( parser_desc *parser, int type, const char *str );
+
+/* returns number of tag definitions for geometry 'type' in parser */
+int parser_get_num_tags ( parser_desc *parser, int type );
+
+/* returns geometry tag definition for 'type' at given index value 'pos' */
+const char *parser_get_tag ( parser_desc *parser, int type, int pos );
+
+/* searches 'str' for any of the parser tags for 'type' */
+const char *parser_find_tag ( parser_desc *parser, int type, const char* str );
+
+/* removes all tag definitions for a geometry type from parser definition */
+void parser_tags_clear ( parser_desc *parser, int type );
+
+/* converts a string stored in a field to an int, removing any geometry tags first */
+int parser_str_to_int_field ( parser_desc *parser, const char* field, const char *str, BOOLEAN *error, BOOLEAN *overflow );
+
+/* converts a string stored in a field to a double, removing any geometry tags first */
+double parser_str_to_dbl_field ( parser_desc *parser, const char *field, const char *str, const char decp, const char tsep, BOOLEAN *error, BOOLEAN *overflow );
 
 #endif /* PARSER_H */

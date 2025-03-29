@@ -1,414 +1,414 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# German translations for survey package.
+# Copyright (C) 2013 THE survey'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the survey package.
+# Automatically generated, 2013.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: survey 2gis\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-20 20:44+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2022-02-17 22:23+0100\n"
+"PO-Revision-Date: 2013-08-14 12:20+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: parser.c:2547
 #, c-format
 msgid "\t\t\t\t\"%s\"=\"%s\"\n"
-msgstr ""
+msgstr "\t\t\t\t\"%s\"=\"%s\"\n"
 
 #: parser.c:2311
 #, c-format
 msgid "\t\t\t\"%s\"=\"%s\"\n"
-msgstr ""
+msgstr "\t\t\t\"%s\"=\"%s\"\n"
 
 #: main.c:492
 #, c-format
 msgid "\t\tAssigned to %i lines/parts: %i"
-msgstr ""
+msgstr "\t\t%i Linien/Teilen zugeordnet: %i"
 
 #: main.c:491
 #, c-format
 msgid "\t\tAssigned to %i points: %i"
-msgstr ""
+msgstr "\t\t%i Punkten zugeordnet: %i"
 
 #: main.c:493
 #, c-format
 msgid "\t\tAssigned to %i polygons/parts: %i"
-msgstr ""
+msgstr "\t\tZu %i Polygonen/Teilen zugeordnet: %i"
 
 #: parser.c:2508
 msgid "\t\tCASE CHANGE:\t"
-msgstr ""
+msgstr "\t\tEINHEITL. SCHREIBUNG: \t"
 
 #: parser.c:2494
 msgid "\t\tEMPTY ALLOWED:\tNo.\n"
-msgstr ""
+msgstr "\t\tLEER ERLAUBT: \tNein.\n"
 
 #: parser.c:2492
 msgid "\t\tEMPTY ALLOWED:\tYes.\n"
-msgstr ""
+msgstr "\t\tLEER ERLAUBT: \tJa.\n"
 
 #: parser.c:2478
 #, c-format
 msgid "\t\tINFO:\t\t%s\n"
-msgstr ""
+msgstr "\t\tINFO:\t\t%s\n"
 
 #: parser.c:2480
 msgid "\t\tINFO:\t\tNone.\n"
-msgstr ""
+msgstr "\t\tINFO:\t\t Keine.\n"
 
 #: parser.c:2535
 msgid "\t\tMERGE SEPS:\tNo.\n"
-msgstr ""
+msgstr "\t\tVERBINDE FELDTRENNER:\tNein.\n"
 
 #: parser.c:2533
 msgid "\t\tMERGE SEPS:\tYes.\n"
-msgstr ""
+msgstr "\t\tVERBINDE FELDTRENNER:\tJa.\n"
 
 #: main.c:494
 #, c-format
 msgid "\t\tNot assigned to any geometry: %i"
-msgstr ""
+msgstr "\t\tKeiner Geometrie zugeordnet: %i"
 
 #: parser.c:2502
 msgid "\t\tPERSISTENT:\tNo.\n"
-msgstr ""
+msgstr "\t\tPERSISTENT:\tNein.\n"
 
 #: parser.c:2500
 msgid "\t\tPERSISTENT:\tYes.\n"
-msgstr ""
+msgstr "\t\tPERSISTENT:\tJa.\n"
 
 #: parser.c:2537
 #, c-format
 msgid "\t\tQUOTATION:\t\"%c\"\n"
-msgstr ""
+msgstr "\t\tANFUEHRUNGSZEICHEN:\t\"%c\"\n"
 
 #: parser.c:2539
 msgid "\t\tQUOTATION:\tNone.\n"
-msgstr ""
+msgstr "\t\tANFUEHRUNGSZEICHEN:\tKeine.\n"
 
 #: parser.c:2542
 msgid "\t\tREPLACEMENTS:"
-msgstr ""
+msgstr "\t\tERSETZUNGEN:"
 
 #: parser.c:2519
 msgid "\t\tSEPARATORS:\t"
-msgstr ""
+msgstr "\t\tFELDTRENNER:\t"
 
 #: parser.c:2506
 msgid "\t\tSKIP:\t\tNo.\n"
-msgstr ""
+msgstr "\t\tUEBERSPRINGEN:\t\tNein.\n"
 
 #: parser.c:2504
 msgid "\t\tSKIP:\t\tYes.\n"
-msgstr ""
+msgstr "\t\tUEBERSPRINGEN:\t\tJa.\n"
 
 #: parser.c:2484
 #, c-format
 msgid "\t\tTYPE:\t\t%i (\"%s\")\n"
-msgstr ""
+msgstr "\t\tTYP:\t\t%i (\"%s\")\n"
 
 #: parser.c:2482
 msgid "\t\tTYPE:\t\tUnknown.\n"
-msgstr ""
+msgstr "\t\tTYP:\t\tUnbekannt.\n"
 
 #: parser.c:2498
 msgid "\t\tUNIQUE:\t\tNo.\n"
-msgstr ""
+msgstr "\t\tEINDEUTIG:\t\tNein.\n"
 
 #: parser.c:2496
 msgid "\t\tUNIQUE:\t\tYes.\n"
-msgstr ""
+msgstr "\t\tEINDEUTIG:\t\tJa.\n"
 
 #: parser.c:2488
 #, c-format
 msgid "\t\tVALUE:\t\t\"%s\"\n"
-msgstr ""
+msgstr "\t\tWERT:\t\t\"%s\"\n"
 
 #: main.c:176 main.c:1038 main.c:1047 main.c:1056 main.c:1065 main.c:1073
 #: main.c:1080 main.c:1086
 #, c-format
 msgid "\t%s"
-msgstr ""
+msgstr "\t%s"
 
 #: parser.c:2272
 #, c-format
 msgid "\tCASE CHANGE:\t"
-msgstr ""
+msgstr "\tEINHEITLICHE SCHREIBUNG:\t"
 
 #: main.c:143
 #, c-format
 msgid "\tDatum transformation grid: '%s'"
-msgstr ""
+msgstr "\tGrid für Datumstransform.: \"%s\""
 
 #: main.c:153
 msgid "\tDatum transformation parameters:"
-msgstr ""
+msgstr "\tParameter für Datumstransform.:"
 
 #: parser.c:2258
 #, c-format
 msgid "\tEMPTY ALLOWED:\tNo.\n"
-msgstr ""
+msgstr "\tLEER ERLAUBT:\tNein.\n"
 
 #: parser.c:2256
 #, c-format
 msgid "\tEMPTY ALLOWED:\tYes.\n"
-msgstr ""
+msgstr "\tLEER ERLAUBT:\tJa.\n"
 
 #: parser.c:2476
 #, c-format
 msgid "\tFIELD NO. %i:\t%s\n"
-msgstr ""
+msgstr "\tFELD NR. %i:\t%s\n"
 
 #: parser.c:2242
 #, c-format
 msgid "\tINFO:\t\t%s\n"
-msgstr ""
+msgstr "\tINFO:\t\t%s\n"
 
 #: parser.c:2244
 #, c-format
 msgid "\tINFO:\t\tNone.\n"
-msgstr ""
+msgstr "\tINFO:\t\tKeine.\n"
 
 #: main.c:141
 #, c-format
 msgid "\tInput SRS: '%s'"
-msgstr ""
+msgstr "\tQuell-KBS: \"%s\""
 
 #: main.c:975
 #, c-format
 msgid "\tLines: %i."
-msgstr ""
+msgstr "\tLinien: %i."
 
 #: parser.c:2299
 #, c-format
 msgid "\tMERGE SEPS:\tNo.\n"
-msgstr ""
+msgstr "\tFELDTRENNER VERBINDEN:\tNein.\n"
 
 #: parser.c:2297
 #, c-format
 msgid "\tMERGE SEPS:\tYes.\n"
-msgstr ""
+msgstr "\tFELDTRENNER VERBINDEN:\tJa.\n"
 
 #: selections.c:1137
 #, c-format
 msgid "\tMatched %i line(s)."
-msgstr ""
+msgstr "\tEnthält %i Linie(n)."
 
 #: selections.c:1113
 #, c-format
 msgid "\tMatched %i point(s)."
-msgstr ""
+msgstr "\tEnthält %i Punkt(e)."
 
 #: selections.c:1148
 #, c-format
 msgid "\tMatched %i polygon(s)."
-msgstr ""
+msgstr "\tEnthält %i Polygon(e)."
 
 #: selections.c:1125
 #, c-format
 msgid "\tMatched %i raw point(s)."
-msgstr ""
+msgstr "\tEnthält %i Messpunkt(e)."
 
 #: parser.c:2325 parser.c:2561
 #, c-format
 msgid "\tNone found.\n"
-msgstr ""
+msgstr "\tNichts gefunden.\n"
 
 #: parser.c:2317
 #, c-format
 msgid "\tNone."
-msgstr ""
+msgstr "\tKein."
 
 #: parser.c:2553
 msgid "\tNone.\n"
-msgstr ""
+msgstr "\tKein.\n"
 
 #: main.c:489
 #, c-format
 msgid "\tNumber of invalid records: %i"
-msgstr ""
+msgstr "\tAnzahl ungültiger Datensätze: %i"
 
 #: main.c:490
 #, c-format
 msgid "\tNumber of valid records: %i"
-msgstr ""
+msgstr "\tAnzahl gültiger Datensätze: %i"
 
 #: main.c:168
 #, c-format
 msgid "\tOutput SRS: '%s'"
-msgstr ""
+msgstr "\tAusgabe-KBS: \"%s\""
 
 #: parser.c:2266
 #, c-format
 msgid "\tPERSISTENT:\tNo.\n"
-msgstr ""
+msgstr "\tPERSISTENT:\tNr.\n"
 
 #: parser.c:2264
 #, c-format
 msgid "\tPERSISTENT:\tYes.\n"
-msgstr ""
+msgstr "\tPERSISTENT:\tJa.\n"
 
 #: main.c:131
 #, c-format
 msgid "\tPlacement (lines): %s"
-msgstr ""
+msgstr "\tPlatzierung (Linien): %s"
 
 #: main.c:130
 #, c-format
 msgid "\tPlacement (points): %s"
-msgstr ""
+msgstr "\tPlatzierung (Punkte): %s"
 
 #: main.c:132
 #, c-format
 msgid "\tPlacement (polygons): %s"
-msgstr ""
+msgstr "\tPlatzierung (Polygone): %s"
 
 #: main.c:971
 #, c-format
 msgid "\tPoints: %i."
-msgstr ""
+msgstr "\tPunkte: %i."
 
 #: main.c:976
 #, c-format
 msgid "\tPolygons: %i."
-msgstr ""
+msgstr "\tPolygone: %i."
 
 #: parser.c:2301
 #, c-format
 msgid "\tQUOTATION:\t\"%c\"\n"
-msgstr ""
+msgstr "\tANFUEHRUNGSZEICHEN:\t\"%c\"\n"
 
 #: parser.c:2303
 #, c-format
 msgid "\tQUOTATION:\tNone.\n"
-msgstr ""
+msgstr "\tANFUEHRUNGSZEICHEN:\tKeine.\n"
 
 #: parser.c:2306
 #, c-format
 msgid "\tREPLACEMENTS:"
-msgstr ""
+msgstr "\tERSETZUNGEN:"
 
 #: main.c:973
 #, c-format
 msgid "\tRaw points: %i."
-msgstr ""
+msgstr "\tMesspunkte: %i."
 
 #: parser.c:2283
 #, c-format
 msgid "\tSEPARATORS:\t"
-msgstr ""
+msgstr "\tFELDTRENNER:\t"
 
 #: parser.c:2270
 #, c-format
 msgid "\tSKIP:\t\tNo.\n"
-msgstr ""
+msgstr "\tUEBERSPRINGEN:\t\tNein.\n"
 
 #: parser.c:2268
 #, c-format
 msgid "\tSKIP:\t\tYes.\n"
-msgstr ""
+msgstr "\tUEBERSPRINGEN:\t\tJa.\n"
 
 #: main.c:160
 #, c-format
 msgid "\tScaling from WGS 84: %f"
-msgstr ""
+msgstr "\tSkalierung von WGS 84: %f"
 
 #: parser.c:2248
 #, c-format
 msgid "\tTYPE:\t\t%i (\"%s\")\n"
-msgstr ""
+msgstr "\tTYP:\t\t%i (\"%s\")\n"
 
 #: parser.c:2246
 #, c-format
 msgid "\tTYPE:\t\tUnknown.\n"
-msgstr ""
+msgstr "\tTYP:\t\tUnbekannt.\n"
 
 #: main.c:129
 #, c-format
 msgid "\tText field: %s"
-msgstr ""
+msgstr "\tTextfeld: %s"
 
 #: main.c:488
 #, c-format
 msgid "\tTotal records/lines read: %i"
-msgstr ""
+msgstr "\tInsgesamt eingelesene Datensätze/Zeilen: %i"
 
 #: main.c:495
 #, c-format
 msgid "\tTotal topological error count: %i"
-msgstr ""
+msgstr "\tGesamtzahl topologischer Fehler: %i"
 
 #: parser.c:2262
 #, c-format
 msgid "\tUNIQUE:\t\tNo.\n"
-msgstr ""
+msgstr "\tEINDEUTIG:\t\tNein.\n"
 
 #: parser.c:2260
 #, c-format
 msgid "\tUNIQUE:\t\tYes.\n"
-msgstr ""
+msgstr "\tEINDEUTIG:\t\tJa.\n"
 
 #: parser.c:2252
 #, c-format
 msgid "\tVALUE:\t\t\"%s\"\n"
-msgstr ""
+msgstr "\tWERT:\t\t\"%s\"\n"
 
 #: main.c:983
 #, c-format
 msgid "\tX range: from %f to %f."
-msgstr ""
+msgstr "\tX-Ausdehnung: von %f bis %f."
 
 #: main.c:157
 #, c-format
 msgid "\tX rotation from WGS 84: %f"
-msgstr ""
+msgstr "\tZ-Rotation von WGS 84: %f"
 
 #: main.c:154
 #, c-format
 msgid "\tX shift from WGS 84: %f"
-msgstr ""
+msgstr "\tX-Verschiebung von WGS 84: %f"
 
 #: main.c:984
 #, c-format
 msgid "\tY range: from %f to %f."
-msgstr ""
+msgstr "\tY-Ausdehnung: von %f bis %f."
 
 #: main.c:158
 #, c-format
 msgid "\tY rotation from WGS 84: %f"
-msgstr ""
+msgstr "\tY-Rotation von WGS 84: %f"
 
 #: main.c:155
 #, c-format
 msgid "\tY shift from WGS 84: %f"
-msgstr ""
+msgstr "\tY-Verschiebung von WGS 84: %f"
 
 #: main.c:986
 #, c-format
 msgid "\tZ range: from %f to %f."
-msgstr ""
+msgstr "\tZ-Ausdehnung: von %f bis %f."
 
 #: main.c:159
 #, c-format
 msgid "\tZ rotation from WGS 84: %f"
-msgstr ""
+msgstr "\tZ-Rotation von WGS 84: %f"
 
 #: main.c:156
 #, c-format
 msgid "\tZ shift from WGS 84: %f"
-msgstr ""
+msgstr "\tZ-Verschiebung von WGS 84: %f"
 
 #: parser.c:2180 parser.c:2308 parser.c:2415 parser.c:2544
 #, c-format
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: parser.c:2240
 #, c-format
@@ -416,6 +416,8 @@ msgid ""
 "\n"
 "\tFIELD NO. %i:\t%s\n"
 msgstr ""
+"\n"
+"\tFELD NR. %i:\t%s\n"
 
 #: parser.c:756
 #, c-format
@@ -426,6 +428,11 @@ msgid ""
 "geometry #'%s' (read from '%s', line %i+),\n"
 "as part %i"
 msgstr ""
+"\n"
+"\n"
+"Verschmelze Geometrie #'%s' (gelesen aus '%s', Zeile %i+) mit\n"
+"Geometrie #\"%s\" (gelesen aus \"%s\", Zeile %i+),\n"
+"als Teil %i"
 
 #: main.c:112
 #, c-format
@@ -433,6 +440,8 @@ msgid ""
 "\n"
 "* Initialized %s; %s"
 msgstr ""
+"\n"
+"* Initalisiert: %s; %s"
 
 #: parser.c:2149 parser.c:2384
 #, c-format
@@ -441,18 +450,25 @@ msgid ""
 "* PARSER AND FIELD DEFINITIONS *\n"
 "\n"
 msgstr ""
+"\n"
+"* PARSER- UND FELDDEFINITIONEN *\n"
+"\n"
 
 #: main.c:227
 msgid ""
 "\n"
 "* Processing messages follow below.\n"
 msgstr ""
+"\n"
+"* Meldungen zur Verarbeitung folgen unten.\n"
 
 #: main.c:123
 msgid ""
 "\n"
 "* Settings:"
 msgstr ""
+"\n"
+"* Einstellungen:"
 
 #: geom.c:65
 #, c-format
@@ -461,6 +477,9 @@ msgid ""
 "Aborted after record read from line %i of console input stream:\n"
 "Input too large (integer overflow)."
 msgstr ""
+"\n"
+"Abbruch nach dem Einlesen von Zeile %i von der Konsole:\n"
+"Eingabe zu groß (Ganzzahlüberlauf)."
 
 #: geom.c:583
 #, c-format
@@ -469,6 +488,9 @@ msgid ""
 "Aborted after record read from line %i of console input stream:\n"
 "Invalid line. Skipping."
 msgstr ""
+"\n"
+"Abbruch nach dem Einlesen von Zeile %i von der Konsole:\n"
+"Ungültige Zeile. Übersprungen."
 
 #: geom.c:60
 #, c-format
@@ -477,6 +499,9 @@ msgid ""
 "Aborted after record read from line %i of input file '%s':\n"
 "Input too large (integer overflow)."
 msgstr ""
+"\n"
+"Abbruch nach dem Einlesen von Zeile %i der Eingabedatei \"%s\":\n"
+"Eingabe zu groß (Ganzzahlüberlauf)."
 
 #: geom.c:578
 #, c-format
@@ -485,6 +510,9 @@ msgid ""
 "Aborted after record read from line %i of input file '%s':\n"
 "Invalid line. Skipping."
 msgstr ""
+"\n"
+"Abbruch nach dem Einlesen von Zeile %i der Eingabedatei \"%s\":\n"
+"Ungültige Zeile. Übersprungen."
 
 #: main.c:1013
 #, c-format
@@ -492,6 +520,8 @@ msgid ""
 "\n"
 "Added vertices at line/line intersections: %i"
 msgstr ""
+"\n"
+"Zu Linie/Linie-Kreuzungen hinzugefügte Stützpunkte: %i"
 
 #: main.c:1017
 #, c-format
@@ -499,6 +529,8 @@ msgid ""
 "\n"
 "Added vertices at line/polygon intersections: %i"
 msgstr ""
+"\n"
+"Linie-Polygon-Kreuzungen hinzugefügte Stützpunkte: %i"
 
 #: main.c:1021
 #, c-format
@@ -506,6 +538,8 @@ msgid ""
 "\n"
 "Added vertices at polygon/polygon intersections: %i"
 msgstr ""
+"\n"
+"Polygon-Polygon-Kreuzungen hinzugefügte Stützpunkte: %i"
 
 #: main.c:1027
 #, c-format
@@ -513,6 +547,8 @@ msgid ""
 "\n"
 "Additional topological errors in built geometries: %i"
 msgstr ""
+"\n"
+"Weitere Topologiefehler in fertigen Geometrien: %i"
 
 #: selections.c:1075
 #, c-format
@@ -520,6 +556,8 @@ msgid ""
 "\n"
 "Applying selection: '%s'"
 msgstr ""
+"\n"
+"Stelle Auswahl zusammen: \"%s\""
 
 #: main.c:999
 #, c-format
@@ -527,6 +565,8 @@ msgid ""
 "\n"
 "Attribute write errors: %i"
 msgstr ""
+"\n"
+"Schreibfehler bei Attributdaten: %i"
 
 #: export.c:1239
 msgid ""
@@ -534,6 +574,9 @@ msgid ""
 "Both fields 'id' and '_id' exist in input data. Cannot create GeoJSON "
 "primary key."
 msgstr ""
+"\n"
+"Felder \"id\" und \"_id\" existieren in Parserdefinition. Kann keinen "
+"GeoJSON-Primärschlüssel erzeugen."
 
 #: geom.c:6770
 #, c-format
@@ -541,6 +584,8 @@ msgid ""
 "\n"
 "Boundary intersection detected in polygons (IDs %i & %i), part nos %i & %i."
 msgstr ""
+"\n"
+"Überschneidende Polygongrenzen gefunden (IDs %i & %i), Teilnr. %i & %i."
 
 #: main.c:886
 #, c-format
@@ -548,24 +593,34 @@ msgid ""
 "\n"
 "Cannot combine mode '%s' with reprojection. Aborting."
 msgstr ""
+"\n"
+"Modus \"%s\" kann nicht mit Reprojektion kombiniert werden. Programmabbruch."
 
 #: main.c:707
 msgid ""
 "\n"
 "Cannot create local X-Z output for 2D input without Z field."
 msgstr ""
+"\n"
+"Kann lokale X-Z-Orientierung für 2D-Eingabedaten ohne Z-Feld nicht berechnen."
 
 #: main.c:713
 msgid ""
 "\n"
 "Cannot create local X-Z output for more than one data source."
 msgstr ""
+"\n"
+"Lokale X-Z-Orientierung kann nicht für mehr als eine Eingabequelle berechnet "
+"werden."
 
 #: main.c:720
 msgid ""
 "\n"
 "Cannot create local X-Z output: Z extent of data is '0.0'."
 msgstr ""
+"\n"
+"Kann lokale X-Z-Orientierung nicht berechnen: Z-Ausdehnung der Daten ist "
+"\"0.0\"."
 
 #: reproj.c:426
 #, c-format
@@ -574,6 +629,9 @@ msgid ""
 "Converted EPSG ID %i in SRS definition to PROJ.4 SRS string.\n"
 "Conversion may incur loss of information. Please verify result."
 msgstr ""
+"\n"
+"EPSG-Code %i in KBS-Definition wurde zu PROJ.4-Format konvertiert.\n"
+"Konvertierung kann verlustbehaftet sein. Bitte Ergebnis prüfen."
 
 #: main.c:1025
 #, c-format
@@ -581,6 +639,8 @@ msgid ""
 "\n"
 "Corrected vertex order of polygon boundaries and holes: %i"
 msgstr ""
+"\n"
+"Stützpunktreihenfolge in Polygongrenzen und -löchern geändert: %i"
 
 #: geom.c:4139
 #, c-format
@@ -589,6 +649,9 @@ msgid ""
 "Could not store line geometry from '%s', line %i.\n"
 "Reason: %s"
 msgstr ""
+"\n"
+"Liniengeometrie aus \"%s\", Zeile %i konnte nicht gespeichert werden.\n"
+"Ursache: %s"
 
 #: geom.c:4048
 #, c-format
@@ -597,6 +660,9 @@ msgid ""
 "Could not store line vertex from '%s', line %i.\n"
 "Reason: %s"
 msgstr ""
+"\n"
+"Linienstützpunkt aus \"%s\", Zeile %i konnte nicht gespeichert werden.\n"
+"Ursache: %s"
 
 #: geom.c:4028
 #, c-format
@@ -605,6 +671,9 @@ msgid ""
 "Could not store point from '%s', line %i.\n"
 "Reason: %s"
 msgstr ""
+"\n"
+"Punkt aus \"%s\", Zeile %i konnte nicht gespeichert werden.\n"
+"Ursache: %s"
 
 #: geom.c:4092
 #, c-format
@@ -613,6 +682,9 @@ msgid ""
 "Could not store point geometry from '%s', line %i.\n"
 "Reason: %s"
 msgstr ""
+"\n"
+"Punktgeometrie aus \"%s\", Zeile %i konnte nicht gespeichert werden.\n"
+"Ursache: %s"
 
 #: geom.c:4191
 #, c-format
@@ -621,6 +693,9 @@ msgid ""
 "Could not store polygon geometry from '%s', line %i.\n"
 "Reason: %s"
 msgstr ""
+"\n"
+"Polygongeometrie aus \"%s\", Zeile %i konnte nicht gespeichert werden.\n"
+"Ursache: %s"
 
 #: geom.c:4071
 #, c-format
@@ -629,12 +704,17 @@ msgid ""
 "Could not store polygon vertex from '%s', line %i.\n"
 "Reason: %s"
 msgstr ""
+"\n"
+"Polygonstützpunkt aus \"%s\", Zeile %i konnte nicht gespeichert werden.\n"
+"Ursache: %s"
 
 #: reproj.c:559
 msgid ""
 "\n"
 "Datum transformation not possible for SRS of type Web Mercator."
 msgstr ""
+"\n"
+"Datumstransformation für KBS-Typ \"Web Mercator\" nicht möglich."
 
 #: main.c:1001
 #, c-format
@@ -642,6 +722,8 @@ msgid ""
 "\n"
 "Detected line self-intersections: %i"
 msgstr ""
+"\n"
+"Erkannte Linien-Selbstüberschneidungen: %i"
 
 #: main.c:1011
 #, c-format
@@ -649,6 +731,8 @@ msgid ""
 "\n"
 "Detected line/line intersections: %i"
 msgstr ""
+"\n"
+"Erkannte Linie-Linie-Kreuzungen: %i"
 
 #: main.c:1015
 #, c-format
@@ -656,6 +740,8 @@ msgid ""
 "\n"
 "Detected line/polygon intersections: %i"
 msgstr ""
+"\n"
+"Erkannte Linie-Polygon-Kreuzungen: %i"
 
 #: main.c:1005
 #, c-format
@@ -663,6 +749,8 @@ msgid ""
 "\n"
 "Detected polygon overlays: %i"
 msgstr ""
+"\n"
+"Erkannte Polygonüberlagerungen: %i"
 
 #: main.c:1003
 #, c-format
@@ -670,6 +758,8 @@ msgid ""
 "\n"
 "Detected polygon self-intersections: %i"
 msgstr ""
+"\n"
+"Erkannte Polygon-Selbstüberschneidungen: %i"
 
 #: main.c:1019
 #, c-format
@@ -677,19 +767,25 @@ msgid ""
 "\n"
 "Detected polygon/polygon intersections: %i"
 msgstr ""
+"\n"
+"Erkannte Polygon-Polygon-Kreuzungen: %i"
 
 #: geom.c:6377
-#, c-format
+#, fuzzy, c-format
 msgid ""
 "\n"
 "Duplicate vertices detected in polygon %i, part %i."
 msgstr ""
+"\n"
+"Doppelte Stützpunkte in Polygon %i, Teil %i gefunden."
 
 #: reproj.c:1116
 msgid ""
 "\n"
 "Empty or missing geometry store. Reprojection skipped."
 msgstr ""
+"\n"
+"Leere oder fehlende Geometriedaten. Reprojektion übersprungen."
 
 #: export.c:2766
 #, c-format
@@ -698,6 +794,9 @@ msgid ""
 "Error creating DBF output file for label data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der DBF-Ausgabedatei für Etiketten\n"
+"(%s)."
 
 #: export.c:2723
 #, c-format
@@ -706,6 +805,9 @@ msgid ""
 "Error creating DBF output file for line data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der DBF-Ausgabedatei für Liniendatensätze\n"
+"(%s)."
 
 #: export.c:2681
 #, c-format
@@ -714,6 +816,9 @@ msgid ""
 "Error creating DBF output file for point data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der DBF-Ausgabedatei für Punktdatensätze\n"
+"(%s)."
 
 #: export.c:2744
 #, c-format
@@ -722,6 +827,9 @@ msgid ""
 "Error creating DBF output file for polygon data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der DBF-Ausgabedatei für Polygondatensätze\n"
+"(%s)."
 
 #: export.c:2702
 #, c-format
@@ -730,6 +838,9 @@ msgid ""
 "Error creating DBF output file for raw vertex data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der DBF-Ausgabedatei für Messpunktdatensätze\n"
+"(%s)."
 
 #: export.c:2772
 #, c-format
@@ -738,6 +849,9 @@ msgid ""
 "Error creating DBF schema for label data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung des DBF-Schemas für Etiketten\n"
+"(%s)."
 
 #: export.c:2729
 #, c-format
@@ -746,6 +860,9 @@ msgid ""
 "Error creating DBF schema for line data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung des DBF-Schemas für Liniendatensätze\n"
+"(%s)."
 
 #: export.c:2687
 #, c-format
@@ -754,6 +871,9 @@ msgid ""
 "Error creating DBF schema for point data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung des DBF-Schemas für Punktdatensätze\n"
+"(%s)."
 
 #: export.c:2750
 #, c-format
@@ -762,6 +882,9 @@ msgid ""
 "Error creating DBF schema for polygon data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung des DBF-Schemas für Polygondatensätze\n"
+"(%s)."
 
 #: export.c:2708
 #, c-format
@@ -770,6 +893,9 @@ msgid ""
 "Error creating DBF schema for raw vertex data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung des DBF-Schemas für Messpunktdatensätze (raw)\n"
+"(%s)."
 
 #: export.c:3822
 #, c-format
@@ -778,6 +904,9 @@ msgid ""
 "Error creating DXF output file\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der DXF-Ausgabedatei.\n"
+"(%s)."
 
 #: export.c:3813
 #, c-format
@@ -786,6 +915,9 @@ msgid ""
 "Error creating TXT output file for attribute data\n"
 "(%s)."
 msgstr ""
+"\n"
+"Fehler bei der Erzeugung der TXT-Ausgabedatei für Attributdaten\n"
+"(%s)."
 
 #: parser.c:2236 parser.c:2472
 #, c-format
@@ -793,18 +925,24 @@ msgid ""
 "\n"
 "FIELD DEFINITIONS:\n"
 msgstr ""
+"\n"
+"FELDDEFINITIONEN:\n"
 
 #: reproj.c:776
 msgid ""
 "\n"
 "Failed parsing of input SRS definition."
 msgstr ""
+"\n"
+"Fehler bei Verarbeitung der Definition des Quell-KBS (Eingabedaten)."
 
 #: reproj.c:786
 msgid ""
 "\n"
 "Failed parsing of output SRS definition."
 msgstr ""
+"\n"
+"Fehler bei Verarbeitung der Definition des Ziel-KBS (Ausgabedaten)."
 
 #: geom.c:5806
 #, c-format
@@ -813,6 +951,9 @@ msgid ""
 "Failed to add intersection vertices to polygon(s) intersected by polygon ID "
 "%i.\n"
 msgstr ""
+"\n"
+"Konnte keine neuen Stützpunkte zu Polygon(en) hinzufügen (Überschneidung mit "
+"Polygon %i).\n"
 
 #: export.c:3058
 #, c-format
@@ -820,6 +961,8 @@ msgid ""
 "\n"
 "Failed to create annotation settings file ('%s')."
 msgstr ""
+"\n"
+"Einstellungsdatei für Etikettierung (\"%s\") konnte nicht erzeugt werden."
 
 #: main.c:676
 #, c-format
@@ -827,12 +970,16 @@ msgid ""
 "\n"
 "Failed to create data storage object for data source #%i."
 msgstr ""
+"\n"
+"Erzeugung des Datenobjekts für Quelle Nr. %i fehlgeschlagen."
 
 #: reproj.c:64
 msgid ""
 "\n"
 "Failed to initialize PROJ.4 reprojection engine."
 msgstr ""
+"\n"
+"PROJ.4-Unterstützung zur Reprojektion konnte nicht initialisiert werden."
 
 #: export.c:2982 export.c:4172
 #, c-format
@@ -840,6 +987,9 @@ msgid ""
 "\n"
 "Failed to place label at center of line #%i (part #%i)."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf Mittelpunkt der Linie #%i (Teil #%i) platziert "
+"werden."
 
 #: export.c:3023 export.c:4201
 #, c-format
@@ -847,6 +997,9 @@ msgid ""
 "\n"
 "Failed to place label at center of polygon #%i (part #%i)."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf Mittelpunkt des Polygons #%i (Teil #%i) platziert "
+"werden."
 
 #: export.c:2986 export.c:4176
 #, c-format
@@ -854,6 +1007,9 @@ msgid ""
 "\n"
 "Failed to place label at first vertex of line #%i (part #%i)."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf erstem Stützpunkt der Linie #%i (Teil #%i) "
+"platziert werden."
 
 #: export.c:3027 export.c:4205
 #, c-format
@@ -861,6 +1017,9 @@ msgid ""
 "\n"
 "Failed to place label at first vertex of polygon #%i (part #%i)."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf erstem Stützpunkt des Polygons #%i (Teil #%i) "
+"platziert werden."
 
 #: export.c:2990 export.c:4180
 #, c-format
@@ -868,6 +1027,9 @@ msgid ""
 "\n"
 "Failed to place label at last vertex of line #%i (part #%i)."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf letztem Stützpunkt der Linie #%i (Teil #%i) "
+"platziert werden."
 
 #: export.c:3031 export.c:4209
 #, c-format
@@ -875,6 +1037,9 @@ msgid ""
 "\n"
 "Failed to place label at last vertex of polygon #%i (part #%i)."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf letztem Stützpunkt des Polygons #%i (Teil #%i) "
+"platziert werden."
 
 #: export.c:2952 export.c:4155
 #, c-format
@@ -882,24 +1047,32 @@ msgid ""
 "\n"
 "Failed to place label at point #%i."
 msgstr ""
+"\n"
+"Etikett konnte nicht auf Punkt #%i platziert werden."
 
 #: main.c:896
 msgid ""
 "\n"
 "Failed to reproject data. Aborting."
 msgstr ""
+"\n"
+"Daten Konten nicht reprojiziert werden. Programmabbruch."
 
 #: reproj.c:95
 msgid ""
 "\n"
 "Failed to set PROJ.4 data path. EPSG conversions might not be available."
 msgstr ""
+"\n"
+"PROJ.4-Datenpfad nicht gesetzt. EPSG-Konvertierung evtl. nicht verfügbar."
 
 #: main.c:1355
 msgid ""
 "\n"
 "Fill in options on the left, then click \"Run\".\n"
 msgstr ""
+"\n"
+"Füllen Sie die Optionen links aus und klicken Sie \"Ausführen\".\n"
 
 #: reproj.c:793
 #, c-format
@@ -907,6 +1080,8 @@ msgid ""
 "\n"
 "Final PROJ.4 input SRS: '%s'"
 msgstr ""
+"\n"
+"Endgültige PROJ.4-Definition des Quell-KBS: '%s'"
 
 #: reproj.c:796
 #, c-format
@@ -914,6 +1089,8 @@ msgid ""
 "\n"
 "Final PROJ.4 output SRS: '%s'"
 msgstr ""
+"\n"
+"Endgültige PROJ.4-Definition des Ziel-KBS: '%s'"
 
 #: geom.c:7356 geom.c:7513
 #, c-format
@@ -922,6 +1099,9 @@ msgid ""
 "Forced vertices of inner ring (hole) into clockwise order\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Stützpunkte auf innerem Ring (Loch) wurden im Uhrzeigersinn neu geordnet\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: geom.c:7407
 #, c-format
@@ -930,6 +1110,9 @@ msgid ""
 "Forced vertices of inner ring (hole) into counter clockwise order\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Stützpunkte auf innerem Ring (Loch) wurden gegen Uhrzeigersinn neu geordnet\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: geom.c:7460
 #, c-format
@@ -938,6 +1121,9 @@ msgid ""
 "Forced vertices of inner ring (hole) into counter-clockwise order\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Stützpunkte auf innerem Ring (Loch) wurden gegen Uhrzeigersinn neu geordnet\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: geom.c:7359 geom.c:7463
 #, c-format
@@ -946,6 +1132,9 @@ msgid ""
 "Forced vertices of outer ring (boundary) into clockwise order\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Stützpunkte auf äußerem Ring (Grenze) wurden im Uhrzeigersinn neu geordnet\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: geom.c:7410
 #, c-format
@@ -954,6 +1143,10 @@ msgid ""
 "Forced vertices of outer ring (boundary) into counter clockwise order\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Stützpunkte auf äußerem Ring (Grenze) wurden gegen Uhrzeigersinn neu "
+"geordnet\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: geom.c:7516
 #, c-format
@@ -962,6 +1155,10 @@ msgid ""
 "Forced vertices of outer ring (boundary) into counter-clockwise order\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Stützpunkte auf äußerem Ring (Grenze) wurden gegen Uhrzeigersinn neu "
+"geordnet\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: options.c:127
 #, c-format
@@ -969,6 +1166,9 @@ msgid ""
 "\n"
 "Geometries and attributes will be read from one or more input files.\n"
 msgstr ""
+"\n"
+"Geometrien und Attribute werden aus einer oder mehreren Eingabedateien "
+"gelesen.\n"
 
 #: main.c:993
 #, c-format
@@ -976,6 +1176,8 @@ msgid ""
 "\n"
 "Geometry build errors: %i"
 msgstr ""
+"\n"
+"Fehler bei der Geometrieerzeugung: %i"
 
 #: export.c:148 export.c:465 export.c:922 export.c:1711 export.c:3176
 msgid ""
@@ -983,18 +1185,26 @@ msgid ""
 "Geometry type unknown.\n"
 "No attribute data written."
 msgstr ""
+"\n"
+"Unbekannter Geometrietyp.\n"
+"Keine Attributwerte geschrieben."
 
 #: reproj.c:563
 msgid ""
 "\n"
 "Grid file application not possible for SRS of type Web Mercator."
 msgstr ""
+"\n"
+"Grid-Dateien können nicht auf KBS vom Typ \"Web Mercator\" angewendet werden."
 
 #: main.c:810
 msgid ""
 "\n"
 "High-level topological cleaning of lat/lon data not implemented."
 msgstr ""
+"\n"
+"Topologische Bereinigung von Daten in Längen-/Breitengraden nicht "
+"implementiert."
 
 #: reproj.c:480
 #, c-format
@@ -1002,6 +1212,8 @@ msgid ""
 "\n"
 "Input SRS (expanded): '%s'"
 msgstr ""
+"\n"
+"Quell-KBS (erweitert): \"%s\""
 
 #: reproj.c:854
 #, c-format
@@ -1009,18 +1221,24 @@ msgid ""
 "\n"
 "Input SRS is '%s'. Unable to reproject."
 msgstr ""
+"\n"
+"Quell-KBS ist \"%s\". Reprojektion nicht möglich."
 
 #: reproj.c:843 reproj.c:870
 msgid ""
 "\n"
 "Input and output SRS identical. No reprojection will be performed."
 msgstr ""
+"\n"
+"Quell- und Ziel-KBS sind identisch. Reprojektion wird nicht durchgeführt."
 
 #: main.c:996
 msgid ""
 "\n"
 "Input contained duplicate attribute values that should be unique."
 msgstr ""
+"\n"
+"Eingabe enthielt doppelte Attributwerte, die eindeutig sein sollten."
 
 #: reproj.c:860
 #, c-format
@@ -1028,24 +1246,33 @@ msgid ""
 "\n"
 "Input or output SRS is '%s'. No reprojection will be performed."
 msgstr ""
+"\n"
+"Quell- oder Ziel-KBS ist \"%s\". Reprojektion wird nicht durchgeführt."
 
 #: reproj.c:58
 msgid ""
 "\n"
 "Internal reprojection database is inconsistent. Failed to initialize."
 msgstr ""
+"\n"
+"Interne Reprojektions-Datenbank ist inkonsistent. Initialisierung "
+"fehlgeschlagen."
 
 #: reproj.c:419 reproj.c:456
 msgid ""
 "\n"
 "Invalid EPSG code in input SRS definition."
 msgstr ""
+"\n"
+"Ungültiger EPSG-Eintrag in Definition des Quell-KBS."
 
 #: reproj.c:415 reproj.c:452
 msgid ""
 "\n"
 "Invalid EPSG code in output SRS definition."
 msgstr ""
+"\n"
+"Ungültiger EPSG-Eintrag in Definition des Ziel-KBS."
 
 #: reproj.c:472
 #, c-format
@@ -1054,6 +1281,9 @@ msgid ""
 "Invalid input SRS definition.\n"
 "PROJ.4 message: %s"
 msgstr ""
+"\n"
+"Ungültige Definition des Quell-KBS.\n"
+"PROJ.4-Meldung: %s"
 
 #: reproj.c:487
 #, c-format
@@ -1062,6 +1292,9 @@ msgid ""
 "Invalid output SRS definition.\n"
 "PROJ.4 message: %s"
 msgstr ""
+"\n"
+"Ungültige Definition des Ziel-KBS.\n"
+"PROJ.4-Meldung: %s"
 
 #: geom.c:5494 geom.c:5566
 #, c-format
@@ -1070,6 +1303,9 @@ msgid ""
 "Invalid polygon ring (inner) detected (ID %i, part %i). Overlap cleaning "
 "skipped."
 msgstr ""
+"\n"
+"Ungültige innere Polygongrenze (Loch) gefunden (ID %i, Teil %i). "
+"Überlappungsbereinigung übersprungen."
 
 #: geom.c:5461 geom.c:5534
 #, c-format
@@ -1078,6 +1314,9 @@ msgid ""
 "Invalid polygon ring (outer) detected (ID %i, part %i). Overlap cleaning "
 "skipped."
 msgstr ""
+"\n"
+"Ungültige äußere Polygongrenze gefunden (ID %i, Teil %i). "
+"Überlappungsbereinigung übersprungen."
 
 #: parser.c:481
 #, c-format
@@ -1087,6 +1326,10 @@ msgid ""
 "Field '%s' must not be empty.\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Feld \"%s\" darf nicht leer sein.\n"
+"Datensatz übersprungen."
 
 #: parser.c:432
 #, c-format
@@ -1096,6 +1339,10 @@ msgid ""
 "Found %i instead of either %i or %i fields.\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Nur %i von %i oder %i erwarteten Feldern gefunden.\n"
+"Datensatz übersprungen."
 
 #: parser.c:423
 #, c-format
@@ -1105,6 +1352,10 @@ msgid ""
 "Found only %i out of %i expected fields.\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Nur %i von %i erwarteten Feldern gefunden.\n"
+"Datensatz übersprungen."
 
 #: parser.c:497
 #, c-format
@@ -1114,6 +1365,10 @@ msgid ""
 "Invalid X coordinate ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Ungültige X-Koordinate (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:520
 #, c-format
@@ -1123,6 +1378,10 @@ msgid ""
 "Invalid Y coordinate ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Ungültige Y-Koordinate (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:545
 #, c-format
@@ -1132,6 +1391,10 @@ msgid ""
 "Invalid Z coordinate ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Ungültige Z-Koordinate (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:600 parser.c:620
 #, c-format
@@ -1141,6 +1404,10 @@ msgid ""
 "Overflow in numeric value for field '%s'.\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Überlauf bei numerischem Feld \"%s\".\n"
+"Datensatz übersprungen."
 
 #: parser.c:456 parser.c:465
 #, c-format
@@ -1150,6 +1417,10 @@ msgid ""
 "This is neither a valid reduced nor full record.\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Kein gültiger vollständiger oder reduzierter Datensatz.\n"
+"Datensatz übersprungen."
 
 #: parser.c:592
 #, c-format
@@ -1159,6 +1430,10 @@ msgid ""
 "Value of field '%s' is not a number ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Wert im Feld \"%s\" ist keine Zahl (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:612
 #, c-format
@@ -1168,6 +1443,10 @@ msgid ""
 "Value of field '%s' is not an integer ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Wert im Feld \"%s\" ist keine Ganzzahl (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:580
 #, c-format
@@ -1177,6 +1456,10 @@ msgid ""
 "Value of field is 'null'.\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Feldwert ist \"Null\".\n"
+"Datensatz übersprungen."
 
 #: parser.c:504
 #, c-format
@@ -1186,6 +1469,10 @@ msgid ""
 "X coordinate overflow ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Überlauf der X-Koordinate (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:527
 #, c-format
@@ -1195,6 +1482,10 @@ msgid ""
 "Y coordinate overflow ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Überlauf der Y-Koordinate (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: parser.c:552
 #, c-format
@@ -1204,6 +1495,10 @@ msgid ""
 "Z coordinate overflow ('%s').\n"
 "Record skipped."
 msgstr ""
+"\n"
+"Ungültiger Datensatz in Zeile %i, gelesen aus \"%s\":\n"
+"Überlauf der Z-Koordinate (\"%s\").\n"
+"Datensatz übersprungen."
 
 #: main.c:659
 #, c-format
@@ -1211,6 +1506,8 @@ msgid ""
 "\n"
 "Label field \"%s\" not found in parser definition."
 msgstr ""
+"\n"
+"Etikettierungsfeld \"%s\" konnte in Parserdefinition nicht gefunden werden."
 
 #: export.c:3049
 #, c-format
@@ -1219,6 +1516,9 @@ msgid ""
 "Label mode for all geometries set to '%s'.\n"
 "Label layer will be empty."
 msgstr ""
+"\n"
+"Etikettierungsmodus für alle Geometrietypen ist '%s'.\n"
+"Leere Etikettenebene erzeugt."
 
 #: geom.c:4559
 #, c-format
@@ -1227,6 +1527,10 @@ msgid ""
 "Line or polygon read from '%s' (up to line %i) failed topology check:\n"
 "Not enough vertices. Geometry deleted."
 msgstr ""
+"\n"
+"Linie oder Polygon ausgelesen aus \"%s\" (bis Zeile %i) hat Topologieprüfung "
+"nicht bestanden:\n"
+"Nicht genügend Stützpunkte. Geometrie gelöscht."
 
 #: geom.c:4454
 #, c-format
@@ -1236,6 +1540,11 @@ msgid ""
 "Coordinates are identical with line %i (tolerance=%f).\n"
 "Vertex deleted."
 msgstr ""
+"\n"
+"Linienstützpunkt ausgelesen aus \"%s\" (Zeile %i) hat Topologieprüfung nicht "
+"bestanden:\n"
+"Koordinaten identisch mit Zeile %i (Toleranz=%f).\n"
+"Stützpunkt gelöscht."
 
 #: geom.c:4460
 #, c-format
@@ -1245,24 +1554,35 @@ msgid ""
 "Coordinates too close to line %i (tolerance=%f).\n"
 "Vertex deleted."
 msgstr ""
+"\n"
+"Linienstützpunkt ausgelesen aus '%s' (Zeile %i) hat Topologieprüfung nicht "
+"bestanden:\n"
+"Koordinaten zu nah an Zeile %i (Toleranz=%f).\n"
+"Stützpunkt gelöscht."
 
 #: geom.c:7690
 msgid ""
 "\n"
 "Local profile orientation determined to be 'eastward'."
 msgstr ""
+"\n"
+"Orientierung des lokalen Profils als \"ostwärts\" ermittelt."
 
 #: geom.c:7696
 msgid ""
 "\n"
 "Local profile orientation determined to be 'westward'."
 msgstr ""
+"\n"
+"Orientierung des lokalen Profils als \"westwärts\" ermittelt."
 
 #: main.c:1092
 msgid ""
 "\n"
 "No output files produced."
 msgstr ""
+"\n"
+"Keine Ausgabedateien erstellt."
 
 #: geom.c:4006
 #, c-format
@@ -1270,30 +1590,41 @@ msgid ""
 "\n"
 "No valid geometries found in '%s'. No associated output produced."
 msgstr ""
+"\n"
+"Keine gültigen Geometrien in \"%s\" gefunden. Keine entspr. Ausgabedatei "
+"erstellt."
 
 #: export.c:1218 export.c:1919 export.c:2665 export.c:3801
 msgid ""
 "\n"
 "No valid geometries found. No output produced."
 msgstr ""
+"\n"
+"Keine gültigen Geometrien gefunden. Keine Ausgabedatei erstellt."
 
 #: main.c:771
 msgid ""
 "\n"
 "No valid input data found. Aborting."
 msgstr ""
+"\n"
+"Keine gültigen Eingabedaten gefunden. Abgebrochen."
 
 #: main.c:783
 msgid ""
 "\n"
 "No valid input data left after selecting. Aborting."
 msgstr ""
+"\n"
+"Keine Eingabedaten nach Auswahl übrig. Abgebrochen."
 
 #: reproj.c:838
 msgid ""
 "\n"
 "Only output SRS defined. No reprojection possible."
 msgstr ""
+"\n"
+"Lediglich Ziel-KBS angegeben. Keine Reprojektion möglich."
 
 #: main.c:699
 #, c-format
@@ -1301,12 +1632,17 @@ msgid ""
 "\n"
 "Orientation mode '%s' not supported for lat/lon input data."
 msgstr ""
+"\n"
+"Orientierungsmodus \"%s\" funktioniert nicht mit Eingabedaten in Längen-/"
+"Breitengraden."
 
 #: main.c:1031
 msgid ""
 "\n"
 "Output files produced:"
 msgstr ""
+"\n"
+"Erzeugte Ausgabedateien:"
 
 #: main.c:910 main.c:913 main.c:916 main.c:937
 #, c-format
@@ -1314,6 +1650,8 @@ msgid ""
 "\n"
 "Output format: %s"
 msgstr ""
+"\n"
+"Ausgabeformat: %s"
 
 #: geom.c:7044
 #, c-format
@@ -1322,6 +1660,9 @@ msgid ""
 "Overshoot correction would delete entire line (ID %i, part no. %i). Please "
 "fix manually."
 msgstr ""
+"\n"
+"Overshoot-Korrektur würde die gesamte Linie (ID %i, Teil %i) löschen. Bitte "
+"manuell korrigieren."
 
 #: reproj.c:85
 #, c-format
@@ -1331,6 +1672,10 @@ msgid ""
 "available.\n"
 "PROJ.4 EPSG path was: '%s'."
 msgstr ""
+"\n"
+"PROJ.4-EPSG-Datenbank fehlt/unlesbar. EPSG-Konvertierung ist evtl. nicht "
+"verfügbar.\n"
+"PROJ.4-EPSG-Verzeichnis: '%s'."
 
 #: main.c:480
 #, c-format
@@ -1338,6 +1683,9 @@ msgid ""
 "\n"
 "Parsing of %i input data source(s) completed. Validation statistics below."
 msgstr ""
+"\n"
+"Verarbeitung von %i Eingabedatenquelle(n) fertig. Validierungsstatistik "
+"unten."
 
 #: main.c:990
 #, c-format
@@ -1345,6 +1693,8 @@ msgid ""
 "\n"
 "Parts added to multi-part geometries: %i"
 msgstr ""
+"\n"
+"Zu Multi-Geometrien hinzugefügte Teile: %i"
 
 #: geom.c:4419
 #, c-format
@@ -1354,6 +1704,11 @@ msgid ""
 "Coordinates are identical with line %i (tolerance=%f).\n"
 "Point deleted."
 msgstr ""
+"\n"
+"Punkt ausgelesen aus \"%s\" (Zeile %i) hat Topologieprüfung nicht "
+"bestanden:\n"
+"Koordinaten zu nah an Zeile %i (Toleranz=%f).\n"
+"Punkt gelöscht."
 
 #: geom.c:4424
 #, c-format
@@ -1363,6 +1718,11 @@ msgid ""
 "Coordinates too close to line %i (tolerance=%f).\n"
 "Point deleted."
 msgstr ""
+"\n"
+"Punkt ausgelesen aus \"%s\" (Zeile %i) hat Topologieprüfung nicht "
+"bestanden:\n"
+"Koordinaten zu nah an Zeile %i (Toleranz=%f).\n"
+"Punkt gelöscht."
 
 #: geom.c:5622
 #, c-format
@@ -1370,6 +1730,8 @@ msgid ""
 "\n"
 "Polygon boundaries overlap (ID %i, part %i & ID %i, part %i):"
 msgstr ""
+"\n"
+"Polygongrenzen überlappen (ID %i, Teil %i u. ID %i, Teil %i):"
 
 #: geom.c:5591 geom.c:5618 geom.c:5676
 #, c-format
@@ -1378,6 +1740,9 @@ msgid ""
 "Polygon intersection test failed (ID %i, part %i & ID %i, part %i). Overlap "
 "cleaning skipped."
 msgstr ""
+"\n"
+"Prüfung auf Polygonüberlappung fehlgeschlagen (ID %i, Teil %i u. ID %i, Teil "
+"%i). Bereinigung übersprungen."
 
 #: geom.c:4491
 #, c-format
@@ -1387,6 +1752,11 @@ msgid ""
 "Coordinates are identical with line %i (tolerance=%f).\n"
 "Vertex deleted."
 msgstr ""
+"\n"
+"Polygonstützpunkt ausgelesen aus \"%s\" (Zeile %i) hat Topologieprüfung "
+"nicht bestanden:\n"
+"Koordinaten zu nah an Zeile %i (Toleranz=%f).\n"
+"Stützpunkt gelöscht."
 
 #: geom.c:4497
 #, c-format
@@ -1396,6 +1766,11 @@ msgid ""
 "Coordinates too close to line %i (tolerance=%f).\n"
 "Vertex deleted."
 msgstr ""
+"\n"
+"Polygonstützpunkt ausglesen von \"%s\" (Zeile %i) hat Topologieprüfung nicht "
+"bestanden:\n"
+"Koordinaten zu nah an Zeile %i (Toleranz=%f).\n"
+"Stützpunkt gelöscht."
 
 #: options.c:61
 #, c-format
@@ -1403,6 +1778,8 @@ msgid ""
 "\n"
 "Possible OPTIONs are:\n"
 msgstr ""
+"\n"
+"Mögliche OPTIONen sind:\n"
 
 #: options.c:116
 #, c-format
@@ -1410,12 +1787,16 @@ msgid ""
 "\n"
 "REPROJECTION options (PROJ.4):\n"
 msgstr ""
+"\n"
+"REPROJEKTIONS-Optionen (PROJ.4):\n"
 
 #: reproj.c:1033
 msgid ""
 "\n"
 "Recomputing data extents after reprojection."
 msgstr ""
+"\n"
+"Ausdehnung der Daten nach Reprojektion wird neu berechnet."
 
 #: export.c:255 export.c:1097 export.c:1803 export.c:3270
 #, c-format
@@ -1425,6 +1806,10 @@ msgid ""
 "Value for attribute '%s' is not a valid integer number\n"
 "NULL data written instead."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Attributwert \"%s\" ist keine gültige Ganzzahl.\n"
+"Stattdessen NULL-Wert gesetzt."
 
 #: export.c:296 export.c:401
 #, c-format
@@ -1433,6 +1818,9 @@ msgid ""
 "Record read from '%s', line %i:\n"
 "Unable to write attribute '%s'."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Kann Attribut \"%s\" nicht schreiben."
 
 #: export.c:559 export.c:571 export.c:578 export.c:585 export.c:592
 #: export.c:599 export.c:613
@@ -1442,6 +1830,9 @@ msgid ""
 "Record read from '%s', line %i:\n"
 "Unable to write label attribute '%s'."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Kann Attribut \"%s\" für Etiketten nicht schreiben."
 
 #: export.c:204 export.c:521
 #, c-format
@@ -1450,6 +1841,9 @@ msgid ""
 "Record read from '%s', line %i:\n"
 "Unable to write primary key '%i' into '%s'."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Kann Primärschlüssel \"%i\" nicht in \"%s\" schreiben."
 
 #: export.c:372
 #, c-format
@@ -1459,6 +1853,10 @@ msgid ""
 "Value for attribute '%s' does not fit into a numeric field.\n"
 "NULL data written instead."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Wert für Attribut \"%s\" passt nicht in ein numerisches Feld.\n"
+"Stattdessen NULL-Wert gesetzt."
 
 #: export.c:222 export.c:535
 #, c-format
@@ -1468,6 +1866,10 @@ msgid ""
 "Value for attribute '%s' does not fit into a text field.\n"
 "NULL data written instead."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Wert für Attribut \"%s\" passt nicht in ein Textfeld.\n"
+"Stattdessen NULL-Wert gesetzt."
 
 #: export.c:269
 #, c-format
@@ -1477,6 +1879,10 @@ msgid ""
 "Value for attribute '%s' does not fit into an integer field.\n"
 "NULL data written instead."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Wert für Attribut \"%s\" passt nicht in ein Ganzzahlfeld.\n"
+"Stattdessen NULL-Wert gesetzt."
 
 #: export.c:358 export.c:1136 export.c:1842 export.c:3309
 #, c-format
@@ -1486,6 +1892,10 @@ msgid ""
 "Value for attribute '%s' is not a valid number\n"
 "NULL data written instead."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Wert für Attribut \"%s\" ist keine gültige Zahl\n"
+"Stattdessen NULL-Wert gesetzt."
 
 #: export.c:262 export.c:365 export.c:1104 export.c:1143 export.c:1810
 #: export.c:1849 export.c:3277 export.c:3316
@@ -1496,6 +1906,10 @@ msgid ""
 "Value for attribute '%s' is too large (overflow).\n"
 "NULL data written instead."
 msgstr ""
+"\n"
+"Datensatz gelesen aus \"%s\", Zeile %i:\n"
+"Wert für Attribut \"%s\" ist zu groß (Überlauf).\n"
+"Stattdessen NULL-Wert gesetzt."
 
 #: geom.c:178 geom.c:412
 #, c-format
@@ -1504,6 +1918,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "Line with less than two vertices found. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i des Konsoleneingabestroms:\n"
+"Linie mit weniger als zwei Stützpunkten gefunden. Übersprungen."
 
 #: geom.c:342
 #, c-format
@@ -1512,6 +1929,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "No geometry tag found for geometry with %i vertices. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i des Konsoleneingabestroms:\n"
+"Kein Geometriemarker für Geometrie mit %i Stützpunkten. Übersprungen."
 
 #: geom.c:286 geom.c:364
 #, c-format
@@ -1520,6 +1940,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "No geometry tag found. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i des Konsoleneingabestroms:\n"
+"Kein Geometriemarker gefunden. Wird übersprungen."
 
 #: geom.c:244 geom.c:449
 #, c-format
@@ -1528,6 +1951,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "Polygon with less than three vertices found. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i des Konsoleneingabestroms:\n"
+"Polygon mit weniger als drei Stützpunkten gefunden. Wird übersprungen."
 
 #: geom.c:607
 #, c-format
@@ -1536,6 +1962,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "Skipping incomplete record."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i von Konsole:\n"
+"Unvollständiger Datensatz wird übersprungen."
 
 #: geom.c:858
 #, c-format
@@ -1544,6 +1973,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "Skipping record with missing key field value."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Konsole:\n"
+"Datensatz mit fehlendem Wert in Schlüsselfeld wird übersprungen."
 
 #: geom.c:813
 #, c-format
@@ -1552,6 +1984,9 @@ msgid ""
 "Record read from line %i of console input stream:\n"
 "Skipping untagged record."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Konsole:\n"
+"Kein Geometriemarker gefunden. Wird übersprungen."
 
 #: geom.c:172 geom.c:406
 #, c-format
@@ -1560,6 +1995,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "Line with less than two vertices found. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Linie mit weniger als zwei Stützpunkten gefunden. Wird übersprungen."
 
 #: geom.c:335
 #, c-format
@@ -1568,6 +2006,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "No geometry tag found for geometry with %i vertices. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Kein Geometriemarker für Geometrie mit %i Stützpunkten. Übersprungen."
 
 #: geom.c:280 geom.c:358
 #, c-format
@@ -1576,6 +2017,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "No geometry tag found. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Kein Geometriemarker gefunden. Wird übersprungen."
 
 #: geom.c:238 geom.c:443
 #, c-format
@@ -1584,6 +2028,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "Polygon with less than three vertices found. Skipping."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Polygon mit weniger als drei Stützpunkten gefunden. Wird übersprungen."
 
 #: geom.c:602
 #, c-format
@@ -1592,6 +2039,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "Skipping incomplete record."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Unvollständiger Datensatz wird übersprungen."
 
 #: geom.c:853
 #, c-format
@@ -1600,6 +2050,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "Skipping record with missing key field value."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Datensatz mit fehlendem Wert in Schlüsselfeld wird übersprungen."
 
 #: geom.c:808
 #, c-format
@@ -1608,6 +2061,9 @@ msgid ""
 "Record read from line %i of input file '%s':\n"
 "Skipping untagged record."
 msgstr ""
+"\n"
+"Datensatz ausgelesen aus Zeile %i der Eingabedatei \"%s\":\n"
+"Kein Geometriemarker gefunden. Wird übersprungen."
 
 #: main.c:1007
 #, c-format
@@ -1615,6 +2071,8 @@ msgid ""
 "\n"
 "Removed polygon overlap areas: %i"
 msgstr ""
+"\n"
+"Bereinigte Überlappungsbereiche von Polygonen: %i"
 
 #: reproj.c:1236
 #, c-format
@@ -1622,6 +2080,8 @@ msgid ""
 "\n"
 "Reprojecting %i lines in current geometry store."
 msgstr ""
+"\n"
+"Reprojiziere %i Linien aus aktuellem Geometriespeicher."
 
 #: reproj.c:1122
 #, c-format
@@ -1629,6 +2089,8 @@ msgid ""
 "\n"
 "Reprojecting %i points in current geometry store."
 msgstr ""
+"\n"
+"Reprojiziere %i Punkte aus aktuellem Geometriespeicher."
 
 #: reproj.c:1285
 #, c-format
@@ -1636,6 +2098,8 @@ msgid ""
 "\n"
 "Reprojecting %i polygons in current geometry store."
 msgstr ""
+"\n"
+"Reprojiziere %i Polygone aus aktuellem Geometriespeicher."
 
 #: reproj.c:1179
 #, c-format
@@ -1643,6 +2107,8 @@ msgid ""
 "\n"
 "Reprojecting %i raw vertices in current geometry store."
 msgstr ""
+"\n"
+"Reprojiziere %i Rohmessungen aus aktuellem Geometriespeicher."
 
 #: reproj.c:1249
 #, c-format
@@ -1650,6 +2116,8 @@ msgid ""
 "\n"
 "Reprojection failed at line #%i, part #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Linie %i, Teil %i."
 
 #: reproj.c:1139
 #, c-format
@@ -1657,6 +2125,8 @@ msgid ""
 "\n"
 "Reprojection failed at point #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Punkt %i."
 
 #: reproj.c:1298
 #, c-format
@@ -1664,6 +2134,8 @@ msgid ""
 "\n"
 "Reprojection failed at polygon #%i, part #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Polygon %i, Teil %i."
 
 #: reproj.c:1196
 #, c-format
@@ -1671,6 +2143,8 @@ msgid ""
 "\n"
 "Reprojection failed at raw vertex #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Rohmessung %i."
 
 #: reproj.c:1269
 #, c-format
@@ -1678,6 +2152,8 @@ msgid ""
 "\n"
 "Reprojection of label point failed at line #%i, part #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Etikettierungspunkt für Linie %i, Teil %i."
 
 #: reproj.c:1164
 #, c-format
@@ -1685,6 +2161,8 @@ msgid ""
 "\n"
 "Reprojection of label point failed at point #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Etikettierungspunkt für Punkt #%i."
 
 #: reproj.c:1318
 #, c-format
@@ -1692,6 +2170,8 @@ msgid ""
 "\n"
 "Reprojection of label point failed at polygon #%i, part #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Etikettierungspunkt für Polygon %i, Teil %i."
 
 #: reproj.c:1221
 #, c-format
@@ -1699,24 +2179,32 @@ msgid ""
 "\n"
 "Reprojection of label point failed at raw vertex #%i."
 msgstr ""
+"\n"
+"Reprojektion fehlgeschlagen bei Etikettierungspunkt für Rohmessung %i."
 
 #: reproj.c:589
 msgid ""
 "\n"
 "Reprojection with user-supplied datum transformation parameters."
 msgstr ""
+"\n"
+"Reprojektion mit benutzerdefinierter Datumstransformation."
 
 #: reproj.c:631
 msgid ""
 "\n"
 "Reprojection with user-supplied grid file."
 msgstr ""
+"\n"
+"Reprojektion mit Transformations-Grid."
 
 #: main.c:970
 msgid ""
 "\n"
 "Selected for export:"
 msgstr ""
+"\n"
+"Zum Export ausgewählt:"
 
 #: geom.c:3488
 #, c-format
@@ -1724,6 +2212,8 @@ msgid ""
 "\n"
 "Self-intersection in line geometry at %.3f/%.3f (geometry #%i, part #%i).\n"
 msgstr ""
+"\n"
+"Selbstüberschneidung in Linie bei %.3f/%.3f (ID %i, Teil %i).\n"
 
 #: geom.c:6782
 #, c-format
@@ -1731,6 +2221,8 @@ msgid ""
 "\n"
 "Self-intersection in polygon (ID %i), part no. %i."
 msgstr ""
+"\n"
+"Selbst-Überschneidung in Polygon (ID %i, Teil %i)."
 
 #: geom.c:3588
 #, c-format
@@ -1739,6 +2231,8 @@ msgid ""
 "Self-intersection in polygon geometry at %.3f/%.3f (geometry #%i, part #"
 "%i).\n"
 msgstr ""
+"\n"
+"Selbst-Überschneidung in Polygon bei %.3f/%.3f (ID %i, Teil %i).\n"
 
 #: main.c:1023
 #, c-format
@@ -1746,6 +2240,8 @@ msgid ""
 "\n"
 "Snapped dangling line nodes: %i"
 msgstr ""
+"\n"
+"Korrigierte hängende Linienendpunkte: %i"
 
 #: main.c:1009
 #, c-format
@@ -1753,6 +2249,8 @@ msgid ""
 "\n"
 "Snapped polygon boundary vertices: %i"
 msgstr ""
+"\n"
+"Korrigierte Stützpunkte auf Polygongrenzen: %i"
 
 #: geom.c:6378
 #, c-format
@@ -1760,6 +2258,8 @@ msgid ""
 "\n"
 "Snapping distance might be too large (%.f)."
 msgstr ""
+"\n"
+"Distanz für Stützpunktfang evtl. zu groß (%.f)."
 
 #: options.c:135
 #, c-format
@@ -1768,24 +2268,35 @@ msgid ""
 "This program is free software under the GNU General Public License (>=v2).\n"
 "Read http://www.gnu.org/licenses/gpl.html for details."
 msgstr ""
+"\n"
+"Dieses Programm ist freie Software unter der GNU General Public License "
+"(>=v2).\n"
+"Details unter http://www.gnu.de/documents/gpl-2.0.de.html"
 
 #: main.c:738 main.c:742
 msgid ""
 "\n"
 "Topological cleaning of lat/lon data has limited accuracy."
 msgstr ""
+"\n"
+"Topologische Bereinigung von Daten mit Längen-/Breitengraden hat begrenzte "
+"Genauigkeit."
 
 #: main.c:979
 msgid ""
 "\n"
 "Total data extent (after reprojection):"
 msgstr ""
+"\n"
+"Gesamtausdehnung der Daten (nach Reprojektion):"
 
 #: main.c:981
 msgid ""
 "\n"
 "Total data extent:"
 msgstr ""
+"\n"
+"Gesamtausdehnung der Daten:"
 
 #: main.c:863
 #, c-format
@@ -1793,12 +2304,17 @@ msgid ""
 "\n"
 "Unable to create output file. Error was: '%s'."
 msgstr ""
+"\n"
+"Konnte keine Ausgabedatei erzeugen. Der Fehler war: \"%s\"."
 
 #: geom.c:7702
 msgid ""
 "\n"
 "Unable to determine profile orientation. Set to default 'westward'."
 msgstr ""
+"\n"
+"Profil-Orientierung konnte nicht bestimmt werden. Festlegung auf \"westwärts"
+"\"."
 
 #: geom.c:7366 geom.c:7417 geom.c:7470 geom.c:7523
 #, c-format
@@ -1807,6 +2323,9 @@ msgid ""
 "Unable to determine vertex order of inner ring (hole)\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Reihenfolge der Stützpunkte auf innerem Ring (Loch) nicht ermittelbar\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: geom.c:7369 geom.c:7420 geom.c:7473 geom.c:7526
 #, c-format
@@ -1815,6 +2334,9 @@ msgid ""
 "Unable to determine vertex order of outer ring (boundary)\n"
 "(part #%i, read from '%s', line %u)."
 msgstr ""
+"\n"
+"Reihenfolge der Stützpunkte auf äußerem Ring (Grenze) nicht ermittelbar\n"
+"(Teil %i, gelesen aus \"%s\", Zeile %u)."
 
 #: selections.c:696
 #, c-format
@@ -1822,6 +2344,8 @@ msgid ""
 "\n"
 "Validating selection: '%s'"
 msgstr ""
+"\n"
+"Auswahlausdruck wird geprüft: \"%s\""
 
 #: parser.c:809
 #, c-format
@@ -1830,6 +2354,9 @@ msgid ""
 "Value of field '%s', read from '%s', line %i:\n"
 "This is a duplicate of value read from '%s', line %i."
 msgstr ""
+"\n"
+"Wert im Feld \"%s\", gelesen aus \"%s\", Zeile %i:\n"
+"Duplikat des Wertes von \"%s\", Zeile %i."
 
 #: options.c:137
 #, c-format
@@ -1837,6 +2364,8 @@ msgid ""
 "\n"
 "Version %s\n"
 msgstr ""
+"\n"
+"Version %s\n"
 
 #: options.c:128
 #, c-format
@@ -1844,6 +2373,8 @@ msgid ""
 "\n"
 "With no input file(s), data will be read from the \"stdin\" stream.\n"
 msgstr ""
+"\n"
+"Ohne Eingabedatei(en) werden die Daten vom \"Stdin\"-Strom gelesen.\n"
 
 #: geom.c:5081 geom.c:5127 geom.c:5157
 #, c-format
@@ -1852,113 +2383,124 @@ msgid ""
 "Z interpolation failed (polygon %i, part %i, vertex %i). Z coordinate set to "
 "'0.0' instead."
 msgstr ""
+"\n"
+"Z-Interpolation fehlgeschlagen (Polygon %i, Teil %i, Stützpunkt %i). Z-"
+"Koordinate  stattdessen auf \"0.0\" gesetzt."
 
 #: options.c:69 options.c:81 options.c:87 options.c:93
 #, c-format
 msgid "  \t\t\t\"%s\" (%s)\n"
-msgstr ""
+msgstr "  \t\t\t\"%s\" (%s)\n"
 
 #: options.c:75
 #, c-format
 msgid "      --label-mode-line=label mode for lines (default: \"%s\")\n"
-msgstr ""
+msgstr "      --label-mode-line=Etikettierungsmodus f. Linien (\"%s\")\n"
 
 #: options.c:73
 #, c-format
 msgid "      --label-mode-point=label mode for points (default: \"%s\")\n"
-msgstr ""
+msgstr "      --label-mode-point=Etikettierungsmodus f. Punkte (\"%s\")\n"
 
 #: options.c:77
 #, c-format
 msgid "      --label-mode-poly=label mode for polygons (default: \"%s\")\n"
-msgstr ""
+msgstr "      --label-mode-poly=Etikettierungsmodus f. Polygone (\"%s\")\n"
 
 #: options.c:125
 #, c-format
 msgid "  --proj-ds=\t\tdatum transform to WGS 84 (scaling; default: %.1f)\n"
 msgstr ""
+"  --proj-ds=\t\tDatumstransformation nach WGS 84 (Skalierung; Vorgabe: "
+"%.1f)\n"
 
 #: options.c:119
 #, c-format
 msgid "  --proj-dx=\t\tdatum transform to WGS 84 (X shift; default: %.1f)\n"
 msgstr ""
+"  --proj-dx=\t\tDatumstransformation nach WGS 84 (X-Versch.; Vorgabe: %.1f)\n"
 
 #: options.c:120
 #, c-format
 msgid "  --proj-dy=\t\tdatum transform to WGS 84 (Y shift; default: %.1f)\n"
 msgstr ""
+"  --proj-dy=\t\tDatumstransformation nach WGS 84 (Y-Versch.; Vorgabe: %.1f)\n"
 
 #: options.c:121
 #, c-format
 msgid "  --proj-dz=\t\tdatum transform to WGS 84 (Z shift; default: %.1f)\n"
 msgstr ""
+"  --proj-dz=\t\tDatumstransformation nach WGS 84 (Z-Versch.; Vorgabe: %.1f)\n"
 
 #: options.c:126
 #, c-format
 msgid "  --proj-grid=\t\tlocal datum transformation grid (file name)\n"
-msgstr ""
+msgstr "  --proj-grid=\t\tLokales Transformations-Grid (Dateiname)\n"
 
 #: options.c:117
 #, c-format
 msgid "  --proj-in=\t\tcoordinate reference system of input data\n"
-msgstr ""
+msgstr "  --proj-in=\t\tKoordinatenbezugsystem der Eingabedaten\n"
 
 #: options.c:118
 #, c-format
 msgid "  --proj-out=\t\tcoordinate reference system of output data\n"
-msgstr ""
+msgstr "  --proj-out=\t\tKoordinatenbezugsystem der Ausgabedaten\n"
 
 #: options.c:122
 #, c-format
 msgid "  --proj-rx=\t\tdatum transform to WGS 84 (X rotation; default: %.1f)\n"
 msgstr ""
+"  --proj-rx=\t\tDatumstransformation nach WGS 84 (X-Rot.; Vorgabe: %.1f)\n"
 
 #: options.c:123
 #, c-format
 msgid "  --proj-ry=\t\tdatum transform to WGS 84 (Y rotation; default: %.1f)\n"
 msgstr ""
+"  --proj-ry=\t\tDatumstransformation nach WGS 84 (Y-Rot.; Vorgabe: %.1f)\n"
 
 #: options.c:124
 #, c-format
 msgid "  --proj-rz=\t\tdatum transform to WGS 84 (Z rotation; default: %.1f)\n"
 msgstr ""
+"  --proj-rz=\t\tDatumstransformation nach WGS 84 (Z-Rot.; Vorgabe: %.1f)\n"
 
 #: options.c:108
 #, c-format
 msgid "  -2, --force-2d\tforce 2D output, even if input data is 3D\n"
-msgstr ""
+msgstr "  -2, --force-2d\t2D-Ausgabe erzwingen, auch bei 3D-Eingabedaten\n"
 
 #: options.c:100
 #, c-format
 msgid ""
 "  -D, --dangling=\tsnapping dist. for line dangles (default: %.1f = off)\n"
-msgstr ""
+msgstr "  -D, --dangling=\tFangtoleranz f. Linienenden (Vorgabe: %.1f = aus)\n"
 
 #: options.c:72
 #, c-format
 msgid "  -L, --label=\t\tchoose field for labels (see manual for details)\n"
-msgstr ""
+msgstr "  -L, --label=\t\tTextfeld für Etiketten auswählen (s. Handbuch)\n"
 
 #: options.c:84
 #, c-format
 msgid "  -O, --orientation=\tchoose output orientation (default: \"%s\")\n"
-msgstr ""
+msgstr "  -O, --orientation=\tAusgabeorientierung (Vorgabe: \"%s\")\n"
 
 #: options.c:96
 #, c-format
 msgid ""
 "  -S, --selection=\tselect data by field content (see manual for details)\n"
-msgstr ""
+msgstr "  -S, --selection=\tDaten nach Feldinhalten auswählen (s. Handbuch)\n"
 
 #: options.c:90
 #, c-format
 msgid "  -T, --topology=\ttopological processing level (default: \"%s\")\n"
-msgstr ""
+msgstr "  -T, --topology=\ttopologisches Korrekturniveau (Vorgabe: \"%s\")\n"
 
 #: options.c:109
 #, c-format
 msgid "  -c, --strict\t\tuse stricter input validation\n"
-msgstr ""
+msgstr "  -c, --strict\t\tstrengere Eingabeprüfung anwenden\n"
 
 #: options.c:104
 #, c-format
@@ -1966,11 +2508,13 @@ msgid ""
 "  -d, --decimal-places=\tdecimal places for numeric DBF attributes (default: "
 "%i)\n"
 msgstr ""
+"  -d, --decimal-places=\tDezimalstellen in DBF-Zahlenfeldern (Vorgabe: %i)\n"
 
 #: options.c:65
 #, c-format
 msgid "  -f, --format=\t\toutput format (see list below; default: \"%s\")\n"
 msgstr ""
+"  -f, --format=\t\tAusgabeformat (siehe Liste unten; Vorgabe: \"%s\")\n"
 
 #: options.c:106
 #, c-format
@@ -1978,11 +2522,12 @@ msgid ""
 "  -g, --decimal-group=\tnumeric group character in input data (default: "
 "auto)\n"
 msgstr ""
+"  -g, --decimal-group=\tZeichen zur Zifferngruppierung (Vorgabe: auto)\n"
 
 #: options.c:115
 #, c-format
 msgid "  -h, --help\t\tdisplay this information and exit\n"
-msgstr ""
+msgstr "  -h, --help\t\tdiese Information anzeigen und beenden\n"
 
 #: options.c:105
 #, c-format
@@ -1990,173 +2535,180 @@ msgid ""
 "  -i, --decimal-point=\tdecimal point character in input data (default: "
 "auto)\n"
 msgstr ""
+"  -i, --decimal-point=\tDezimaltrennzeichen in Eingabedaten (Vorgabe: auto)\n"
 
 #: options.c:97
 #, c-format
 msgid "  -l, --log=\t\toutput name for error log file (default: none)\n"
-msgstr ""
+msgstr "  -l, --log=\t\tName für Fehlerprotokolldatei (Vorgabe: keine)\n"
 
 #: options.c:64
 #, c-format
 msgid "  -n, --name=\t\tbase name for output file(s) (required)\n"
-msgstr ""
+msgstr "  -n, --name=\t\tBasisname für Ausgabedatei(en) (erforderlich)\n"
 
 #: options.c:63
 #, c-format
 msgid "  -o, --output=\t\tdirectory name for output file(s) (required)\n"
 msgstr ""
+"  -o, --output=\t\tVerzeichnisname für Ausgabedatei(en) (erforderlich)\n"
 
 #: options.c:62
 #, c-format
 msgid "  -p, --parser=\t\tname of file with parsing schema (required)\n"
 msgstr ""
+"  -p, --parser=\t\tName der Datei mit dem Parser-Schema (erforderlich)\n"
 
 #: options.c:107
 #, c-format
 msgid "  -r, --raw-data\tsave raw vertex data as additional points output\n"
-msgstr ""
+msgstr "  -r, --raw-data\tMessdaten als zusätzl. Punktausgabe speichern\n"
 
 #: options.c:99
 #, c-format
 msgid ""
 "  -s, --snapping=\tsnapping dist. for boundary nodes (default: %.1f = off)\n"
 msgstr ""
+"  -s, --snapping=\tFangtoleranz f. Polygongrenzen (Vorgabe: %.1f = aus)\n"
 
 #: options.c:98
 #, c-format
 msgid ""
 "  -t, --tolerance=\tdistance threshold for coordinates (default: %.1f)\n"
-msgstr ""
+msgstr "  -t, --tolerance=\tMindestabstand für Koordinaten (Vorgabe: %.1f)\n"
 
 #: options.c:113
 #, c-format
 msgid "  -u, --show-gui\talways show GUI form\n"
-msgstr ""
+msgstr "  -u, --show-gui\tBenutzeroberfläche immer anzeigen\n"
 
 #: options.c:110
 #, c-format
 msgid "  -v, --validate-parser\tvalidate parser schema and exit\n"
-msgstr ""
+msgstr "  -v, --validate-parser\tParser-Schema prüfen und beenden\n"
 
 #: options.c:101
 #, c-format
 msgid ""
 "  -x, --x-offset=\tconstant offset to add to x coordinates (default: %.1f)\n"
 msgstr ""
+"  -x, --x-offset=\tkonstanter Versatz für X-Koordinaten (Vorgabe: %.1f)\n"
 
 #: options.c:102
 #, c-format
 msgid ""
 "  -y, --y-offset=\tconstant offset to add to y coordinates (default: %.1f)\n"
 msgstr ""
+"  -y, --y-offset=\tkonstanter Versatz für Y-Koordinaten (Vorgabe: %.1f)\n"
 
 #: options.c:103
 #, c-format
 msgid ""
 "  -z, --z-offset=\tconstant offset to add to z coordinates (default: %.1f)\n"
 msgstr ""
+"  -z, --z-offset=\tkonstanter Versatz für Z-Koordinaten (Vorgabe: %.1f)\n"
 
 #: options.c:1071
 #, c-format
 msgid "\"%s\" is not a valid directory (folder) name."
-msgstr ""
+msgstr "\"%s\" ist kein gültiger Verzeichnisname."
 
-#: options.c:1563
+#: options.c:1566
 #, c-format
 msgid "\"%s\" is not a valid file path."
-msgstr ""
+msgstr "\"%s\" ist kein gültiger Dateipfad."
 
 #: main.c:1496 options.c:1098
 #, c-format
 msgid "\"%s\" is not a valid log file name."
-msgstr ""
+msgstr "\"%s\" ist kein gültiger Name für die Protokolldatei."
 
 #: main.c:1463 options.c:1090
 #, c-format
 msgid "\"%s\" is not a valid output file (base) name."
-msgstr ""
+msgstr "\"%s\" ist kein gültiger Basisname für die Ausgabedateien."
 
 #: main.c:484
 #, c-format
 msgid "%i\tData read from console input stream."
-msgstr ""
+msgstr "%i\tDaten vom Konsoleneingabestrom gelesen."
 
 #: main.c:486
 #, c-format
 msgid "%i\tData read from file \"%s\"."
-msgstr ""
+msgstr "%i\tDaten aus Datei \"%s\" gelesen."
 
 #: main.c:116
 #, c-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: options.c:502
 #, c-format
 msgid "'%s' is not a valid option."
-msgstr ""
+msgstr "\"%s\" ist keine gültige Option."
 
 #: main.c:1970
 msgid "(End of output)\n"
-msgstr ""
+msgstr "(Ende der Ausgabe)\n"
 
 #: main.c:114
 msgid "* Input file(s):"
-msgstr ""
+msgstr "* Eingabedatei(en):"
 
 #: main.c:222
 msgid "2D mode: Any Z data will be discarded from output."
-msgstr ""
+msgstr "2D-Modus: Alle Z-Werte werden aus der Ausgabe entfernt."
 
 #: main.c:1255 main.c:1257 main.c:1259 main.c:1261 main.c:1263 main.c:1265
 #: main.c:1267 main.c:1269 main.c:1277 main.c:1285
 msgid "Advanced"
-msgstr ""
+msgstr "Erweitert"
 
 #: gui_field.c:513
 msgid "Apply to:"
-msgstr ""
+msgstr "Anwenden auf:"
 
 #: parser.c:1980
 msgid "Attempting to modify an existing parser."
-msgstr ""
+msgstr "Versuch, vorhandenen Parser zu verändern."
 
 #: main.c:1214
 msgid "Axis orientation for output geometries."
-msgstr ""
+msgstr "Orientierung der Axen für Ausgabegeometrien."
 
 #: main.c:1153
 msgid "Base name for output file(s)."
-msgstr ""
+msgstr "Basisname der Ausgabedatei(en)."
 
 #: main.c:126
 #, c-format
 msgid "Base name for output: %s"
-msgstr ""
+msgstr "Basisname der Ausgabe: %s"
 
 #: gui_field.c:1041 gui_field.c:1209 gui_field.c:1293 gui_field.c:1379
 #: gui_field.c:1459 gui_field.c:1553 gui_field.c:1647 gui_form.c:1049
 #: main.c:1166 main.c:1173 main.c:1177
 msgid "Basic"
-msgstr ""
+msgstr "Einfach"
 
 #: main.c:1259
 msgid "Boundary snap dist.:"
-msgstr ""
+msgstr "Fangdistanz für Polygongrenzen:"
 
 #: parser.c:2169 parser.c:2404
 #, c-format
 msgid "COMMENT MARKS:\t"
-msgstr ""
+msgstr "KOMMENTARZEICHEN:\t"
 
 #: gui_form.c:499
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: options.c:756
 #, c-format
 msgid "Cannot add another selection (limit: %i)."
-msgstr ""
+msgstr "Kann keine weitere Auswahl hinzufügen (Limit: %i)"
 
 #: parser.c:3427
 #, c-format
@@ -2164,6 +2716,8 @@ msgid ""
 "Cannot open input file for reading ('%s').\n"
 "Reason: %s"
 msgstr ""
+"Kann Eingabedatei (\"%s\") nicht zum Lesen öffnen.\n"
+"Ursache: %s"
 
 #: errors.c:234
 #, c-format
@@ -2171,6 +2725,8 @@ msgid ""
 "Cannot open log file for writing ('%s').\n"
 "Reason: %s"
 msgstr ""
+"Kann Protokolldatei (\"%s\") nicht zum Schreiben öffnen.\n"
+"Ursache: %s"
 
 #: parser.c:1995
 #, c-format
@@ -2178,6 +2734,8 @@ msgid ""
 "Cannot open parser schema for reading ('%s').\n"
 "Reason: %s"
 msgstr ""
+"Kann Parserschema (\"%s\") nicht zum Lesen öffnen.\n"
+"Ursache: %s"
 
 #: geom.c:1467 geom.c:1532 geom.c:1591 geom.c:1650
 #, c-format
@@ -2185,142 +2743,149 @@ msgid ""
 "Cannot write output into '%s'.\n"
 "Check that the directory exists and is writable."
 msgstr ""
+"Kann Ausgabe nicht nach \"%s\" schreiben.\n"
+"Bitte prüfen Sie, ob das Verzeichnis existiert und beschreibbar ist."
 
 #: geom.c:5632
 #, c-format
 msgid "Cleaned and added %d vertices at polygon boundary intersections."
-msgstr ""
+msgstr "Bereinigt und %d Stützpunkte an Überkreuzungspunkten eingefügt."
 
 #: gui_field.c:809 gui_field.c:1625 gui_form.c:336
 #, c-format
 msgid "Commands: %i"
-msgstr ""
+msgstr "Kommandos: %i"
 
 #: main.c:1263
 msgid "Constant offset for X coordinates."
-msgstr ""
+msgstr "Konstanter Versatz für X-Koordinaten."
 
 #: main.c:1265
 msgid "Constant offset for Y coordinates."
-msgstr ""
+msgstr "Konstanter Versatz für Y-Koordinaten."
 
 #: main.c:1267
 msgid "Constant offset for Z coordinates."
-msgstr ""
+msgstr "Konstanter Versatz für Z-Koordinaten."
 
 #: main.c:1263
 msgid "Coord. X offset:"
-msgstr ""
+msgstr "Versatz X-Koord.:"
 
 #: main.c:1265
 msgid "Coord. Y offset:"
-msgstr ""
+msgstr "Versatz Y-Koord.:"
 
 #: main.c:1267
 msgid "Coord. Z offset:"
-msgstr ""
+msgstr "Versatz Z-Koord.:"
 
 #: main.c:1257
 msgid "Coord. tolerance:"
-msgstr ""
+msgstr "Koordinatentoleranz:"
 
 #: main.c:1223
 msgid "Coordinate reference system (CRS) of input data, in PROJ.4 format."
-msgstr ""
+msgstr "Koordinatenbezugssystem (KBS) der Eingabedaten, in PROJ.4-Format."
 
 #: main.c:1225
 msgid "Coordinate reference system (CRS) of output data, in PROJ.4 format."
-msgstr ""
+msgstr "Koordinatenbezugssystem (KBS) der Ausgabedaten, in PROJ.4-Format."
 
 #: main.c:182
 #, c-format
 msgid "Coordinate tolerance: %f"
-msgstr ""
+msgstr "Koordinatentoleranz: %f"
 
 #: main.c:180
 msgid "Coordinate tolerance: 0"
-msgstr ""
+msgstr "Koordinatentoleranz: 0"
 
 #: geom.c:5634
 msgid "Could not clean automatically, please check."
-msgstr ""
+msgstr "Keine automatische Bereinigung möglich. Bitte prüfen."
 
 #: main.c:1269
 msgid "DBF decimal places:"
-msgstr ""
+msgstr "Dezimalstellen in DBF:"
 
 #: gui_form.c:1011
 msgid "DE - Deutsch"
-msgstr ""
+msgstr "DE - Deutsch"
 
 #: errors.c:159 errors.c:169 errors.c:180 errors.c:186
 #, c-format
 msgid "DEBUG: "
-msgstr ""
+msgstr "FEHLERSUCHE: "
 
 #: main.c:1261
 msgid "Dangle snap dist.:"
-msgstr ""
+msgstr "Fangdistanz für Durchhänger:"
 
-#: options.c:1282
+#: options.c:1285
 msgid "Dangling setting must be 0 or a positive number."
 msgstr ""
+"Fangeinstellung f. Linienenden muss eine positive Zahl sein oder \"0\"."
 
 #: gui_field.c:713
 msgid "Data selection"
-msgstr ""
+msgstr "Datenauswahl"
 
 #: main.c:1241
 msgid "Datum transformation grid:"
-msgstr ""
+msgstr "Transformations-Grid:"
 
 #: main.c:1285
 msgid "Decimal group:"
-msgstr ""
+msgstr "Zeichen f. Zifferngruppierung:"
 
-#: options.c:1378
+#: options.c:1381
 msgid "Decimal grouping character must be a single character."
-msgstr ""
+msgstr "Nur ein Zeichen zur Zifferngruppierung erlaubt."
 
 #: main.c:215
 #, c-format
 msgid "Decimal grouping symbol set to: '%c'"
-msgstr ""
+msgstr "Festgelegtes Zeichen zur Zifferngruppierung: \"%c\""
 
 #: main.c:217
 #, c-format
 msgid "Decimal grouping symbol set to: '%s'"
-msgstr ""
+msgstr "Zeichen zur Zifferngruppierung: \"%s\""
 
-#: main.c:1746 main.c:1755 options.c:1360
+#: main.c:1746 main.c:1755 options.c:1363
 msgid "Decimal point and grouping characters must both be specified."
 msgstr ""
+"Sowohl das Dezimaltrennzeichen als auch das Schriftzeichen zur "
+"Zifferngruppierung müssen festgelegt werden."
 
-#: main.c:1766 options.c:1352
+#: main.c:1766 options.c:1355
 msgid "Decimal point and grouping characters must not be identical."
 msgstr ""
+"Dezimaltrennzeichen und Schriftzeichen zur Zifferngruppierung dürfen nicht "
+"identisch sein."
 
 #: main.c:1277
 msgid "Decimal point character in input data."
-msgstr ""
+msgstr "Dezimaltrennzeichen in Eingabedaten."
 
-#: options.c:1367
+#: options.c:1370
 msgid "Decimal point separator must be a single character."
-msgstr ""
+msgstr "Das Dezimaltrennzeichen muss ein einzelnes Zeichen sein."
 
 #: main.c:210
 #, c-format
 msgid "Decimal point symbol set to: '%c'"
-msgstr ""
+msgstr "Dezimaltrennzeichen: \"%c\""
 
 #: main.c:212
 #, c-format
 msgid "Decimal point symbol set to: '%s'"
-msgstr ""
+msgstr "Dezimaltrennzeichen: \"%s\""
 
 #: main.c:1277
 msgid "Decimal point:"
-msgstr ""
+msgstr "Dezimaltrennzeichen:"
 
 #: options.c:130
 #, c-format
@@ -2329,62 +2894,64 @@ msgid ""
 "file(s),\n"
 "more than one output file with a common base name may be produced.\n"
 msgstr ""
+"Je nach Ausgabeformat und Geometrien/Geometrietypen in den Eingabedaten,\n"
+"werden eventuell mehrere Ausgabedateien mit gleichem Basisnamen erzeugt.\n"
 
 #: main.c:1151
 msgid "Directory name for output file(s)."
-msgstr ""
+msgstr "Verzeichnisname für Ausgabedatei(en)"
 
 #: main.c:1291
 msgid "Discard any Z data from output."
-msgstr ""
+msgstr "Verwerfe alle Z-Werte in Ausgabe."
 
 #: main.c:1257
 msgid "Distance threshold for coordinates."
-msgstr ""
+msgstr "Minimalabstand für Koordinaten."
 
 #: options.h:92
 msgid "Do not label"
-msgstr ""
+msgstr "Nicht etikettieren"
 
 #: options.c:132
 #, c-format
 msgid "Duplicate measurements will not be stored in the output file(s).\n"
-msgstr ""
+msgstr "Doppelte Messungen werden in Ausgabedatei(en) nicht gespeichert.\n"
 
 #: parser.c:2184 parser.c:2419
 #, c-format
 msgid "EMPTY FLD VAL:\t%i\n"
-msgstr ""
+msgstr "LEERER FELDWERT:\t%i\n"
 
 #: parser.c:2186 parser.c:2421
 #, c-format
 msgid "EMPTY FLD VAL:\tNULL (default)\n"
-msgstr ""
+msgstr "LEERER FELDWERT:\tNULL (default)\n"
 
 #: gui_form.c:1016
 msgid "EN - English"
-msgstr ""
+msgstr "EN - English"
 
 #: errors.c:86 errors.c:96 errors.c:107 errors.c:115
 #, c-format
 msgid "ERROR: "
-msgstr ""
+msgstr "FEHLER: "
 
 #: gui_field.c:716
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: gui_field.c:433
 msgid "Edit selection command"
-msgstr ""
+msgstr "Auswahlkommando bearbeiten"
 
 #: selections.c:535
 msgid "Empty field name in selection."
-msgstr ""
+msgstr "Leerer Feldname in Auswahlkommando."
 
 #: selections.c:548
 msgid "Empty selection expression."
-msgstr ""
+msgstr "Leerer Auswahlausdruck."
 
 #: parser.c:3130
 #, c-format
@@ -2392,6 +2959,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Comment mark matches line geom tag."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kommentarzeichen entspricht Geometriemarker für Linien."
 
 #: parser.c:3117
 #, c-format
@@ -2399,6 +2968,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Comment mark matches point geom tag."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kommentarzeichen entspricht Geometriemarker für Punkte."
 
 #: parser.c:3143
 #, c-format
@@ -2406,6 +2977,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Comment mark matches poly geom tag."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kommentarzeichen entspricht Geometriemarker für Polygone."
 
 #: parser.c:2879
 #, c-format
@@ -2413,6 +2986,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Coordinate fields are not unique."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Koordinatenfelder sind nicht eindeutig."
 
 #: parser.c:2826
 #, c-format
@@ -2420,6 +2995,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\" has no separator(s) (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" hat kein(e) Trennzeichen (nach Zeile %i)."
 
 #: parser.c:2902
 #, c-format
@@ -2428,6 +3005,9 @@ msgid ""
 "Field \"%s\" is X coordinate field, and cannot be used as key field (after "
 "line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das X-Koordinatenfeld und kann nicht als Schlüsselfeld "
+"benutzt werden (nach Zeile %i)."
 
 #: parser.c:2909
 #, c-format
@@ -2436,6 +3016,9 @@ msgid ""
 "Field \"%s\" is X coordinate field, and cannot be used as tag field (after "
 "line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das X-Koordinatenfeld und kann nicht als Marker-Feld benutzt "
+"werden (nach Zeile %i)."
 
 #: parser.c:2896
 #, c-format
@@ -2444,6 +3027,9 @@ msgid ""
 "Field \"%s\" is X coordinate field, but \"empty_allowed\" was set to \"Yes"
 "\" (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das X-Koordinatenfeld, aber \"empty_allowed\" wurde auf \"Yes"
+"\" gesetzt (nach Zeile %i)."
 
 #: parser.c:2891
 #, c-format
@@ -2451,6 +3037,9 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\" is X coordinate field, but not of type 'double' (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das X-Koordinatenfeld, aber nicht vom Felddatentyp \"Double"
+"\" (nach Zeile %i)."
 
 #: parser.c:2929
 #, c-format
@@ -2459,6 +3048,9 @@ msgid ""
 "Field \"%s\" is Y coordinate field, and cannot be used as key field (after "
 "line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Y-Koordinatenfeld und kann nicht als Schlüsselfeld "
+"benutzt werden (nach Zeile %i)."
 
 #: parser.c:2936
 #, c-format
@@ -2467,6 +3059,9 @@ msgid ""
 "Field \"%s\" is Y coordinate field, and cannot be used as tag field (after "
 "line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Y-Koordinatenfeld und kann nicht als Marker-Feld benutzt "
+"werden (nach Zeile %i)."
 
 #: parser.c:2923
 #, c-format
@@ -2475,6 +3070,9 @@ msgid ""
 "Field \"%s\" is Y coordinate field, but \"missing_allowed\" was set to \"Yes"
 "\" (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Y-Koordinatenfeld, aber \"missing_allowed\" wurde auf "
+"\"Yes\" gesetzt (nach Zeile %i)."
 
 #: parser.c:2918
 #, c-format
@@ -2482,6 +3080,9 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\" is Y coordinate field, but not of type 'double' (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Y-Koordinatenfeld, aber nicht vom Felddatentyp \"Double"
+"\" (nach Zeile %i)."
 
 #: parser.c:2957
 #, c-format
@@ -2490,6 +3091,9 @@ msgid ""
 "Field \"%s\" is Z coordinate field, and cannot be used as key field (after "
 "line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Z-Koordinatenfeld und kann nicht als Schlüsselfeld "
+"benutzt werden (nach Zeile %i)."
 
 #: parser.c:2964
 #, c-format
@@ -2498,6 +3102,9 @@ msgid ""
 "Field \"%s\" is Z coordinate field, and cannot be used as tag field (after "
 "line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Z-Koordinatenfeld und kann nicht als Marker-Feld benutzt "
+"werden (nach Zeile %i)."
 
 #: parser.c:2951
 #, c-format
@@ -2506,6 +3113,9 @@ msgid ""
 "Field \"%s\" is Z coordinate field, but \"missing_allowed\" was set to \"Yes"
 "\" (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Z-Koordinatenfeld, aber \"missing_allowed\" wurde auf "
+"\"Yes\" gesetzt (nach Zeile %i)."
 
 #: parser.c:2946
 #, c-format
@@ -2513,6 +3123,9 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\" is Z coordinate field, but not of type 'double' (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" ist das Z-Koordinatenfeld, aber nicht vom Felddatentyp \"Double"
+"\" (nach Zeile %i)."
 
 #: parser.c:2744
 #, c-format
@@ -2520,6 +3133,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\" needs a separator (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\" braucht ein Trennzeichen (nach Zeile %i)."
 
 #: parser.c:2815
 #, c-format
@@ -2528,6 +3143,9 @@ msgid ""
 "Field \"%s\": \"empty_allowed\" and \"merge_seperators\" are mutually "
 "exclusive (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": \"empty_allowed\" und \"merge_seperators\" schließen sich "
+"gegenseitig aus (nach Zeile %i)."
 
 #: parser.c:2834
 #, c-format
@@ -2535,6 +3153,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": Last field must not have a separator (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Das letzte Feld darf kein Trennzeichen haben (nach Zeile %i)."
 
 #: parser.c:2846
 #, c-format
@@ -2543,6 +3163,9 @@ msgid ""
 "Field \"%s\": Must not combine whitespace separators and \"empty_allowed"
 "\" (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Angegebener Feldtrenner kann nicht mit \"empty_allowed\" "
+"kombiniert werden (nach Zeile %i)."
 
 #: parser.c:3178
 #, c-format
@@ -2550,6 +3173,9 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": quoting char matches line geom tag (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Anführungszeichen entspricht Liniengeometriemarker (nach Zeile "
+"%i)."
 
 #: parser.c:3165
 #, c-format
@@ -2557,6 +3183,9 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": quoting char matches point geom tag (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Anführungszeichen entspricht Punktgeometriemarker (nach Zeile "
+"%i)."
 
 #: parser.c:3191
 #, c-format
@@ -2564,6 +3193,9 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": quoting char matches poly geom tag (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Anführungszeichen entspricht Polygongeometriemarker (nach Zeile "
+"%i)."
 
 #: parser.c:2800
 #, c-format
@@ -2571,6 +3203,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": quoting character matches comment char (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Anführungszeichen entspricht Kommentarzeichen (nach Zeile %i)."
 
 #: parser.c:2762
 #, c-format
@@ -2578,6 +3212,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": quoting character matches separator (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Anführungszeichen entspricht Trennzeichen (nach Zeile %i)."
 
 #: parser.c:2781
 #, c-format
@@ -2585,6 +3221,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": separator matches comment character (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Trennzeichen entspricht Kommentarzeichen (nach Zeile %i)."
 
 #: parser.c:3080
 #, c-format
@@ -2592,6 +3230,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": separator matches line geom tag (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Trennzeichen entspricht Liniengeometriemarker (nach Zeile %i)."
 
 #: parser.c:3067
 #, c-format
@@ -2599,6 +3239,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": separator matches point geom tag (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Trennzeichen entspricht Punktgeometriemarker (nach Zeile %i)."
 
 #: parser.c:3093
 #, c-format
@@ -2606,6 +3248,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field \"%s\": separator matches poly geom tag (after line %i)."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld \"%s\": Trennzeichen entspricht Polygongeometriemarker (nach Zeile %i)."
 
 #: parser.c:2662
 #, c-format
@@ -2613,6 +3257,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field defined after line %i has no name."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld definiert nach Zeile %i ist unbenannt."
 
 #: parser.c:2667
 #, c-format
@@ -2620,6 +3266,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Field defined after line %i has no type."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld definiert nach Zeile %i hat keinen Typ."
 
 #: parser.c:2682
 #, c-format
@@ -2628,6 +3276,9 @@ msgid ""
 "Field defined after line %i has too many options. This special field only "
 "accepts \"info\", \"name\", \"type\" and \"value\"."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld definiert nach Zeile %i hat zuviele Optionen. Dieses spezielle Feld "
+"akzeptiert nur \"info\", \"name\", \"type\" und \"value\"."
 
 #: parser.c:2733
 #, c-format
@@ -2636,6 +3287,9 @@ msgid ""
 "Field defined after line %i is no a text field.\n"
 "Therefore, \"change_case\" is not a valid option."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Feld definiert nach Zeile %i ist kein Textfeld.\n"
+"Deshalb ist \"change_case\" keine gültige Option."
 
 #: parser.c:3029
 #, c-format
@@ -2644,6 +3298,9 @@ msgid ""
 "Geometry tags must be provided for both lines and polygons.\n"
 "Set both \"geom_tag_line\" and \"geom_tag_poly\""
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Geometriemarker müssen für Linien und Polygone angegeben werden.\n"
+"Bitte \"geom_tag_line\" und \"geom_tag_poly\" setzen."
 
 #: parser.c:3329
 #, c-format
@@ -2651,6 +3308,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Key field is not set to the name of a valid field."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Schlüsselfeld benennt kein gültiges Feld."
 
 #: parser.c:1428 parser.c:1454
 #, c-format
@@ -2658,6 +3317,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" cannot be set to \"%s\"."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" kann nicht auf \"%s\" festgelegt werden."
 
 #: parser.c:1505 parser.c:1514 parser.c:1523 parser.c:1564 parser.c:1578
 #: parser.c:1592 parser.c:1606 parser.c:1615 parser.c:1624 parser.c:1634
@@ -2669,6 +3330,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" has already been set in this context."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" wurde in diesem Kontext bereits festgelegt."
 
 #: parser.c:1743
 #, c-format
@@ -2676,6 +3339,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" is a reserved field name."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" ist ein reservierter Feldname."
 
 #: parser.c:1569 parser.c:1583 parser.c:1597 parser.c:1725
 #, c-format
@@ -2683,6 +3348,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" is not a valid field name."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" ist kein gültiger Feldname."
 
 #: parser.c:1795
 #, c-format
@@ -2690,6 +3357,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" is not a valid field type."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" ist kein gültiger Felddatentyp."
 
 #: parser.c:1538
 #, c-format
@@ -2697,6 +3366,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" is not a valid geometry tagging mode."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" ist kein gültiger Geometriemarkermodus."
 
 #: parser.c:1945
 #, c-format
@@ -2704,6 +3375,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: \"%s\" is not a valid option in this context."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: \"%s\" ist in diesem Kontext keine gültige Option."
 
 #: parser.c:1733
 #, c-format
@@ -2711,6 +3384,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: A field with name \"%s\" was already defined."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Der Feldname \"%s\" wurde schon vergeben."
 
 #: parser.c:1481
 #, c-format
@@ -2718,6 +3393,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Empty option name or value."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Leerer Optionsname oder -wert."
 
 #: parser.c:2060
 #, c-format
@@ -2725,6 +3402,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Exceeds limit of %i field definitions.\n"
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Überschreitet das Limit von %i Felddefinitionen.\n"
 
 #: parser.c:1557
 #, c-format
@@ -2732,6 +3411,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Limit of %i distinct comment marks exceeded."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Limit von %i eindeutigen Kommentarzeichen überschritten."
 
 #: parser.c:1878
 #, c-format
@@ -2739,6 +3420,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Limit of %i distinct field separators exceeded."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Limit von %i eindeutigen Feldtrennern überschritten."
 
 #: parser.c:1855
 #, c-format
@@ -2746,6 +3429,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Line break is not a valid field separator."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Der Zeilenumbruch ist kein gültiger Feldtrenner."
 
 #: parser.c:1937
 #, c-format
@@ -2753,6 +3438,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Maximum number of lookup pairs (%i) exceeded."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Maximale Größe der Nachschlageliste (%i Einträge) überschritten."
 
 #: parser.c:1910
 #, c-format
@@ -2760,6 +3447,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: No string specified for content replacement."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Keine Zeichenkette für Ersetzung angegeben."
 
 #: parser.c:1491
 #, c-format
@@ -2767,6 +3456,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Option \"%s\" has an empty value."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Option \"%s\" hat leeren Wert."
 
 #: parser.c:1497
 #, c-format
@@ -2774,6 +3465,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Option values cannot be longer than %i characters."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Optionswerte können nicht länger als %i Zeichen sein."
 
 #: parser.c:1900
 #, c-format
@@ -2781,6 +3474,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Quotation mark must be a single character."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Das Anführungszeichen muss ein einzelnes Zeichen sein."
 
 #: parser.c:1920
 #, c-format
@@ -2788,6 +3483,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: String to be replaced exceeds %i characters."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Die zu ersetzende Zeichenkette besteht aus mehr als %i Zeichen."
 
 #: parser.c:1925
 #, c-format
@@ -2795,6 +3492,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: String to replace with exceeds %i characters."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Die ersetzende Zeichenkette besteht aus mehr als %i Zeichen."
 
 #: parser.c:1668 parser.c:1685 parser.c:1702
 #, c-format
@@ -2802,6 +3501,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Tag \"%s\" is non-unique or exceeds storage."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Marker \"%s\" ist nicht eindeutig oder über Speichergrenze."
 
 #: parser.c:1650
 #, c-format
@@ -2809,6 +3510,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: Value for \"%s\" is not a valid integer number."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Der Wert für \"%s\" ist keine gültige Ganzzahl."
 
 #: parser.c:1762
 #, c-format
@@ -2816,6 +3519,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: field value not defined."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Der Feldwert ist nicht angegeben."
 
 #: parser.c:2089
 #, c-format
@@ -2823,6 +3528,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Line #%i: option/value out of context."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zeile %i: Option/Wert ohne gültigen Kontext."
 
 #: parser.c:3224
 #, c-format
@@ -2831,6 +3538,9 @@ msgid ""
 "Line geometry tag ('%s') with numeric characters cannot be stored in numeric "
 "field."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Marker für Liniengeometrien (\"%s\") ist numerisch und kann nicht in einem "
+"numerischen Feld gespeichert werden."
 
 #: parser.c:2861
 #, c-format
@@ -2838,6 +3548,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No X coordinate field defined."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein X-Koordinatenfeld definiert."
 
 #: parser.c:2866
 #, c-format
@@ -2845,6 +3557,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No Y coordinate field defined."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Y-Koordinatenfeld definiert."
 
 #: parser.c:2990
 #, c-format
@@ -2852,6 +3566,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No geometry tag field provided."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Feld für Geometriemarker angegeben."
 
 #: parser.c:3249
 #, c-format
@@ -2859,6 +3575,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No key field specified."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Schlüsselfeld festgelegt."
 
 #: parser.c:3271
 #, c-format
@@ -2866,6 +3584,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No tag field specified."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Markerfeld festgelegt."
 
 #: parser.c:3007
 #, c-format
@@ -2873,6 +3593,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No tag string for line type geometries given."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Marker für Liniengeometrien festgelegt."
 
 #: parser.c:3000
 #, c-format
@@ -2880,6 +3602,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No tag string for point type geometries given."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Marker für Punktgeometrien festgelegt."
 
 #: parser.c:3013
 #, c-format
@@ -2887,6 +3611,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "No tag string for polygon type geometries given."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Kein Marker für Polygongeometrien festgelegt."
 
 #: parser.c:3351
 #, c-format
@@ -2895,6 +3621,9 @@ msgid ""
 "Number of fields in reduced records must be smaller\n"
 "than in full records."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Zahl der Felder in verkürzten Datensätzen muss kleiner sein\n"
+"als in vollständigen Datensätzen."
 
 #: parser.c:2698 parser.c:2718
 #, c-format
@@ -2902,6 +3631,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Overflow detected for value of field \"%s\"."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Überlauf für Wert des Feldes \"%s\" erkannt."
 
 #: parser.c:3216
 #, c-format
@@ -2910,6 +3641,9 @@ msgid ""
 "Point geometry tag ('%s') with numeric characters cannot be stored in "
 "numeric field."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Marker für Punktgeometrien (\"%s\") ist numerisch und kann nicht in einem "
+"numerischen Feld gespeichert werden."
 
 #: parser.c:3232
 #, c-format
@@ -2918,6 +3652,9 @@ msgid ""
 "Polygon geometry tag ('%s') with numeric characters cannot be stored in "
 "numeric field."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Marker für Polygongeometrien (\"%s\") ist numerisch und kann nicht in einem "
+"numerischen Feld gespeichert werden."
 
 #: parser.c:2703 parser.c:2723
 #, c-format
@@ -2925,6 +3662,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "String replacement not allowed for field \"%s\" (wrong type) ."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Ersetzung mit Zeichenketten für Feld \"%s\" nicht erlaubt (falscher Typ)."
 
 #: parser.c:3301
 #, c-format
@@ -2932,6 +3671,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Tag field and key field must not be identical."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Markerfeld und Schlüsselfeld dürfen nicht identisch sein."
 
 #: parser.c:3316
 #, c-format
@@ -2939,6 +3680,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Tag field is not set to the name of a valid field."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Markerfeld benennt kein gültiges Feld."
 
 #: parser.c:2652
 #, c-format
@@ -2946,6 +3689,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "There are no field definitions."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Felddefinitionen fehlen."
 
 #: parser.c:2713
 #, c-format
@@ -2953,6 +3698,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Value of field \"%s\" is not a valid integer number."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Wert im Feld \"%s\" ist keine gültige Ganzzahl."
 
 #: parser.c:2693
 #, c-format
@@ -2960,6 +3707,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Value of field \"%s\" is not a valid number."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Wert im Feld \"%s\" ist keine gültige Zahl."
 
 #: parser.c:2973
 #, c-format
@@ -2967,6 +3716,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "X coordinate field does not exist."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"X-Koordinatenfeld ist nicht vorhanden."
 
 #: parser.c:2978
 #, c-format
@@ -2974,6 +3725,8 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Y coordinate field does not exist."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Y-Koordinatenfeld ist nicht vorhanden."
 
 #: parser.c:2983
 #, c-format
@@ -2981,21 +3734,23 @@ msgid ""
 "Error in parser schema (%s).\n"
 "Z coordinate field does not exist."
 msgstr ""
+"Fehler im Parser-Schema (%s).\n"
+"Z-Koordinatenfeld ist nicht vorhanden."
 
 #: gui_form.c:594
 #, c-format
 msgid "Error reading default settings from file '%s': %s"
-msgstr ""
+msgstr "Fehler beim Lesen der Standardeinstellungen aus \"%s\": %s"
 
 #: gui_form.c:425
 #, c-format
 msgid "Error reading file '%s': %s"
-msgstr ""
+msgstr "Fehler beim Lesen der Datei \"%s\": %s"
 
 #: gui_form.c:516 gui_form.c:556
 #, c-format
 msgid "Error saving file '%s': %s"
-msgstr ""
+msgstr "Fehler beim Speichern der Datei \"%s\": %s"
 
 #: parser.c:3655
 #, c-format
@@ -3003,6 +3758,8 @@ msgid ""
 "Error storing data (line no.: %i):\n"
 "%s"
 msgstr ""
+"Fehler beim Speichern von Daten (Zeilennr.: %i):\n"
+"%s"
 
 #: parser.c:3649
 #, c-format
@@ -3010,6 +3767,8 @@ msgid ""
 "Error storing data from file '%s' (line no.: %i):\n"
 "%s"
 msgstr ""
+"Fehler beim Speichern von Daten aus Datei \"%s\" (Zeilennr.: %i):\n"
+"%s"
 
 #: parser.c:3673
 #, c-format
@@ -3017,6 +3776,8 @@ msgid ""
 "Error validating data (line no.: %i):\n"
 "%s"
 msgstr ""
+"Fehler bei der Validierung von Daten (Zeilennr.: %i):\n"
+"%s"
 
 #: parser.c:3667
 #, c-format
@@ -3024,103 +3785,105 @@ msgid ""
 "Error validating data from file '%s' (line no.: %i):\n"
 "%s"
 msgstr ""
+"Fehler beim Prüfen von Daten in Datei \"%s\" (Zeilennr.: %i):\n"
+"%s"
 
 #: options.h:120
 msgid "Essential topological operations"
-msgstr ""
+msgstr "Essentielle topologische Korrekturen"
 
 #: reproj.c:604
 msgid "Existing WGS 84 datum transformation in input SRS will be overridden."
-msgstr ""
+msgstr "Bestehende Transformationsparameter in Quell-KBS werden überschrieben."
 
 #: reproj.c:636
 msgid "Existing grid file specification(s) in input SRS will be overridden."
-msgstr ""
+msgstr "Bestehende Grid-Angaben in Quell-KBS werden überschrieben."
 
 #: gui_field.c:543
 msgid "Expression:"
-msgstr ""
+msgstr "Auswahlausdruck:"
 
 #: main.c:1182 main.c:1195 main.c:1198 main.c:1201 main.c:1215 main.c:1219
 #: main.c:1289 main.c:1291 main.c:1293 main.c:1295
 msgid "Extra"
-msgstr ""
+msgstr "Extra"
 
 #: export.c:713 export.c:720 export.c:727 export.c:734 export.c:741
 #: export.c:748 export.c:755
 msgid "Failed to create DBF attribute table schema for labels layer."
-msgstr ""
+msgstr "Erzeugung des DBF-Attributschemas für Etiketten fehlgeschlagen."
 
 #: export.c:671
 msgid "Failed to create DBF attribute table schema."
-msgstr ""
+msgstr "Erzeugung des DBF-Attributschemas fehlgeschlagen."
 
 #: export.c:646 export.c:706
 msgid "Failed to write DBF attribute table schema."
-msgstr ""
+msgstr "Schreiben des DBF-Attributschemas fehlgeschlagen."
 
 #: main.c:1181
 msgid "Field to use for labels (if any)."
-msgstr ""
+msgstr "Feld für Etiketten (falls zutr.)."
 
 #: gui_field.c:531
 msgid "Field:"
-msgstr ""
+msgstr "Feld:"
 
 #: gui_form.c:497
 msgid "File exists. Overwrite it?"
-msgstr ""
+msgstr "Bestehende Datei überschreiben?"
 
 #: main.c:1177
 msgid "File name for log file."
-msgstr ""
+msgstr "Name der Protokolldatei."
 
 #: gui_field.c:236
 msgid "File selection"
-msgstr ""
+msgstr "Dateiauswahl"
 
 #: gui_field.c:334 gui_field.c:1531 gui_form.c:333
 #, c-format
 msgid "Files: %i"
-msgstr ""
+msgstr "Dateien: %i"
 
 #: main.c:1291
 msgid "Force 2D output:"
-msgstr ""
+msgstr "2D-Ausgabe erzwingen:"
 
 #: options.h:121
 msgid "Full topological cleaning"
-msgstr ""
+msgstr "Vollständige Korrekturen"
 
 #: parser.c:2212 parser.c:2447
 #, c-format
 msgid "GEOM TAG LINE (%i):\t%s\n"
-msgstr ""
+msgstr "GEOM-MARKER LINIE (%i):\t%s\n"
 
 #: parser.c:2215 parser.c:2450
 #, c-format
 msgid "GEOM TAG LINE:\tNone.\n"
-msgstr ""
+msgstr "GEOM-MARKER LINIE:\tKeiner.\n"
 
 #: parser.c:2205 parser.c:2440
 #, c-format
 msgid "GEOM TAG POINT (%i):\t%s\n"
-msgstr ""
+msgstr "GEOM-MARKER PUNKT (%i):\t%s\n"
 
 #: parser.c:2208 parser.c:2443
 #, c-format
 msgid "GEOM TAG POINT:\tNone.\n"
-msgstr ""
+msgstr "GEOM-MARKER PUNKT:\tKeiner.\n"
 
 #: parser.c:2219 parser.c:2454
 #, c-format
 msgid "GEOM TAG POLY (%i):\t%s\n"
-msgstr ""
+msgstr "GEOM-MARKER POLYGON (%i):\t%s\n"
 
 #: parser.c:2222 parser.c:2457
 #, c-format
 msgid "GEOM TAG POLY:\tNone.\n"
-msgstr ""
+msgstr "GEOM-MARKER POLYGON:\tKeiner.\n"
 
 #: parser.c:2029
 #, c-format
@@ -3128,41 +3891,43 @@ msgid ""
 "Garbage encountered in parser schema (%s).\n"
 "Skipping line #%i"
 msgstr ""
+"Datenmüll gefunden im Parser-Schema (%s).\n"
+"Überspringe Zeile %i."
 
 #: parser.c:2156 parser.c:2391
 #, c-format
 msgid "INFO:\t\t%s\n"
-msgstr ""
+msgstr "INFO:\t\t%s\n"
 
 #: parser.c:2158 parser.c:2393
 #, c-format
 msgid "INFO:\t\tNone.\n"
-msgstr ""
+msgstr "INFO:\t\tNone.\n"
 
 #: options.c:138
 #, c-format
 msgid "Includes PROJ.4 %s\n"
-msgstr ""
+msgstr "Beinhaltet PROJ.4 %s\n"
 
 #: options.c:1059 options.c:1063
 msgid "Incomplete command line: option \"-n\" must be specified."
-msgstr ""
+msgstr "Unvollständige Kommandozeile: Option \"-n\" muss angegeben werden."
 
 #: options.c:1049 options.c:1053
 msgid "Incomplete command line: option \"-o\" must be specified."
-msgstr ""
+msgstr "Unvollständige Kommandozeile: Option \"-o\" muss angegeben werden."
 
 #: options.c:1027 options.c:1031
 msgid "Incomplete command line: option \"-p\" must be specified."
-msgstr ""
+msgstr "Unvollständige Kommandozeile: Option \"-p\" muss angegeben werden."
 
 #: main.c:574
 msgid "Incomplete or invalid options."
-msgstr ""
+msgstr "Unvollständige oder ungültige Einstellungen."
 
 #: main.c:1223
 msgid "Input CRS:"
-msgstr ""
+msgstr "Quell-KBS:"
 
 #: parser.c:3456
 #, c-format
@@ -3170,152 +3935,154 @@ msgid ""
 "Input line too long.\n"
 "The maximum line length allowed is: %i characters."
 msgstr ""
+"Eingabezeile ist zu lang.\n"
+"Maximal erlaubte Zeilenlänge: %i Zeichen."
 
 #: main.c:1173
 msgid "Input:"
-msgstr ""
+msgstr "Eingabe:"
 
 #: options.c:1011 options.c:1015
 #, c-format
 msgid "Invalid command line given. Use \"%s -h\" for help."
-msgstr ""
+msgstr "Ungültige Kommandozeile. Siehe \"%s -h\" für Hilfe."
 
 #: selections.c:540
 #, c-format
 msgid "Invalid field name or type in selection: '%s'"
-msgstr ""
+msgstr "Ungültiger Feldname oder -typ in Auswahl: \"%s\"."
 
 #: options.c:1145
 #, c-format
 msgid "Invalid line label mode ('%s')."
-msgstr ""
+msgstr "Ungültiger Etikettierungsmodus für Linien (\"%s\")."
 
 #: parser.c:378
 msgid "Invalid number of fields read."
-msgstr ""
+msgstr "Falsche Feldanzahl in gelesener Zeile."
 
 #: selections.c:520 selections.c:526
 msgid "Invalid or empty geometry type."
-msgstr ""
+msgstr "Ungültiger oder fehlender Geometrietyp."
 
 #: selections.c:506 selections.c:511
 msgid "Invalid or empty selection type."
-msgstr ""
+msgstr "Ungültiger oder fehlender Auswahltyp."
 
 #: options.c:1183
 #, c-format
 msgid "Invalid orientation mode ('%s')."
-msgstr ""
+msgstr "Ungültiger Orientierungsmodus (\"%s\")."
 
 #: options.c:1126
 #, c-format
 msgid "Invalid point label mode ('%s')."
-msgstr ""
+msgstr "Ungültiger Etikettierungsmodus für Punkte (\"%s\")."
 
 #: options.c:1164
 #, c-format
 msgid "Invalid polygon label mode ('%s')."
-msgstr ""
+msgstr "Ungültiger Etikettierungsmodus für Polygone (\"%s\")."
 
 #: selections.c:587
 msgid "Invalid range specification in selection."
-msgstr ""
+msgstr "Ungültiger Wertebereich in Auswahl."
 
 #: selections.c:554
 #, c-format
 msgid "Invalid regular expression in selection: '%s'"
-msgstr ""
+msgstr "Ungültiger regulärer Ausdruch in Auswahl: \"%s\"."
 
 #: gui_field.c:359
 msgid "Invalid selection command syntax."
-msgstr ""
+msgstr "Auswahlkommando hat ungültige Syntax."
 
 #: gui_field.c:424
 msgid "Invalid selection command syntax. Will reset to defaults."
-msgstr ""
+msgstr "Ungültiges Auswahlkommando. Zurückgesetzt auf Vorgabewerte."
 
 #: selections.c:698
 #, c-format
 msgid "Invalid selection specification: '%s'"
-msgstr ""
+msgstr "Ungültige Auswahlangabe: \"%s\"."
 
 #: selections.c:721
 #, c-format
 msgid "Invalid selection: Malformed numeric value: '%s'."
-msgstr ""
+msgstr "Ungültige Auswahl: Zahlenwert fehlerhaft: \"%s\"."
 
 #: selections.c:718
 #, c-format
 msgid "Invalid selection: Overflow error in numeric value: '%s'."
-msgstr ""
+msgstr "Ungültige Auswahl: Überlauf eines numerischen Wertes: \"%s\"."
 
 #: gui_form.c:234 gui_form.c:247 gui_form.c:385
 msgid "Invalid settings file."
-msgstr ""
+msgstr "Ungültige Einstellungsdatei."
 
 #: options.c:1202
 #, c-format
 msgid "Invalid topology level ('%s')."
-msgstr ""
+msgstr "Unbekannter Wert für Topologieniveau ('%s')."
 
 #: gui_field.c:566
 msgid "Invert:"
-msgstr ""
+msgstr "Umkehren:"
 
 #: main.c:1295
 msgid "Just validate parser schema."
-msgstr ""
+msgstr "Nur Parser-Schema validieren."
 
 #: parser.c:2182 parser.c:2417
 #, c-format
 msgid "KEY FIELD:\t%s\n"
-msgstr ""
+msgstr "SCHLUESSELFELD:\t%s\n"
 
 #: parser.c:2167 parser.c:2402
 #, c-format
 msgid "KEY UNIQUE:\tNo.\n"
-msgstr ""
+msgstr "EINDEUTIGER SCHLUESSEL:\tNein.\n"
 
 #: parser.c:2165 parser.c:2400
 #, c-format
 msgid "KEY UNIQUE:\tYes.\n"
-msgstr ""
+msgstr "EINDEUTIGER SCHLUESSEL:\tJa.\n"
 
 #: options.c:694
 msgid "Label field name is empty."
-msgstr ""
+msgstr "Leerer Feldname für Etikettentext."
 
 #: main.c:1181
 msgid "Label field:"
-msgstr ""
+msgstr "Etikettierungsfeld:"
 
 #: main.c:1197
 msgid "Label mode (lines):"
-msgstr ""
+msgstr "Etikettierungsmodus (Linien):"
 
 #: main.c:1194
 msgid "Label mode (points):"
-msgstr ""
+msgstr "Etikettierungsmodus (Punkte):"
 
 #: main.c:1200
 msgid "Label mode (polygons):"
-msgstr ""
+msgstr "Etikettierungsmodus (Polygone):"
 
 #: main.c:1197
 msgid "Label placement on line geometries."
-msgstr ""
+msgstr "Etikettenplatzierung auf Linien."
 
 #: main.c:1194
 msgid "Label placement on point geometries."
-msgstr ""
+msgstr "Etikettenplatzierung auf Punkten."
 
 #: main.c:1200
 msgid "Label placement on polygon geometries."
-msgstr ""
+msgstr "Etikettenplatzierung auf Polygonen."
 
 #: main.c:128
 msgid "Label settings:"
-msgstr ""
+msgstr "Etikettierung:"
 
 #: parser.c:3450
 #, c-format
@@ -3323,6 +4090,8 @@ msgid ""
 "Line too long in input file '%s' (line no.: %i).\n"
 "The maximum line length allowed is: %i characters."
 msgstr ""
+"Zeile zu lang in Eingabedatei \"%s\" (Zeilennr.: %i).\n"
+"Maximal erlaubte Länge: %i Zeichen."
 
 #: parser.c:2013
 #, c-format
@@ -3330,52 +4099,54 @@ msgid ""
 "Line too long in parser schema file (line no.: %i).\n"
 "The maximum line length allowed is: %i characters."
 msgstr ""
+"Zeile zu lang in Parser-Schemadatei (Zeilennr.: %i).\n"
+"Maximal erlaubte Länge: %i Zeichen."
 
 #: gui_field.c:220
 msgid "List of input files:"
-msgstr ""
+msgstr "Liste der Eingabedateien:"
 
 #: gui_field.c:698
 msgid "List of selection commands:"
-msgstr ""
+msgstr "Liste der Auswahlkommandos:"
 
-#: options.c:1412
+#: options.c:1415
 msgid "Local survey data cannot be reprojected."
-msgstr ""
+msgstr "Lokale Vermessungsdaten können nicht reprojiziert werden."
 
 #: options.h:106
 msgid "Local: X-Z cross section"
-msgstr ""
+msgstr "Lokal: X-Z-Profil"
 
 #: main.c:1177
 msgid "Log file:"
-msgstr ""
+msgstr "Protokolldatei:"
 
 #: geom.c:7692 geom.c:7698 geom.c:7704
 #, c-format
 msgid "Max. (right-most) input X coordinate is: '%f'."
-msgstr ""
+msgstr "Max. (äußerste rechte) X-Koordinate ist: \"%f\"."
 
 #: main.c:559 main.c:578 main.c:1921 main.c:1996 parser.c:2376
 msgid "Message"
-msgstr ""
+msgstr "Meldung"
 
 #: gui_form.c:1188
 msgid "Messages"
-msgstr ""
+msgstr "Meldungen"
 
 #: main.c:226
 msgid "Messages and decimal notation set to English."
-msgstr ""
+msgstr "Meldungen und Dezimaltrennzeichen auf Englisch eingestellt."
 
 #: main.c:1358
 msgid "Messages, errors and warnings will appear in this area.\n"
-msgstr ""
+msgstr "Meldungen, Fehler und Warnungen erscheinen in diesem Bereich.\n"
 
 #: geom.c:7691 geom.c:7697 geom.c:7703
 #, c-format
 msgid "Min. (left-most)  input X coordinate is: '%f'."
-msgstr ""
+msgstr "Min. (äußerste linke)  X-Koordinate ist: \"%f\"."
 
 #: options.c:682 options.c:706 options.c:715 options.c:724 options.c:735
 #: options.c:746 options.c:761 options.c:772 options.c:783 options.c:794
@@ -3385,54 +4156,54 @@ msgstr ""
 #: options.c:987 options.c:998
 #, c-format
 msgid "Missing option value (option '%s')."
-msgstr ""
+msgstr "Fehlender Optionswert (Option '%s')."
 
 #: gui_field.c:556
 msgid "Mode:"
-msgstr ""
+msgstr "Modus:"
 
 #: parser.c:2152 parser.c:2387
 #, c-format
 msgid "NAME:\t\t%s\n"
-msgstr ""
+msgstr "NAME:\t\t%s\n"
 
 #: parser.c:2154 parser.c:2389
 #, c-format
 msgid "NAME:\t\tNot specified.\n"
-msgstr ""
+msgstr "NAME:\t\tNicht festgelegt.\n"
 
 #: parser.c:2146
 #, c-format
 msgid "NO PARSER DESCRIPTION AVAILABLE.\n"
-msgstr ""
+msgstr "KEINE PARSERBESCHREIBUNG VORHANDEN.\n"
 
 #: main.c:1149
 msgid "Name of file with parsing schema."
-msgstr ""
+msgstr "Name der Datei mit Parser-Schema."
 
 #: main.c:1241
 msgid "Name of input grid file for local datum transformation."
-msgstr ""
+msgstr "Name der Grid-Datei für lokale Datumstransformation."
 
 #: gui_field.c:431
 msgid "New selection command"
-msgstr ""
+msgstr "Neues Auswahlkommando"
 
 #: gui_form.c:501
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: options.c:575
 msgid "No X coordinate offset specified (option '-x')."
-msgstr ""
+msgstr "Kein X-Koordinatenversatz festgelegt (Option \"-x\")."
 
 #: options.c:579
 msgid "No Y coordinate offset specified (option '-y')."
-msgstr ""
+msgstr "Kein Y-Koordinatenversatz festgelegt (Option \"-y\")."
 
 #: options.c:583
 msgid "No Z coordinate offset specified (option '-z')."
-msgstr ""
+msgstr "Kein Z-Koordinatenversatz festgelegt (Option \"-z\")."
 
 #: parser.c:2871
 #, c-format
@@ -3440,272 +4211,289 @@ msgid ""
 "No Z field defined in parser schema (%s).\n"
 "Z assumed to be constant 0."
 msgstr ""
+"Kein Z-Feld im Parser-Schema (%s) festgelegt.\n"
+"Für Z wird konstant \"0\" angenommen."
 
 #: options.c:571
 msgid "No dangling setting specified (option '-D')."
-msgstr ""
+msgstr "Fangeinstellung für Linienenden nicht festgelegt (Option \"-D\")."
 
 #: options.c:635
 msgid "No datum grid file given (option '--proj-grid')."
 msgstr ""
+"Keine Grid-Datei für Datumstransformation angegeben (Option \"--proj-grid\")."
 
 #: options.c:595
 msgid "No decimal grouping symbol specified (option '-g')."
-msgstr ""
+msgstr "Kein Zeichen zur Zifferntrennung festgelegt (Option \"-g\")."
 
 #: options.c:591
 msgid "No decimal point symbol specified (option '-i')."
-msgstr ""
+msgstr "Kein Dezimaltrennzeichen festgelegt (Option \"-i\")."
 
 #: gui_field.c:975 gui_field.c:1187 gui_field.c:1263 gui_field.c:1345
 #: gui_field.c:1431 gui_field.c:1516 gui_field.c:1610
 msgid "No description available."
-msgstr ""
+msgstr "Keine Beschreibung vorhanden."
 
 #: options.c:599
 msgid "No input coordinate reference system given (option '--proj-in')."
-msgstr ""
+msgstr "Kein Quell-KBS angegeben (Option \"--proj-in\")."
 
 #: main.c:119
 msgid "No input files."
-msgstr ""
+msgstr "Keine Eingabedateien."
 
 #: options.c:531
 msgid "No label field specified (option '-L')."
-msgstr ""
+msgstr "Kein Etikettierungsfeld angegeben (Option \"-L\")."
 
 #: options.c:539
 msgid "No label mode for lines specified (option '--label-mode-line')."
 msgstr ""
+"Kein Etikettierungsmodus für Linien angegeben (Option \"--label-mode-line\")."
 
 #: options.c:535
 msgid "No label mode for points specified (option '--label-mode-point')."
 msgstr ""
+"Kein Etikettierungsmodus für Punkte angegeben (Option \"--label-mode-point"
+"\")."
 
 #: options.c:543
 msgid "No label mode for polygons specified (option '--label-mode-poly')."
 msgstr ""
+"Kein Etikettierungsmodus für Polygone angegeben (Option \"--label-mode-poly"
+"\")."
 
 #: options.c:559
 msgid "No log file name specified (option '-l')."
-msgstr ""
+msgstr "Keine Name für Protokolldatei vergeben (Option \"-l\")."
 
 #: options.c:547
 msgid "No orientation mode specified (option '-O')."
-msgstr ""
+msgstr "Kein Orientierungsmodus angegeben (Option \"-O\")."
 
 #: options.c:619
 msgid "No output WGS 84 datum rotation X given (option '--proj-rx')."
 msgstr ""
+"Fehlende Angabe zu X-Rotation nach WGS 84-Datum (Option \"--proj-rx\")."
 
 #: options.c:623
 msgid "No output WGS 84 datum rotation Y given (option '--proj-ry')."
 msgstr ""
+"Fehlende Angabe zu Y-Rotation nach WGS 84-Datum (Option \"--proj-ry\")."
 
 #: options.c:627
 msgid "No output WGS 84 datum rotation Z given (option '--proj-rz')."
 msgstr ""
+"Fehlende Angabe zu Z-Rotation nach WGS 84-Datum (Option \"--proj-rz\")."
 
 #: options.c:631
 msgid "No output WGS 84 datum scaling given (option '--proj-ds')."
 msgstr ""
+"Fehlende Angabe zu Skalierung nach WGS 84-Datum (Option \"--proj-ds\")."
 
 #: options.c:607
 msgid "No output WGS 84 datum shift X given (option '--proj-dx')."
 msgstr ""
+"Fehlende Angabe zu X-Verschiebung nach WGS 84-Datum (Option \"--proj-dx\")."
 
 #: options.c:611
 msgid "No output WGS 84 datum shift Y given (option '--proj-dy')."
 msgstr ""
+"Fehlende Angabe zu Y-Verschiebung nach WGS 84-Datum (Option \"--proj-dy\")."
 
 #: options.c:615
 msgid "No output WGS 84 datum shift Z given (option '--proj-dz')."
 msgstr ""
+"Fehlende Angabe zu Z-Verschiebung nach WGS 84-Datum (Option \"--proj-dz\")."
 
 #: options.c:523 options.c:671
 msgid "No output base name specified (option '-n')."
-msgstr ""
+msgstr "Kein Basisname für Ausgabe vergeben (Option \"-n\")."
 
 #: options.c:603
 msgid "No output coordinate reference system given (option '--proj-out')."
-msgstr ""
+msgstr "Kein Ziel-KBS angegeben (Option \"--proj-out\")."
 
 #: options.c:519 options.c:659
 msgid "No output directory name specified (option '-o')."
-msgstr ""
+msgstr "Kein Name für Ausgabeverzeichnis festgelegt (Option \"-o\")."
 
 #: options.c:527
 msgid "No output format specified (option '-f')."
-msgstr ""
+msgstr "Ausgabeformat nicht festgelegt (Option \"-f\")."
 
 #: parser.c:1975
 msgid "No parser file given."
-msgstr ""
+msgstr "Keine Parserdatei angegeben."
 
 #: options.c:515 options.c:647
 msgid "No parser file specified (option '-p')."
-msgstr ""
+msgstr "Keine Parserdatei festgelegt (Option \"-p\")."
 
 #: options.c:555
 msgid "No selection command specified (option '-S')."
-msgstr ""
+msgstr "Kein Auswahlkommando angegeben (Option \"-S\")."
 
 #: options.c:567
 msgid "No snapping setting specified (option '-s')."
-msgstr ""
+msgstr "Fangeinstellung nicht festgelegt (Option \"-s\")."
 
 #: options.c:563
 msgid "No tolerance setting specified (option '-t')."
-msgstr ""
+msgstr "Toleranz nicht eingestellt (Option \"-t\")."
 
 #: options.h:119
 msgid "No topological operations"
-msgstr ""
+msgstr "Keine topologische Korrektur"
 
 #: options.c:551
 msgid "No topology level specified (option '-T')."
-msgstr ""
+msgstr "Kein Topologieniveau angegeben (option '-T')."
 
 #: parser.c:2178 parser.c:2293 parser.c:2413 parser.c:2529
 #, c-format
 msgid "None."
-msgstr ""
+msgstr "Kein"
 
 #: parser.c:2274 parser.c:2510
 #, c-format
 msgid "None.\n"
-msgstr ""
+msgstr "Kein.\n"
 
 #: geom.c:3224
 #, c-format
 msgid "Not enough vertices given (need at least 2)."
-msgstr ""
+msgstr "Zuwenig Stützpunkte vorhanden (mindestens 2 benötigt)."
 
 #: geom.c:3226
 #, c-format
 msgid "Not enough vertices given (need at least 3)."
-msgstr ""
+msgstr "Zuwenig Stützpunkte vorhanden (mindestens 3 benötigt)."
 
-#: main.c:1712 options.c:1344
+#: main.c:1712 options.c:1347
 #, c-format
 msgid "Number of decimal places cannot exceed %i."
-msgstr ""
+msgstr "Mehr als %i Dezimalstellen nicht möglich. "
 
-#: main.c:1706 options.c:1337
+#: main.c:1706 options.c:1340
 msgid "Number of decimal places must be 0 or a positive number."
-msgstr ""
+msgstr "Die Anzahl der Dezimalstellen muss eine positive Zahl sein oder \"0\"."
 
 #: options.c:587
 msgid "Number of decimal places not given (option '-d')."
-msgstr ""
+msgstr "Anzahl der Dezimalstellen nicht angegeben (Option \"-d\")"
 
 #: main.c:1285
 msgid "Numeric group character in input data."
-msgstr ""
+msgstr "Schriftzeichen zur Zifferngruppierung in Eingabedaten"
 
 #: main.c:1269
 msgid "Numeric precision for DBF floating point attributes."
 msgstr ""
+"Anzahl signifikanter Stellen der Gleitpunktzahlen in Attributfeldern der DBF-"
+"Tabellen"
 
-#: options.c:1403
+#: options.c:1406
 msgid "Only output SRS specified. Ignoring."
-msgstr ""
+msgstr "Lediglich Ziel-KBS angegeben. Wird ignoriert."
 
 #: geom.c:3102 geom.c:3124 geom.c:3306 geom.c:3425
 #, c-format
 msgid "Out of memory."
-msgstr ""
+msgstr "Kein Platz mehr im Hauptspeicher."
 
 #: parser.c:193 parser.c:217
 msgid "Out of storage memory."
-msgstr ""
+msgstr "Kein freier Speicherplatz mehr vorhanden."
 
 #: main.c:1225
 msgid "Output CRS:"
-msgstr ""
+msgstr "Ziel-KBS:"
 
 #: reproj.c:495
 #, c-format
 msgid "Output SRS (expanded): '%s'"
-msgstr ""
+msgstr "Ziel-KBS (erweitert): \"%s\""
 
 #: main.c:811
 msgid "Output data may suffer from topological defects."
-msgstr ""
+msgstr "Ausgabedaten können topologische Defekte aufweisen."
 
 #: main.c:1166
 msgid "Output file format."
-msgstr ""
+msgstr "Ausgabedateiformat"
 
 #: main.c:1151
 msgid "Output folder:"
-msgstr ""
+msgstr "Ausgabeordner:"
 
 #: main.c:1166
 msgid "Output format:"
-msgstr ""
+msgstr "Ausgabeformat:"
 
 #: main.c:1153
 msgid "Output name:"
-msgstr ""
+msgstr "Ausgabename:"
 
 #: main.c:1214
 msgid "Output orientation:"
-msgstr ""
+msgstr "Ausgabeorientierung:"
 
 #: main.c:171
 #, c-format
 msgid "Output orientation: %s"
-msgstr ""
+msgstr "Ausgabeorientierung: %s"
 
 #: main.c:125
 #, c-format
 msgid "Output stored in: %s"
-msgstr ""
+msgstr "Ausgabe gespeichert unter: %s"
 
 #: reproj.c:93
 #, c-format
 msgid "PROJ.4 data path is: '%s'\n"
-msgstr ""
+msgstr "PROJ.4-Datenverzeichnis: \"%s\"\n"
 
 #: reproj.c:1138 reproj.c:1163 reproj.c:1195 reproj.c:1220 reproj.c:1248
 #: reproj.c:1268 reproj.c:1297 reproj.c:1317
 #, c-format
 msgid "PROJ.4 error:'%s'"
-msgstr ""
+msgstr "PROJ.4-Fehler: \"%s\""
 
 #: main.c:224
 msgid "Parser running in 'strict' mode."
-msgstr ""
+msgstr "Parser läuft im \"strengen\" Modus."
 
 #: parser.c:1985
 msgid "Parser schema file must be provided."
-msgstr ""
+msgstr "Ein Parser-Schema muss angegeben werden"
 
 #: main.c:124
 #, c-format
 msgid "Parser schema file: %s"
-msgstr ""
+msgstr "Parser-Schemadatei: %s"
 
 #: main.c:1149
 msgid "Parser schema:"
-msgstr ""
+msgstr "Parser-Schema:"
 
 #: options.h:89
 msgid "Place at center of geometry"
-msgstr ""
+msgstr "Im Zentrum der Geometrie platzieren"
 
 #: options.h:90
 msgid "Place on first vertex"
-msgstr ""
+msgstr "Auf erstem Stützpunkt platzieren"
 
 #: options.h:91
 msgid "Place on last vertex"
-msgstr ""
+msgstr "Auf letztem Stützpunkt platzieren"
 
 #: main.c:558
 msgid "Please provide a valid parser schema file."
-msgstr ""
+msgstr "Bitte gültige Parser-Schemadatei angeben. "
 
 #: main.c:577
 msgid ""
@@ -3713,50 +4501,53 @@ msgid ""
 "parser schema file, base output name,\n"
 "and output folder name."
 msgstr ""
+"Bitte gültige Eingabedatei(en),\n"
+"Parser-Schemadatei, Basisname der Ausgabe,\n"
+"und Name des Ausgabeordners angeben."
 
 #: parser.c:2375
 msgid "Please select a valid parser file."
-msgstr ""
+msgstr "Bitte eine gültige Parser-Schemadatei auswählen"
 
 #: selections.c:571
 msgid "Problem: Caps array too small."
-msgstr ""
+msgstr "Problem: Puffergröße zu klein."
 
 #: selections.c:562
 msgid "Problem: Internal error."
-msgstr ""
+msgstr "Problem: Interner Fehler."
 
 #: selections.c:565
 msgid "Problem: Invalid character set."
-msgstr ""
+msgstr "Problem: Ungültige Zeichenkodierung."
 
 #: selections.c:568
 msgid "Problem: Invalid meta character."
-msgstr ""
+msgstr "Problem: Ungültiges Metazeichen."
 
 #: selections.c:577
 msgid "Problem: Too many brackets."
-msgstr ""
+msgstr "Problem: Zuviele Klammern."
 
 #: selections.c:574
 msgid "Problem: Too many branches."
-msgstr ""
+msgstr "Problem: Zuviele Verzweigungen."
 
 #: selections.c:559
 msgid "Problem: Unbalanced brackets."
-msgstr ""
+msgstr "Problem: Falsche Klammerung."
 
 #: selections.c:556
 msgid "Problem: Unexpected quantifier."
-msgstr ""
+msgstr "Problem: Unerwarteter Quantifikator."
 
 #: main.c:220
 msgid "Raw vertex data will be saved as additional output."
-msgstr ""
+msgstr "Messpunkte werden als zusätzliche Ausgabe gespeichert."
 
 #: main.c:1289
 msgid "Raw vertex output:"
-msgstr ""
+msgstr "Messpunktausgabe:"
 
 #: options.c:58
 #, c-format
@@ -3764,155 +4555,162 @@ msgid ""
 "Read geometry and attribute descriptions from a survey protocol file\n"
 "in ASCII format and convert them to common GIS and CAD output formats.\n"
 msgstr ""
+"Beschreibungen der Geometrien u. Attribute aus einer Messprotokolldatei\n"
+"im ASCII-Format auslesen und diese in gängige GIS- und CAD-Ausgabeformate\n"
+"umwandeln.\n"
 
 #: gui_form.c:1254
 #, c-format
 msgid "Ready."
-msgstr ""
+msgstr "Bereit."
 
 #: parser.c:179
 msgid "Record to be stored contains no data."
-msgstr ""
+msgstr "Der zu speichernde Datensatz enthält keine Daten."
 
 #: main.c:1224 main.c:1226 main.c:1227 main.c:1229 main.c:1231 main.c:1233
 #: main.c:1235 main.c:1237 main.c:1239 main.c:1241
 msgid "Reprojection"
-msgstr ""
+msgstr "Reprojektion"
 
 #: main.c:739
 msgid "Results of eliminating duplicate vertices may be insufficient."
-msgstr ""
+msgstr "Ergebnis der Entfernung doppelter Stützpunkte u.U. unzureichend."
 
 #: main.c:743
 msgid "Results of snapping vertices may be insufficient."
-msgstr ""
+msgstr "Ergebnis des Einrastens an Stützpunkten u.U. unzureichend."
 
 #: parser.c:2150 parser.c:2385
 #, c-format
 msgid "SCHEMA FILE:\t%s\n"
-msgstr ""
+msgstr "SCHEMA-DATEI:\t%s\n"
 
 #: main.c:134
 msgid "SRS and reprojection:"
-msgstr ""
+msgstr "KBS und Reprojektion:"
 
 #: main.c:1289
 msgid "Save raw vertex data as additional output."
-msgstr ""
+msgstr "Messpunktdaten als zusätzliche Ausgabe speichern."
 
 #: main.c:1239
 msgid "Scaling factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "Skalierungsfaktor für Datumstransformation nach WGS 84."
 
 #: main.c:1239
 msgid "Scaling to WGS 84:"
-msgstr ""
+msgstr "Skalierung nach WGS 84"
 
 #: gui_field.c:168 gui_field.c:259 gui_field.c:1276 gui_form.c:404
 #: gui_form.c:464
 msgid "Select file"
-msgstr ""
+msgstr "Datei auswählen"
 
 #: gui_field.c:1444
 msgid "Select folder"
-msgstr ""
+msgstr "Ordner auswählen"
 
 #: main.c:1219
 msgid "Select subset(s) of input data."
-msgstr ""
+msgstr "Untermenge aus Eingabedaten auswählen."
 
 #: main.c:174
 msgid "Selection commands:"
-msgstr ""
+msgstr "Auswahlkommandos:"
 
 #: main.c:1173
 msgid "Selection of input file(s)."
-msgstr ""
+msgstr "Auswahl der Eingabedatei(en)."
 
 #: gui_field.c:499
 msgid "Selection type:"
-msgstr ""
+msgstr "Auswahltyp:"
 
 #: main.c:1219
 msgid "Selection:"
-msgstr ""
+msgstr "Auswahl:"
 
-#: options.c:1278
+#: options.c:1281
 #, c-format
 msgid "Setting for 'dangling' ignored when running with 'topology=%s'."
 msgstr ""
 
-#: options.c:1255
+#: options.c:1258
 #, c-format
 msgid "Setting for 'snapping' ignored when running with 'topology=%s'."
 msgstr ""
 
 #: parser.c:373
 msgid "Slot number out of bounds."
-msgstr ""
+msgstr "Ungültiger Indexwert."
 
 #: main.c:187
 #, c-format
 msgid "Snapping dist. (boundary vertices): %f"
-msgstr ""
+msgstr "Fangtoleranz (Polygongrenzen): %f"
 
 #: main.c:185
 msgid "Snapping dist. (boundary vertices): 0"
-msgstr ""
+msgstr "Fangtoleranz (Polygongrenzen): 0"
 
 #: main.c:192
 #, c-format
 msgid "Snapping dist. (line nodes): %f"
-msgstr ""
+msgstr "Fangtoleranz (Linienenden): %f"
 
 #: main.c:190
 msgid "Snapping dist. (line nodes): 0"
-msgstr ""
+msgstr "Fangtoleranz (Linienenden): 0"
 
 #: main.c:1618
 msgid "Snapping setting for boundaries must be 0 or a positive number."
 msgstr ""
+"Fangeinstellung für Polygongrenzen muss eine positive Zahl sein oder \"0\"."
 
 #: main.c:1640
 msgid "Snapping setting for dangles must be 0 or a positive number."
 msgstr ""
+"Fangeinstellung für Liniengrenzen muss eine positive Zahl sein oder \"0\"."
 
-#: options.c:1259
+#: options.c:1262
 msgid "Snapping setting must be 0 or a positive number."
-msgstr ""
+msgstr "Wert der Fangeinstellung muss eine positive Zahl sein oder \"0\"."
 
 #: main.c:1261
 msgid "Snapping threshold for dangling line nodes."
-msgstr ""
+msgstr "Schwellenwert für Fang auf Linienenden."
 
 #: main.c:1259
 msgid "Snapping threshold for polygon boundary vertices."
-msgstr ""
+msgstr "Schwellenwert für Fang auf Stützpunkte auf Polygongrenzen."
 
 #: main.c:1914
 msgid "Software for exporting survey data to GIS standard formats."
-msgstr ""
+msgstr "Software zum Exportieren von Messdaten in GIS-Standardformate"
 
-#: main.c:1700 options.c:1329
+#: main.c:1700 options.c:1332
 msgid "Specified decimal places is not a valid number."
-msgstr ""
+msgstr "Die angegebene Zahl der Dezimalstellen ist nicht gültig."
 
-#: options.c:1533
+#: options.c:1536
 msgid "Specified transformation grid file is not a readable file."
-msgstr ""
+msgstr "Angegebene Grid-Datei ist keine lesbare Datei."
 
-#: options.c:1528
+#: options.c:1531
 msgid ""
 "Specify either WGS 84 transformation parameters or a grid file, not both."
 msgstr ""
+"Entweder WGS-84-Transformationsparameter angeben, oder Grid-Datei, oder "
+"beide."
 
 #: parser.c:210
 msgid "Storage slot already contains data."
-msgstr ""
+msgstr "Der Speicherplatz enthält bereits Daten."
 
 #: main.c:1293
 msgid "Strict parsing:"
-msgstr ""
+msgstr "Strenger Parser-Modus:"
 
 #: parser.c:2069
 #, c-format
@@ -3920,6 +4718,8 @@ msgid ""
 "Syntax error in parser schema (%s).\n"
 "Line #%i: \"%s\" is not a valid section identifier.\n"
 msgstr ""
+"Syntaxfehler im Parser-Schema (%s).\n"
+"Zeile #%i: \"%s\" ist kein gültiges Trennzeichen.\n"
 
 #: parser.c:2082
 #, c-format
@@ -3927,6 +4727,8 @@ msgid ""
 "Syntax error in parser schema (%s).\n"
 "Line #%i: Missing '=' (expected 'option=value' line)."
 msgstr ""
+"Syntaxfehler im Parser-Schema (%s).\n"
+"Zeile %i: Fehlendes \"=\" (erwarteter Ausdruck: \"Option=Wert\")."
 
 #: parser.c:2038
 #, c-format
@@ -3934,26 +4736,28 @@ msgid ""
 "Syntax error in parser schema (%s).\n"
 "Line #%i: Missing ']'."
 msgstr ""
+"Syntaxfehler im Parser-Schema (%s).\n"
+"Zeile %i: Fehlendes \"]\"."
 
 #: parser.c:2181 parser.c:2416
 #, c-format
 msgid "TAG FIELD:\t%s\n"
-msgstr ""
+msgstr "MARKER-FELD:\t%s\n"
 
 #: parser.c:2159 parser.c:2394
 #, c-format
 msgid "TAG MODE:\t%i (\"%s\")\n"
-msgstr ""
+msgstr "MARKER-MODUS:\t%i (\"%s\")\n"
 
 #: parser.c:2163 parser.c:2398
 #, c-format
 msgid "TAG STRICT:\tNo.\n"
-msgstr ""
+msgstr "STRENGER MARKER:\tNein.\n"
 
 #: parser.c:2161 parser.c:2396
 #, c-format
 msgid "TAG STRICT:\tYes.\n"
-msgstr ""
+msgstr "STRENGER MARKER:\tJa.\n"
 
 #: options.c:133
 #, c-format
@@ -3961,82 +4765,88 @@ msgid ""
 "The \"--tolerance=\" setting determines the threshold of distance above\n"
 "which two coordinates are considered to be distinct.\n"
 msgstr ""
+"Die Einstellung \"--tolerance=\" legt die Mindestdistanz fest,\n"
+"ab der zwei Koordinaten als getrennt behandelt werden.\n"
 
 #: options.c:129
 #, c-format
 msgid "The combined output will be written into at least one output file.\n"
 msgstr ""
+"Die Ausgabe wird in mind. einer Datei zusammengefasst und gespeichert.\n"
 
-#: main.c:1835 options.c:1471
+#: main.c:1835 options.c:1474
 msgid "The specified WGS 84 datum X rotation is not a valid number."
-msgstr ""
+msgstr "Die angegebene X-Rotation nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1796 options.c:1429
+#: main.c:1796 options.c:1432
 msgid "The specified WGS 84 datum X shift is not a valid number."
-msgstr ""
+msgstr "Die angegebene X-Verschiebung nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1848 options.c:1485
+#: main.c:1848 options.c:1488
 msgid "The specified WGS 84 datum Y rotation is not a valid number."
-msgstr ""
+msgstr "Die angegebene Y-Rotation nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1809 options.c:1443
+#: main.c:1809 options.c:1446
 msgid "The specified WGS 84 datum Y shift is not a valid number."
-msgstr ""
+msgstr "Die angegebene Y-Verschiebung nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1861 options.c:1499
+#: main.c:1861 options.c:1502
 msgid "The specified WGS 84 datum Z rotation is not a valid number."
-msgstr ""
+msgstr "Die angegebene Z-Rotation nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1822 options.c:1457
+#: main.c:1822 options.c:1460
 msgid "The specified WGS 84 datum Z shift is not a valid number."
-msgstr ""
+msgstr "Die angegebene Z-Verschiebung nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1874 options.c:1513
+#: main.c:1874 options.c:1516
 msgid "The specified WGS 84 datum scaling is not a valid number."
-msgstr ""
+msgstr "Die angegebene Skalierung nach WGS 84 ist keine gültige Zahl."
 
-#: main.c:1655 options.c:1293
+#: main.c:1655 options.c:1296
 msgid "The specified X coordinate offset is not a valid number."
-msgstr ""
+msgstr "Der angegebene X-Koordinatenversatz ist keine gültige Zahl."
 
-#: main.c:1670 options.c:1305
+#: main.c:1670 options.c:1308
 msgid "The specified Y coordinate offset is not a valid number."
-msgstr ""
+msgstr "Der angegebene Y-Koordinatenversatz ist keine gültige Zahl."
 
-#: main.c:1685 options.c:1317
+#: main.c:1685 options.c:1320
 msgid "The specified Z coordinate offset is not a valid number."
-msgstr ""
+msgstr "Der angegebene Z-Koordinatenversatz ist keine gültige Zahl."
 
-#: options.c:1270
+#: options.c:1273
 msgid "The specified dangling setting is not a valid number."
-msgstr ""
+msgstr "Die angegebene Fangeinstellung für Linienenden ist keine gültige Zahl."
 
 #: options.c:1222
 #, c-format
 msgid "The specified output format \"%s\" is unknown."
-msgstr ""
+msgstr "Das angegebene Ausgabeformat \"%s\" ist unbekannt."
 
 #: main.c:1612
 msgid "The specified snapping setting for boundaries is not a valid number."
-msgstr ""
+msgstr "Die angegebene Fangeinstellung ist keine gültige Zahl."
 
 #: main.c:1634
 msgid "The specified snapping setting for dangles is not a valid number."
 msgstr ""
+"Die angegebene Fangeinstellung für Polygongrenzen ist keine gültige Zahl."
 
-#: options.c:1247
+#: options.c:1250
 msgid "The specified snapping setting is not a valid number."
-msgstr ""
+msgstr "Die angegebene Fangeinstellung ist keine gültige Zahl."
 
 #: main.c:1591 options.c:1232
 msgid "The specified tolerance setting is not a valid number."
-msgstr ""
+msgstr "Die angegebene Toleranzeinstellung ist keine gültige Zahl."
 
 #: main.c:1995
 msgid ""
 "There was a problem with at least one option setting.\n"
 "Please check the \"Messages\" area for details."
 msgstr ""
+"Es gab Probleme mit mindestens einem Optionswert.\n"
+"Siehe Details im Bereich \"Meldungen\"."
 
 #: main.c:1915
 msgid ""
@@ -4047,45 +4857,50 @@ msgid ""
 "This software includes LGPL-licensed code from shapelib: http://shapelib."
 "maptools.org"
 msgstr ""
+"Dies ist freie Software unter der GNU Public License.\n"
+"Eine Kopie der Lizenbestimmungen liegt in der Datei LICENSE.\n"
+"Deutsche Übersetzung: siehe http://www.gnu.de/documents/gpl-2.0.de.html.\n"
+"Diese Software enthält LGPL-lizenzierten Code von shapelib: http://shapelib."
+"maptools.org"
 
 #: parser.c:2280 parser.c:2516
 #, c-format
 msgid "To lower case.\n"
-msgstr ""
+msgstr "Kleinschreibung.\n"
 
 #: parser.c:2277 parser.c:2513
 #, c-format
 msgid "To upper case.\n"
-msgstr ""
+msgstr "Großschreibung.\n"
 
 #: main.c:1598 options.c:1240
 msgid "Tolerance setting < 0. Identical vertices will not be removed."
-msgstr ""
+msgstr "Toleranzwert < 0. Identische Stützpunkte werden nicht entfernt."
 
 #: main.c:1254
 msgid "Topological processing level."
-msgstr ""
+msgstr "Topologisches Korrekturniveau."
 
 #: main.c:172
 #, c-format
 msgid "Topological processing: %s"
-msgstr ""
+msgstr "Topologische Korrektur: %s"
 
 #: main.c:1254
 msgid "Topology level:"
-msgstr ""
+msgstr "Topologie-Niveau:"
 
 #: parser.c:368
 msgid "Uninitialized data store specified."
-msgstr ""
+msgstr "Nichtinitialisierter Speicherbereich angegeben."
 
 #: parser.c:383
 msgid "Uninitialized option set specified."
-msgstr ""
+msgstr "Nichtinitialisierte Optionsmenge angegeben."
 
 #: parser.c:388
 msgid "Uninitialized parser specified."
-msgstr ""
+msgstr "Nichtinitialisierter Parser angegeben."
 
 #: parser.c:3372
 #, c-format
@@ -4093,6 +4908,8 @@ msgid ""
 "Unneeded setting in parser schema (%s).\n"
 "Setting for \"key_unique\" will be ignored."
 msgstr ""
+"Unnötige Angabe im Parser-Schema (%s).\n"
+"Einstellung für Schlüsselfeld wird ignoriert."
 
 #: parser.c:3368
 #, c-format
@@ -4100,6 +4917,8 @@ msgid ""
 "Unneeded setting in parser schema (%s).\n"
 "Setting for \"tag_strict\" will be ignored."
 msgstr ""
+"Unnötige Angabe im Parser-Schema (%s).\n"
+"Einstellung für \"tag_strict\" wird ignoriert."
 
 #: parser.c:3260 parser.c:3360 parser.c:3364
 #, c-format
@@ -4107,6 +4926,8 @@ msgid ""
 "Unneeded setting in parser schema (%s).\n"
 "Setting for key field will be ignored."
 msgstr ""
+"Unnötige Angabe im Parser-Schema (%s).\n"
+"Einstellung für Schlüsselfeld wird ignoriert."
 
 #: parser.c:3293
 #, c-format
@@ -4114,6 +4935,8 @@ msgid ""
 "Unneeded setting in parser schema (%s).\n"
 "Setting for tag field will be ignored."
 msgstr ""
+"Unnötige Angabe im Parser-Schema (%s).\n"
+"Einstellung für Marker-Feld wird ignoriert."
 
 #: parser.c:3378
 #, c-format
@@ -4121,180 +4944,367 @@ msgid ""
 "Unneeded setting(s) in parser schema (%s).\n"
 "Setting(s) for geometry tags will be ignored."
 msgstr ""
+"Unnötige Angabe im Parser-Schema (%s).\n"
+"Einstellung für Geometriemarker wird ignoriert."
 
 #: options.c:57
 #, c-format
 msgid "Usage: %s -p FILE -o DIR -n NAME [OPTION]... [FILE]... \n"
 msgstr ""
+"Benutzung: %s -p DATEI -o VERZEICHNIS -n NAME [OPTION]... [DATEI]... \n"
 
 #: main.c:1293
 msgid "Use stricter input validation."
-msgstr ""
+msgstr "Verwende strengere Eingabeprüfung"
 
 #: reproj.c:592
 msgid "User has specified a seven-parameter transformation."
-msgstr ""
+msgstr "Benutzer hat eine Sieben-Parameter-Transformation angegeben."
 
 #: reproj.c:598
 msgid "User has specified a three-parameter transformation."
-msgstr ""
+msgstr "Benutzer hat eine Drei-Parameter-Transformation angegeben."
 
 #: main.c:1295
 msgid "Validate only:"
-msgstr ""
+msgstr "Nur prüfen:"
 
 #: errors.c:125 errors.c:135 errors.c:146 errors.c:152
 #, c-format
 msgid "WARNING: "
-msgstr ""
+msgstr "ACHTUNG: "
 
-#: options.c:1542
+#: options.c:1545
 msgid ""
 "WGS 84 datum transformation requires input and output SRS specifications."
 msgstr ""
+"Datumstransformation über WGS 84 benötigt Angabe von Quell- und Ziel-KBS."
 
 #: options.h:105
 msgid "World: original X/Y/(Z)"
-msgstr ""
+msgstr "Welt: ursprüngliche X-/Y-/(Z-)Achsen"
 
 #: geom.c:3215
 #, c-format
 msgid "Wrong geometry type (must be point, line or polygon)."
-msgstr ""
+msgstr "Falscher Geometrietyp (nicht Punkt, Linie oder Polygon)."
 
 #: parser.c:2225 parser.c:2461
 #, c-format
 msgid "X COORD FIELD:\t%s\n"
-msgstr ""
+msgstr "X-KOORD.-FELD:\t%s\n"
 
 #: parser.c:2227 parser.c:2463
 #, c-format
 msgid "X COORD FIELD:\tUndefined.\n"
-msgstr ""
+msgstr "X-KOORD.-FELD:\tNicht definiert.\n"
 
 #: main.c:197
 #, c-format
 msgid "X coordinate offset: %f"
-msgstr ""
+msgstr "X-Koordinatenversatz: %f"
 
 #: main.c:195
 msgid "X coordinate offset: 0"
-msgstr ""
+msgstr "X-Koordinatenversatz: 0"
 
 #: main.c:1233
 msgid "X rotation factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "X-Rotation für Datumstransformation nach WGS 84."
 
 #: main.c:1233
 msgid "X rotation to WGS 84:"
-msgstr ""
+msgstr "X-Rotation nach WGS 84:"
 
 #: main.c:1227
 msgid "X shift factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "X-Verschiebung für Datumstransformation nach WGS 84."
 
 #: main.c:1227
 msgid "X shift to WGS 84:"
-msgstr ""
+msgstr "X-Verschiebung nach WGS 84:"
 
 #: parser.c:2229 parser.c:2465
 #, c-format
 msgid "Y COORD FIELD:\t%s\n"
-msgstr ""
+msgstr "Y-KOORD.-FELD:\t%s\n"
 
 #: parser.c:2231 parser.c:2467
 #, c-format
 msgid "Y COORD FIELD:\tUndefined.\n"
-msgstr ""
+msgstr "Y-KOORD.-FELD:\tNicht definiert.\n"
 
 #: main.c:202
 #, c-format
 msgid "Y coordinate offset: %f"
-msgstr ""
+msgstr "Y-Koordinatenversatz: %f"
 
 #: main.c:200
 msgid "Y coordinate offset: 0"
-msgstr ""
+msgstr "Y-Koordinatenversatz: 0"
 
 #: main.c:1235
 msgid "Y rotation factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "X-Rotation für Datumstransformation nach WGS 84."
 
 #: main.c:1235
 msgid "Y rotation to WGS 84:"
-msgstr ""
+msgstr "X-Rotation nach WGS 84:"
 
 #: main.c:1229
 msgid "Y shift factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "Y-Verschiebung für Datumstransformation nach WGS 84."
 
 #: main.c:1229
 msgid "Y shift to WGS 84:"
-msgstr ""
+msgstr "Y-Verschiebung nach WGS 84:"
 
 #: gui_form.c:500
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: parser.c:2233 parser.c:2469
 #, c-format
 msgid "Z COORD FIELD:\t%s\n"
-msgstr ""
+msgstr "Z-KOORD.-FELD:\t%s\n"
 
 #: parser.c:2235 parser.c:2471
 #, c-format
 msgid "Z COORD FIELD:\tUndefined.\n"
-msgstr ""
+msgstr "Z-KOORD.-FELD:\tNicht definiert.\n"
 
 #: main.c:207
 #, c-format
 msgid "Z coordinate offset: %f"
-msgstr ""
+msgstr "Z-Koordinatenversatz: %f"
 
 #: main.c:205
 msgid "Z coordinate offset: 0"
-msgstr ""
+msgstr "Z-Koordinatenversatz: 0"
 
 #: main.c:1237
 msgid "Z rotation factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "Z-Rotation für Datumstransformation nach WGS 84."
 
 #: main.c:1237
 msgid "Z rotation to WGS 84:"
-msgstr ""
+msgstr "Z-Rotation nach WGS 84:"
 
 #: main.c:1231
 msgid "Z shift factor for datum transformation to WGS 84."
-msgstr ""
+msgstr "Z-Verschiebung für Datumstransformation nach WGS 84."
 
 #: main.c:1231
 msgid "Z shift to WGS 84:"
-msgstr ""
+msgstr "Z-Verschiebung nach WGS 84:"
 
 #: gui_form.c:995 gui_form.c:1170
 msgid "_Defaults"
-msgstr ""
+msgstr "_Vorgaben"
 
 #: gui_form.c:935
 msgid "_Edit"
-msgstr ""
+msgstr "_Bearbeiten"
 
 #: gui_form.c:937
 msgid "_Help"
-msgstr ""
+msgstr "_Hilfe"
 
 #: gui_form.c:1003
 msgid "_Language"
-msgstr ""
+msgstr "_Sprache"
 
 #: gui_form.c:934
 msgid "_Process"
-msgstr ""
+msgstr "_Prozess"
 
 #: gui_form.c:955 gui_form.c:1167
 msgid "_Run"
-msgstr ""
+msgstr "_Ausführen"
 
 #: gui_form.c:936
 msgid "_Settings"
-msgstr ""
+msgstr "_Einstellungen"
+
+#, fuzzy, c-format
+#~ msgid ""
+#~ "\n"
+#~ "Self-intersection 4 in polygon (ID %i), part no. %i."
+#~ msgstr ""
+#~ "\n"
+#~ "Selbst-Überschneidung in Polygon (ID %i, Teil %i)."
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Self-intersection in line geometry at %.f/%.f (geometry #%i, part #%i)."
+#~ msgstr ""
+#~ "\n"
+#~ "Selbst-Überschneidung in Polygon (ID %i), Teil %i."
+
+#~ msgid "GEOM TAG LINE:\t%s\n"
+#~ msgstr "GEOM TAG LINIE:\t%s\n"
+
+#~ msgid "GEOM TAG POINT:\t%s\n"
+#~ msgstr "GEOM TAG PUNKT:\t%s\n"
+
+#~ msgid "GEOM TAG POLY:\t%s\n"
+#~ msgstr "GEOM TAG POLYGON:\t%s\n"
+
+#, fuzzy
+#~ msgid "No reprojection grid file specified (option '--proj-grid')."
+#~ msgstr ""
+#~ "Keine Grid-Datei für Datumstransformation angegeben (Option \"--proj-grid"
+#~ "\")."
+
+#~ msgid "Specified transformation grid file name is invalid."
+#~ msgstr "Angegebene Grid-Datei ist ungültig."
+
+#, fuzzy
+#~ msgid "Converted EPSG ID %i in SRS definition to PROJ.4 SRS string."
+#~ msgstr ""
+#~ "\n"
+#~ "EPSG-Eintrag %i in KBS-Definition wurde zu PROJ.4-Definition konvertiert."
+
+#, fuzzy
+#~ msgid "PROJ.4 EPSG path was: '%s'."
+#~ msgstr ""
+#~ "\n"
+#~ "Endgültige PROJ.4-Definition des Ziel-KBS: '%s'"
+
+#~ msgid "\tX rotation to WGS 84: %f"
+#~ msgstr "\tX-Rotation nach WGS 84: %f"
+
+#~ msgid "\tX shift to WGS 84: %f"
+#~ msgstr "\tX-Verschiebung nach WGS 84: %f"
+
+#~ msgid "\tY rotation to WGS 84: %f"
+#~ msgstr "\tY-Rotation nach WGS 84: %f"
+
+#~ msgid "Y rotation from WGS84:"
+#~ msgstr "Y-Rotation nach WGS 84:"
+
+#~ msgid "      --label-mode-line=label mode for lines (see below)\n"
+#~ msgstr "      --label-mode-line=Etikettierungsmodus f. Linien (s.u.)\n"
+
+#~ msgid "      --label-mode-point=label mode for points (see below)\n"
+#~ msgstr "      --label-mode-point=Etikettierungsmodus f. Punkte (s.u.)\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Both fields 'id' and '_id' exist in input data. Cannot create KML primary "
+#~ "key."
+#~ msgstr ""
+#~ "\n"
+#~ "Felder \"id\" und \"_id\" existieren in Parserdefinition. Kann keinen KML-"
+#~ "Primärschlüssel erzeugen."
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Detected dangling line vertices: %i"
+#~ msgstr ""
+#~ "\n"
+#~ "Gefangene Stützpunkte der Polygongrenze: %i"
+
+#~ msgid "Snapping distance:"
+#~ msgstr "Fangdistanz:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Error creating DXF output file for attribute data\n"
+#~ "(%s)."
+#~ msgstr ""
+#~ "\n"
+#~ "Fehler bei der Erzeugung der DXF-Ausgabedatei für Attributdaten\n"
+#~ "(%s)."
+
+#~ msgid "Settings:"
+#~ msgstr "Einstellungen:"
+
+#~ msgid "Decimal grouping symbol detected to be: '%s'"
+#~ msgstr "Erkanntes Zeichen zur Zifferngruppierung: \"%s\""
+
+#~ msgid "Decimal point symbol detected to be: '%s'"
+#~ msgstr "Erkanntes Dezimaltrennzeichen: \"%s\""
+
+#, fuzzy
+#~ msgid "No parser schema file specified (option '-p')."
+#~ msgstr "Keine Parserdatei festgelegt (Option \"-p\")."
+
+#, fuzzy
+#~ msgid ""
+#~ "Cannot convert path '%s' from UTF-8 to Windows multi-byte.\n"
+#~ "Reason: %s"
+#~ msgstr ""
+#~ "Kann Eingabedatei (\"%s\") nicht zum Lesen öffnen.\n"
+#~ "Ursache: %s"
+
+#~ msgid "Selections:"
+#~ msgstr "Auswahl:"
+
+#~ msgid "Selected: %i"
+#~ msgstr "Ausgewählt: %i"
+
+#, fuzzy
+#~ msgid "Defined: %i"
+#~ msgstr "Ausgewählt: %i"
+
+#, fuzzy
+#~ msgid "Add to selection (+)"
+#~ msgstr "Dateiauswahl"
+
+#, fuzzy
+#~ msgid "Invert selection (*)"
+#~ msgstr "Dateiauswahl"
+
+#, fuzzy
+#~ msgid "Replace selection"
+#~ msgstr "Dateiauswahl"
+
+#, fuzzy
+#~ msgid "Empty or invalid geometry type."
+#~ msgstr "Ungültige Einstellungsdatei."
+
+#, fuzzy
+#~ msgid "Invalid 'max' number in range expression."
+#~ msgstr "Falsche Feldanzahl in gelesener Zeile."
+
+#, fuzzy
+#~ msgid "Invalid 'min' number in range expression."
+#~ msgstr "Ungültige Zeilennummer."
+
+#, fuzzy
+#~ msgid "Invalid geometry type: '%s'"
+#~ msgstr "Ungültige Einstellungsdatei."
+
+#, fuzzy
+#~ msgid "Unknown field name in selection: '%s'"
+#~ msgstr "Ungültige Einstellungsdatei."
+
+#, fuzzy
+#~ msgid "No filter expression specified (option '-F')."
+#~ msgstr "Keine Name für Protokolldatei vergeben (Option '-l')."
+
+#, fuzzy
+#~ msgid "\t\tAssigned to %i points: %i/%i"
+#~ msgstr "\t\tZu %i Punkten zugeordnet: %i"
+
+#~ msgid "EMPTY FIELD V:\t%i\n"
+#~ msgstr "LEERES FELD V:\t%i\n"
+
+#~ msgid "EMPTY FIELD V:\tNULL (default)\n"
+#~ msgstr "LEERES FELD V:\tNULL (default)\n"
+
+#~ msgid "Tolerance setting must be 0 or a positive number."
+#~ msgstr "Wert der Toleranzeinstellung muss eine positive Zahl sein oder 0."
+
+#~ msgid "Tagging mode (%s) not yet implemented. Aborting."
+#~ msgstr "Marker-Modus (%s) noch nicht implementiert. Abbruch."
+
+#~ msgid ""
+#~ "\n"
+#~ "Field validation for mode MIN not yet implemented.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Die Feldvalidierung für den Modus MIN ist noch nicht implementiert.\n"

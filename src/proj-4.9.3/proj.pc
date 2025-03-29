@@ -1,4 +1,4 @@
-prefix=/home/benni/SharedFolder/survey2gis/src/proj-4.9.3
+prefix=/z/survey2gis/src/proj-4.9.3
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
