@@ -19,11 +19,9 @@ subdirectories.
 ## Who made this software?
 
 The initial idea and funding for this software came from the
-State Heritage Office in Baden-Wuerttemberg, Germany  
-(http://www.denkmalpflege-bw.de).  
-Software development is coordinated by CSGIS GbR (http://www.csgis.de).  
-If you would like to contribute, visit http://www.survey-tools.org and get
-in touch!
+State Heritage Office in Baden-Wuerttemberg, Germany (http://www.denkmalpflege-bw.de).  
+Software development is coordinated by State Heritage Office in Baden-Wuerttemberg and
+CSGIS GbR (http://www.csgis.de). 
 
 ---
 
@@ -54,3 +52,4 @@ By submitting a pull request, you:
 - Acknowledge that your contribution will be licensed under the GPL-2 License.
 
 Thank you for helping make Survey2GIS better!
+
